@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ecf7fc">
+  <meta name="description" content="Un pequeño cielo para aprender las letras, a tu ritmo y con tu teclado.">
+  <title>Los globos de Fabi</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cellipse cx='20' cy='17' rx='13' ry='16' fill='%23ec805e'/%3E%3Cpath d='M20 32v8' stroke='%23395260'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <svg class="svg-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5 1.2-7-5-5 7-1Z"/></symbol>
+      <symbol id="cloud" viewBox="0 0 240 100"><path d="M35 89C-5 89-6 37 34 34 42-8 109-8 124 30c28-22 71-4 73 26 48-2 51 33 14 33Z" fill="currentColor"/></symbol>
+      <symbol id="balloon-art" viewBox="0 0 220 310"><path d="M110 221c-22 39 25 46 0 87" fill="none" stroke="#849da5" stroke-width="2"/><path d="m110 206-9 18h18Z" fill="currentColor"/><ellipse cx="110" cy="108" rx="87" ry="103" fill="currentColor"/><path d="M51 76c3-20 13-34 28-41" fill="none" stroke="white" stroke-opacity=".52" stroke-width="11" stroke-linecap="round"/></symbol>
+    </defs>
+  </svg>
+  <div class="scenery" aria-hidden="true">
+    <svg class="cloud cloud-one"><use href="#cloud"/></svg><svg class="cloud cloud-two"><use href="#cloud"/></svg><svg class="cloud cloud-three"><use href="#cloud"/></svg>
+    <span class="sky-spark spark-one">✦</span><span class="sky-spark spark-two">✧</span><span class="sky-spark spark-three">✦</span>
+    <div class="hill hill-back"></div><div class="hill hill-front"></div>
+  </div>
+  <header class="site-header">
+    <a class="brand" href="./index.html" aria-label="Los globos de Fabi, inicio"><svg viewBox="0 0 40 46" aria-hidden="true"><ellipse cx="14" cy="15" rx="10" ry="13" fill="#ed8768"/><ellipse cx="28" cy="21" rx="9" ry="12" fill="#e8ba53"/><path d="m14 28 5 16m9-11-9 11" stroke="#607883" fill="none"/></svg><span>Los globos <b>de Fabi</b></span></a>
+    <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
+  </header>
+  <main>
+    <p class="mobile-notice">¡Mejor con teclado! En una computadora podrás jugar con las teclas de verdad.</p>
+    <section id="home" class="screen home-screen" aria-labelledby="home-title">
+      <div class="welcome-art" aria-hidden="true"><svg class="little-balloon mint"><use href="#balloon-art"/></svg><svg class="little-balloon gold"><use href="#balloon-art"/></svg><svg class="little-balloon coral"><use href="#balloon-art"/></svg><span class="art-letter letter-a">A</span><span class="art-letter letter-b">B</span><span class="art-letter letter-f">F</span></div>
+      <p class="eyebrow">UN POQUITO DE MAGIA, LETRA A LETRA</p>
+      <h1 id="home-title">Los globos <span>de Fabi</span></h1>
+      <p class="intro">¡Encuentra las letras y llena el cielo de colores!</p>
+      <div class="name-entry">
+        <label for="player-name">¿Cómo te llamas?</label>
+        <input id="player-name" type="text" maxlength="24" placeholder="Escribe tu nombre" autocomplete="off" spellcheck="false" required aria-describedby="name-message">
+        <p id="name-message" role="status"></p>
+      </div>
+      <fieldset class="level-picker"><legend>¿Qué vamos a descubrir hoy?</legend>
+        <label class="level-card"><input type="radio" name="level" value="1" checked><span class="level-icon">A</span><span><small>NIVEL 1</small><strong>Encuentra la letra</strong><span>Una letra, un gran comienzo</span></span><span class="selection-dot"></span></label>
+        <label class="level-card"><input type="radio" name="level" value="2"><span class="level-icon">ma</span><span><small>NIVEL 2</small><strong>Pequeñas sílabas</strong><span>Juntamos dos amigas</span></span><span class="selection-dot"></span></label>
+        <label class="level-card"><input type="radio" name="level" value="3"><span class="level-icon">sol</span><span><small>NIVEL 3</small><strong>Mis primeras palabras</strong><span>Letras que cuentan algo</span></span><span class="selection-dot"></span></label>
+      </fieldset>
+      <button id="play" class="primary-button">Jugar <span aria-hidden="true">→</span></button>
+      <p class="gentle-note">Sin prisas. Cada intento es un pasito más.</p>
+    </section>
+    <section id="game" class="screen game-screen" hidden aria-labelledby="game-title">
+      <div class="game-toolbar"><button id="go-home" class="quiet-button">← Inicio</button><span id="level-label" class="eyebrow"></span><button id="pause" class="quiet-button">Ⅱ Pausa</button></div>
+      <h1 id="game-title" class="game-title">Encuentra la letra en tu teclado</h1>
+      <div id="progress" class="progress" role="img" aria-label="0 de 10 retos completados"></div>
+      <div class="balloon-stage"><div id="target-balloon" class="target-balloon"><svg aria-hidden="true"><use href="#balloon-art"/></svg><div id="target-text" class="target-text" role="img" aria-label="Letra del globo"></div></div><div id="particles" class="particles" aria-hidden="true"></div></div>
+      <p id="feedback" class="feedback" role="status" aria-live="polite">¡Tú puedes! Busca la letra.</p>
+      <div class="keyboard-panel"><div class="keyboard-caption"><span>Tu teclado, tu mapa de letras</span><button id="hint" class="hint-button">✧ Ver pista</button></div><div id="keyboard" class="keyboard" aria-label="Guía del teclado físico"></div><p class="keyboard-note">Usa el teclado de tu computadora para jugar</p></div>
+    </section>
+    <section id="finish" class="screen finish-screen" hidden aria-labelledby="finish-title"><div class="finish-medal" aria-hidden="true">★</div><p class="eyebrow">10 GLOBOS, MUCHOS DESCUBRIMIENTOS</p><h1 id="finish-title" tabindex="-1">¡Lo hiciste, Fabi!</h1><p class="intro">Tu cielo ya está lleno de colores.</p><div class="achievement-row"><div><strong>10</strong><span>globos completados</span></div><div><strong id="round-letters">0</strong><span>letras acertadas</span></div><div><strong id="round-new">0</strong><span>letras practicadas</span></div></div><p id="finish-message" class="finish-message"></p><button id="replay" class="primary-button">Volver a jugar <span aria-hidden="true">↻</span></button><button id="rest" class="quiet-button rest-button">Descansar un ratito</button></section>
+  </main>
+  <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span><button id="settings-open" class="settings-link">⚙ Ajustes para mamá y papá</button></footer>
+  <dialog id="settings" aria-labelledby="settings-title"><form method="dialog"><div class="dialog-heading"><h2 id="settings-title">Ajustes para mamá y papá</h2><button class="close-button" aria-label="Cerrar ajustes" value="close">×</button></div><p>Un cielo a su medida. Los cambios se aplican en la próxima partida.</p><label class="setting-label" for="letter-set">Letras del nivel 1</label><select id="letter-set"><option value="starter">Primeros pasos · vocales + F, B</option><option value="growing">Un poco más · + M, P, L, S, T, N</option><option value="all">Todo el abecedario · incluida la Ñ</option></select><label class="setting-label" for="layout">Distribución del teclado</label><select id="layout"><option value="es">Español · con Ñ</option><option value="en">Inglés · sin Ñ</option></select><label class="setting-label" for="help">Ayuda para encontrar la tecla</label><select id="help"><option value="always">Siempre visible</option><option value="wait">Después de esperar 5 segundos</option><option value="request">A petición · botón Ver pista</option></select><div class="saved-progress"><h3>Sus pequeños grandes logros</h3><p id="saved-stats"></p><p id="practice-stats"></p></div><p class="storage-note" id="storage-note">El progreso se guarda solo en este navegador y computadora.</p><div id="erase-confirm" hidden><p>¿Borrar las partidas y el progreso? Los ajustes se conservarán. No se puede deshacer.</p><button type="button" id="erase-yes" class="danger-button">Sí, borrar progreso</button><button type="button" id="erase-no" class="quiet-button">Cancelar</button></div><div class="dialog-actions"><button type="button" id="erase" class="text-button">Borrar progreso</button><button class="primary-button small" value="done">Listo</button></div></form></dialog>
+  <dialog id="pause-dialog" aria-labelledby="pause-title"><div class="pause-content"><span class="pause-cloud" aria-hidden="true">☁</span><h2 id="pause-title">Las nubes pueden esperar</h2><p>Respira, estírate y vuelve cuando quieras.</p><button id="resume" class="primary-button">Seguir jugando →</button><button id="pause-home" class="quiet-button rest-button">Volver al inicio</button></div></dialog>
+</body>
+</html>
