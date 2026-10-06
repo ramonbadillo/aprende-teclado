@@ -5,9 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ecf7fc">
   <meta name="description" content="Un pequeño cielo para aprender las letras, a tu ritmo y con tu teclado.">
-  <title>Los globos de Fabi</title>
+  <title>Fabi y Soni · Juega con el teclado</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cellipse cx='20' cy='17' rx='13' ry='16' fill='%23ec805e'/%3E%3Cpath d='M20 32v8' stroke='%23395260'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./soni/soni.css">
+  <script src="./soni/keyboard.js" defer></script>
+  <script src="./soni/bursts.js" defer></script>
+  <script src="./soni/audio.js" defer></script>
+  <script src="./soni/particles.js" defer></script>
+  <script src="./soni/effects.js" defer></script>
+  <script src="./soni/game.js" defer></script>
   <script src="./script.js" defer></script>
 </head>
 <body>
@@ -24,12 +31,30 @@
     <div class="hill hill-back"></div><div class="hill hill-front"></div>
   </div>
   <header class="site-header">
-    <a class="brand" href="./index.html" aria-label="Los globos de Fabi, inicio"><svg viewBox="0 0 40 46" aria-hidden="true"><ellipse cx="14" cy="15" rx="10" ry="13" fill="#ed8768"/><ellipse cx="28" cy="21" rx="9" ry="12" fill="#e8ba53"/><path d="m14 28 5 16m9-11-9 11" stroke="#607883" fill="none"/></svg><span>Los globos <b>de Fabi</b></span></a>
+    <a class="brand" href="./index.html" aria-label="Fabi y Soni, elegir juego"><svg viewBox="0 0 40 46" aria-hidden="true"><ellipse cx="14" cy="15" rx="10" ry="13" fill="#ed8768"/><ellipse cx="28" cy="21" rx="9" ry="12" fill="#e8ba53"/><path d="m14 28 5 16m9-11-9 11" stroke="#607883" fill="none"/></svg><span>Un teclado, <b>mil sonrisas</b></span></a>
     <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
   </header>
   <main>
     <p class="mobile-notice">¡Mejor con teclado! En una computadora podrás jugar con las teclas de verdad.</p>
-    <section id="home" class="screen home-screen" aria-labelledby="home-title">
+    <section id="chooser" class="screen chooser-screen" aria-labelledby="chooser-title">
+      <div class="chooser-art" aria-hidden="true">☁ <span>🌈</span> ☁</div>
+      <p class="eyebrow">UN POQUITO DE MAGIA PARA CADA UNA</p>
+      <h1 id="chooser-title" tabindex="-1">¿Quién va a <span>jugar?</span></h1>
+      <p class="intro">Dos maneras de llenar el cielo de colores.</p>
+      <div class="game-choices">
+        <button id="choose-fabi" class="game-choice fabi-choice"><span class="choice-art" aria-hidden="true">👧 🎈</span><strong>Fabi</strong><span class="choice-title">Aprende el teclado</span><span class="choice-description">Letras, sílabas y pequeños descubrimientos.</span><span class="choice-link">Vamos a aprender <span aria-hidden="true">→</span></span></button>
+        <button id="choose-soni" class="game-choice soni-choice"><span class="choice-art" aria-hidden="true">👶 ✨</span><strong>Soni</strong><span class="choice-title">Teclado Mágico</span><span class="choice-description">Toca las teclas y deja que pase la magia.</span><span class="choice-link">Vamos a jugar <span aria-hidden="true">→</span></span></button>
+      </div>
+      <p class="gentle-note">Con el teclado de la compu y toda la imaginación.</p>
+    </section>
+    <section id="soni" class="screen soni-screen" hidden aria-labelledby="soni-title">
+      <div class="soni-toolbar"><button id="soni-home" class="quiet-button">← Elegir juego</button><span class="soni-badge">👶 Un cielo para Soni</span></div>
+      <div class="soni-heading"><p class="eyebrow">CADA TECLA ES UNA SORPRESA</p><h1 id="soni-title" tabindex="-1">Teclado Mágico <span>de Soni</span></h1></div>
+      <div id="soni-stage" class="soni-stage" aria-hidden="true"><div class="soni-idle"><span class="idle-star">✦</span><span class="idle-rainbow">🌈</span><span class="idle-bubble">🫧</span><p>¡Toca el teclado y haz magia!</p></div><div id="soni-particles" class="soni-particles"></div></div>
+      <div class="soni-keyboard-panel"><div class="soni-keyboard-caption"><span>✨ Tus teclas mágicas</span><span>¡Todas hacen algo bonito!</span></div><div id="soni-keyboard" class="soni-keyboard" aria-label="Teclado físico: las teclas se iluminan mientras las presionas"></div></div>
+    </section>
+    <section id="home" class="screen home-screen" hidden aria-labelledby="home-title">
+      <button id="fabi-chooser" class="quiet-button">← Elegir juego</button>
       <div class="welcome-art" aria-hidden="true"><svg class="little-balloon mint"><use href="#balloon-art"/></svg><svg class="little-balloon gold"><use href="#balloon-art"/></svg><svg class="little-balloon coral"><use href="#balloon-art"/></svg><span class="art-letter letter-a">A</span><span class="art-letter letter-b">B</span><span class="art-letter letter-f">F</span></div>
       <p class="eyebrow">UN POQUITO DE MAGIA, LETRA A LETRA</p>
       <h1 id="home-title">Los globos <span>de Fabi</span></h1>

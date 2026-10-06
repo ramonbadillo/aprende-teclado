@@ -1,6 +1,6 @@
-# Los globos de Fabi
+# Fabi y Soni · Juega con el teclado
 
-Un juego en español para aprender a reconocer letras y encontrarlas en el teclado físico. HTML, CSS y JavaScript puros: sin dependencias, compilación, cuentas, recursos externos ni backend.
+Dos juegos en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, recursos externos ni backend.
 
 ## Ejecutar localmente
 
@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js` y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, la carpeta completa `soni/` y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -17,6 +17,21 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas claves, servicios de pago ni configurar un dominio. La entrega contiene el código listo para publicar; no publica ni modifica la configuración remota del repositorio automáticamente.
 
 ## Cómo jugar
+
+Elige **Fabi** o **Soni** al abrir la página. **Elegir juego** y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+
+### Teclado Mágico de Soni
+
+- Solo pulsa el teclado físico. Letras, números, modificadores, flechas y demás teclas que lleguen a la página producen efectos. El teclado dibujado es una guía, sin controles táctiles ni respuestas incorrectas.
+- Puedes mantener varias teclas: cada una permanece iluminada hasta soltarla. Se utilizan códigos físicos (`event.code`) para reconocer la posición incluso al mantener Shift. Las dos teclas Shift/Ctrl/Alt se siguen por separado. Se muestra Ñ en distribución española y punto y coma en inglesa.
+- Cada nueva pulsación cambia de color. Las teclas sostenidas usan colores distintos mientras haya colores disponibles en la paleta. Mantener una tecla no repite los efectos.
+- La ventana de 250 ms distingue 1, 2–3, 4–6 y 7 o más pulsaciones nuevas, aumentando partículas y dando una celebración para las ráfagas grandes. Un intervalo de 900 ms limita las celebraciones; los efectos normales siguen respondiendo al instante.
+- **Espacio** lanza un arcoíris, **Enter** una lluvia de estrellas, **Backspace** burbujas y las **flechas** envían partículas en esa dirección.
+- Hay como máximo 120 partículas activas y 8 voces cortas de Web Audio. Las notas siguen una escala agradable de grave a agudo de izquierda a derecha; la ganancia maestra se divide entre las voces activas para que los acordes compartan el volumen de una nota, con un compresor adicional. Silenciar también detiene las notas pendientes.
+- Space, Tab y Enter no desplazan, cambian el foco o activan accidentalmente botones mientras se juega. Los atajos reservados por el navegador y el sistema pueden interrumpir el juego. F5/F11/F12 y combinaciones Meta conservan su comportamiento; perder foco o cambiar la visibilidad limpia inmediatamente teclas, efectos y sonidos.
+- Al salir se retiran los listeners, partículas y temporizadores. Se respeta movimiento reducido con efectos breves de opacidad. El juego sigue funcionando si no hay audio disponible.
+
+### Los globos de Fabi
 
 - Escribe tu nombre, elige cualquiera de los tres niveles y pulsa **Jugar** (o Enter desde el campo del nombre). El saludo y la felicitación usan ese nombre; puedes cambiarlo al volver al inicio. Se recuerda en este navegador. Cada partida tiene diez retos, sin reloj, vidas ni penalizaciones.
 - Escribe la letra destacada usando el teclado físico. Las letras completadas se marcan, y un error conserva lo ya escrito. Se aceptan mayúsculas y minúsculas, incluida la Ñ.
@@ -39,7 +54,24 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 - `index.html`: pantallas, controles, diálogos accesibles y dibujos SVG locales.
 - `styles.css`: cielo, globos, diseño adaptable, foco visible y movimiento reducido.
 - `script.js`: datos `LEVELS` al principio, lógica de partidas, teclado, audio y guardado. Añade palabras o sílabas en `LEVELS[2].items` y `LEVELS[3].items`; usa A–Z y Ñ en mayúsculas, sin espacios ni tildes. Los retos se barajan por grupos y evitan repeticiones consecutivas.
+- `soni/keyboard.js`: distribución física, conjunto `Set` de teclas sostenidas, colores, keydown/keyup y limpieza por pérdida de foco.
+- `soni/bursts.js`: detección de ráfagas dentro de 250 ms, intensidad y límite de celebraciones.
+- `soni/audio.js`: síntesis suave, escala pentatónica, máximo de voces, volumen normalizado y silencio.
+- `soni/particles.js`: elementos animados, límite de 120, eliminación y temporizadores de respaldo.
+- `soni/effects.js`: efectos normales, reacciones especiales y celebraciones. Añade nuevos efectos aquí.
+- `soni/game.js`: ciclo de entrada/salida y coordinación; `soni/soni.css`: selector y diseño de Soni, con clases independientes de Fabi.
+- `tests/keyboard.test.cjs`: pruebas de integración con Edge y Playwright, además de pruebas de intensidad y límites de audio.
 - `README.md`: ejecución, publicación y comprobaciones.
+
+Los archivos de Soni se cargan con scripts clásicos `defer` ordenados; también funcionan abriendo `index.html` directamente, sin requerir un servidor para módulos JavaScript.
+
+## Comprobar el nuevo juego
+
+Con Node.js, Playwright disponible y Microsoft Edge instalado, ejecuta `node tests/keyboard.test.cjs`. Las pruebas usan un navegador de prueba sin interfaz visible, sin alterar el perfil habitual. La variable opcional `SCREENSHOT_DIR` guarda capturas para revisar el diseño.
+
+Se comprueban A+S+D+F+J sostenidas, auto-repeat sin partículas nuevas, siete teclas simultáneas, modificadores independientes, teclas numéricas/numpad compartidas, Space/Tab/Enter, efectos especiales, 160 pulsaciones rápidas, límite y eliminación de partículas, limpieza de foco/visibilidad, silencio, diseño móvil, movimiento reducido y entradas/salidas repetidas. También se completan los tres niveles originales de Fabi con errores, pausa y repetición, comprobando que no haya errores JavaScript.
+
+Para comprobar manualmente: entra en Soni, mantén A+S+D+F+J, suelta solo D y verifica que las otras cuatro siguen iluminadas; golpea varias zonas del teclado y cambia de ventana mientras mantienes teclas. Al volver todas deben estar apagadas. Escucha el resultado real con sonido activado y silenciado: las pruebas comprueban los límites del audio, pero no evalúan cómo suena en tus altavoces.
 
 ## Comprobación del flujo
 

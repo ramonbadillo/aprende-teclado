@@ -43,7 +43,7 @@ function persist() {
   catch { storageAvailable = false; }
 }
 
-let screen = 'home';
+let screen = 'chooser';
 let round = null;
 let paused = false;
 let hintVisible = false;
@@ -89,9 +89,12 @@ function renderSound() {
   $('sound-label').textContent = options.sound ? 'Sonido activado' : 'Sonido silenciado';
 }
 function showScreen(next) {
+  window.SoniGame.stop();
   screen = next;
-  for (const id of ['home', 'game', 'finish']) $(id).hidden = id !== next;
-  $('settings-open').hidden = next === 'game';
+  for (const id of ['chooser', 'soni', 'home', 'game', 'finish']) $(id).hidden = id !== next;
+  document.body.classList.toggle('playing-soni', next === 'soni');
+  $('settings-open').hidden = !['home', 'finish'].includes(next);
+  if (next === 'soni') window.SoniGame.start({ sound: options.sound, layout: options.layout });
 }
 function poolFor(settings) {
   const level = LEVELS[settings.level];
@@ -256,11 +259,18 @@ window.addEventListener('blur', () => { heldKeys.clear(); pauseGame(); });
 document.addEventListener('visibilitychange', () => { if (document.hidden) { heldKeys.clear(); pauseGame(); } });
 $('play').addEventListener('click', startGame); $('replay').addEventListener('click', startGame);
 $('go-home').addEventListener('click', goHome); $('rest').addEventListener('click', goHome); $('pause-home').addEventListener('click', goHome);
-document.querySelector('.brand').addEventListener('click', event => { event.preventDefault(); goHome(); });
+function chooseGame() {
+  goHome(); showScreen('chooser'); $('chooser-title').focus({ preventScroll: true });
+}
+document.querySelector('.brand').addEventListener('click', event => { event.preventDefault(); chooseGame(); });
+$('fabi-chooser').addEventListener('click', chooseGame);
+$('soni-home').addEventListener('click', chooseGame);
+$('choose-fabi').addEventListener('click', () => { showScreen('home'); $('player-name').focus({ preventScroll: true }); });
+$('choose-soni').addEventListener('click', () => { showScreen('soni'); $('soni-title').focus({ preventScroll: true }); });
 $('pause').addEventListener('click', pauseGame); $('resume').addEventListener('click', resumeGame);
 $('pause-dialog').addEventListener('cancel', event => { event.preventDefault(); resumeGame(); });
 $('hint').addEventListener('click', () => { if (screen !== 'game' || paused || round.transitioning) return; clearHintTimer(); hintVisible = true; renderKeys(); });
-$('sound').addEventListener('click', () => { options.sound = !options.sound; renderSound(); if (options.sound) { enableAudio(); chime(); } persist(); });
+$('sound').addEventListener('click', () => { options.sound = !options.sound; renderSound(); window.SoniGame.setSound(options.sound); if (options.sound && screen !== 'soni') { enableAudio(); chime(); } persist(); });
 document.querySelectorAll('input[name="level"]').forEach(input => {
   input.checked = Number(input.value) === options.level;
   input.addEventListener('change', () => { options.level = Number(input.value); persist(); });
@@ -290,3 +300,4 @@ $('player-name').addEventListener('keydown', event => {
   }
 });
 renderSound();
+showScreen('chooser');
