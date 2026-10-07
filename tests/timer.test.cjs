@@ -30,7 +30,7 @@ const { chromium } = require('playwright');
   try {
     await page.goto(pathToFileURL(path.join(__dirname, '../index.html')).href);
     await shot('timer-chooser');
-    assert.equal(await page.locator('.game-choice').count(), 3);
+    assert.equal(await page.locator('.game-choice').count(), 4);
     await page.locator('#choose-timer').click();
     assert.equal(await page.locator('#timer').isVisible(), true);
     assert.equal(await page.locator('#soni').isVisible(), false);

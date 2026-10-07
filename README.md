@@ -1,6 +1,6 @@
 # Fabi y Soni · Juega con el teclado
 
-Tres actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, recursos externos ni backend.
+Cuatro actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, recursos externos ni backend.
 
 ## Ejecutar localmente
 
@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/` y `timer/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/`, `timer/` y `breathing/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -18,7 +18,15 @@ Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas 
 
 ## Cómo jugar
 
-Elige **Fabi**, **Soni** o **Tiempo con calma** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+Elige **Fabi**, **Soni**, **Tiempo con calma** o **Respira con la mariposa** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+
+### Respira con la mariposa · para Fabi y Soni
+
+- Pulsa **Empezar** para acompañar cuatro respiraciones: las alas se abren durante tres segundos con **Toma aire…** y se cierran durante cuatro segundos con **Suelta el aire…**, sin retener la respiración. Los mensajes invitan a seguir un ritmo cómodo y parar cuando se quiera.
+- Cuatro puntos muestran el avance. Al terminar, la mariposa descansa y suena una sola campanita si el sonido está activado. **Otra vez** inicia una nueva pausa.
+- **Pausar**, Escape, cambiar de pestaña o de ventana y volver al selector congelan la animación y el avance. **Continuar** retoma desde ese punto; **Volver a empezar** deja la actividad lista sin iniciarla. Recargar reinicia la actividad.
+- Funciona con ratón, teclado o pantalla táctil. Con movimiento reducido, la mariposa permanece quieta y los textos siguen guiando cada fase. Los lectores de pantalla reciben las instrucciones al cambiar de fase.
+- El dibujo SVG, la animación y los sonidos se generan localmente, sin recursos externos ni datos guardados adicionales.
 
 ### Tiempo con calma · para Fabi y Soni
 
@@ -69,7 +77,9 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 - `soni/particles.js`: elementos animados, límite de 120, eliminación y temporizadores de respaldo.
 - `soni/effects.js`: efectos normales, reacciones especiales y celebraciones. Añade nuevos efectos aquí.
 - `soni/game.js`: ciclo de entrada/salida y coordinación; `soni/soni.css`: selector y diseño de Soni, con clases independientes de Fabi.
-- `timer/timer.js`: cuenta basada en tiempo real, etapas visuales, validación de duración y pausa al salir; `timer/timer.css`: reloj de color, controles táctiles y selector de tres actividades.
+- `timer/timer.js`: cuenta basada en tiempo real, etapas visuales, validación de duración y pausa al salir; `timer/timer.css`: reloj de color y controles táctiles.
+- `breathing/breathing.js`: cuatro ciclos, animación sincronizada, pausa y limpieza al salir; `breathing/breathing.css`: jardín, alas, selector de cuatro actividades y movimiento reducido.
+- `tests/breathing.test.cjs`: integración de la mariposa en Edge con reloj controlado, navegación, pausas, sonido y vistas móviles.
 - `tests/timer.test.cjs`: integración del timer en Edge, con tiempo controlado para comprobar etapas, pausa, final y navegación sin esperar minutos reales.
 - `tests/keyboard.test.cjs`: pruebas de integración con Edge y Playwright, además de pruebas de intensidad y límites de audio.
 - `README.md`: ejecución, publicación y comprobaciones.
@@ -81,6 +91,8 @@ Los archivos de Soni se cargan con scripts clásicos `defer` ordenados; también
 Con Node.js, Playwright disponible y Microsoft Edge instalado, ejecuta `node tests/keyboard.test.cjs`. Las pruebas usan un navegador de prueba sin interfaz visible, sin alterar el perfil habitual. La variable opcional `SCREENSHOT_DIR` guarda capturas para revisar el diseño.
 
 Para comprobar el timer, ejecuta también `node tests/timer.test.cjs`. Revisa duraciones inválidas, las tres etapas y el área restante, pausa/continuación, salida y regreso, Escape, final único, repetición, reinicio, silencio, movimiento reducido y vistas de 390 y 320 px.
+
+Para comprobar la mariposa, ejecuta `node tests/breathing.test.cjs`. Revisa apertura y cierre de alas, fases de respiración, pausa precisa, Escape, pérdida de foco, cambio de pestaña, navegación entre actividades, final único, repetición, reinicio, silencio, movimiento reducido y vistas de 390 y 320 px. `SCREENSHOT_DIR` permite guardar capturas.
 
 Se comprueban A+S+D+F+J sostenidas, auto-repeat sin partículas nuevas, siete teclas simultáneas, modificadores independientes, teclas numéricas/numpad compartidas, Space/Tab/Enter, efectos especiales, 160 pulsaciones rápidas, límite y eliminación de partículas, limpieza de foco/visibilidad, silencio, diseño móvil, movimiento reducido y entradas/salidas repetidas. También se completan los tres niveles originales de Fabi con errores, pausa y repetición, comprobando que no haya errores JavaScript.
 

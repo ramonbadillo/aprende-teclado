@@ -1,0 +1,40 @@
+/* The butterfly and halo share the same breath position, including during pauses. */
+.game-choices{grid-template-columns:repeat(2,1fr);max-width:850px}
+.breathing-choice{border-color:#c9dcd0;background:linear-gradient(145deg,#fffdf8,#edf5ed);box-shadow:0 7px 0 #c9dcd060}
+.breathing-choice:hover{box-shadow:0 12px 0 #c9dcd060}
+.breathing-choice strong,.breathing-choice .choice-link{color:#53755d}
+.showing-breathing .mobile-notice{display:none}
+.showing-breathing .scenery{background:radial-gradient(ellipse at 50% 45%,#fffaf3 0%,#f4f7f0 48%,#edf5f7 100%)}
+.breathing-screen{max-width:900px;margin:auto;padding:8px 0 20px}
+.breathing-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
+.breathing-badge{font-size:12px;padding:9px 15px;border:1px solid #d7e3d5;border-radius:24px;background:#fffaf3;color:#53755d}
+.breathing-screen h1{font-size:clamp(32px,4.5vw,48px);letter-spacing:-1.5px}
+.breathing-screen h1 span{color:#80629e}
+#breathing-title:focus{outline:none}
+.breathing-intro{font-size:16px;color:#637b77;line-height:1.5;margin:16px 0 4px}
+.breathing-garden{--wing-scale:.68;--halo-scale:.82;--rise:0px;position:relative;width:min(100%,440px);height:300px;margin:0 auto;display:grid;place-items:center;isolation:isolate}
+.breathing-halo{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#f6efdf 0%,#e7ecdf90 65%,#e7ecdf00 72%);border:1px solid #d4dec480;transform:scale(var(--halo-scale));z-index:-1}
+.breathing-butterfly{width:320px;max-width:88%;overflow:visible;transform:translateY(var(--rise));filter:drop-shadow(0 10px 8px #806a8a0e)}
+.butterfly-wing{transform-box:view-box;transform-origin:160px 135px;transform:scaleX(var(--wing-scale))}
+.garden-spark{position:absolute;font-size:25px;color:#b89a57}
+.garden-spark-one{left:10%;top:28%}.garden-spark-two{right:12%;top:47%;font-size:18px;color:#a697b3}
+.breathing-leaves{position:absolute;bottom:0;width:100%;height:70px;z-index:-1}
+.breathing-guidance{min-height:91px;margin:10px auto 0;max-width:510px}
+.breathing-guidance h2{font-size:29px;color:#73598d;letter-spacing:-.7px}
+.breathing-guidance p{font-size:14px;color:#637b77;line-height:1.6;margin:9px 0 0}
+.breathing-screen[data-phase="exhale"] .breathing-guidance h2{color:#53755d}
+.breathing-progress{display:flex;justify-content:center;gap:12px;margin:15px 0 0}
+.breathing-progress span{width:13px;height:13px;border:1.5px solid #c1cebe;border-radius:50%;background:#fff9}
+.breathing-progress span.complete{background:#83a88c;border-color:#6e9377}
+.breathing-progress span.current{outline:2px solid #b59ecb;outline-offset:3px}
+.breathing-count{font-size:12px;color:#6c8178;margin:13px 0 22px}
+.breathing-actions{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap}
+.breathing-actions .primary-button{min-width:185px;background:#7b6096;box-shadow:0 4px 0 #604a76}
+.breathing-actions .primary-button:hover{background:#6b5285}
+.breathing-actions button:disabled{opacity:.5;cursor:default}
+.breathing-note{font-size:12px;line-height:1.6;color:#71857b;margin:24px 0 0}
+.breathing-screen[data-state="paused"] .breathing-halo{border-style:dashed;border-color:#b8c5af}
+.breathing-screen[data-state="done"] .breathing-guidance h2{color:#53755d}
+@media(max-width:650px){.game-choices{grid-template-columns:1fr;max-width:370px}.breathing-toolbar{margin-bottom:25px}.breathing-badge{font-size:11px;padding:8px 10px}.breathing-toolbar button{font-size:12px;padding:8px 12px}.breathing-intro{font-size:14px;max-width:290px;margin:14px auto 0}.breathing-garden{height:270px}.breathing-halo{width:235px;height:235px}.breathing-guidance{min-height:104px;max-width:325px}.breathing-guidance h2{font-size:25px}.breathing-actions{gap:14px}.breathing-actions .primary-button{width:100%;max-width:290px}.breathing-actions .quiet-button{width:100%;max-width:290px}.breathing-note{max-width:280px;margin:22px auto 0}}
+@media(max-width:360px){.breathing-badge{display:none}.breathing-screen h1{font-size:32px}.breathing-garden{height:250px}.breathing-halo{width:210px;height:210px}}
+@media(prefers-reduced-motion:reduce){.breathing-butterfly{transform:none!important}.butterfly-wing{transform:none!important}.breathing-halo{transform:none!important}}
