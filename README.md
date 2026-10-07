@@ -1,6 +1,6 @@
 # Fabi y Soni · Juega con el teclado
 
-Dos juegos en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, recursos externos ni backend.
+Tres actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, recursos externos ni backend.
 
 ## Ejecutar localmente
 
@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, la carpeta completa `soni/` y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/` y `timer/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -18,7 +18,16 @@ Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas 
 
 ## Cómo jugar
 
-Elige **Fabi** o **Soni** al abrir la página. **Elegir juego** y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+Elige **Fabi**, **Soni** o **Tiempo con calma** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+
+### Tiempo con calma · para Fabi y Soni
+
+- Selecciona una duración de 1, 3, 5 o 10 minutos, o escribe de 1 a 120 minutos completos. Se puede usar con ratón, teclado o pantalla táctil.
+- El área de color disminuye en proporción al tiempo restante: verde mientras queda más de la mitad, amarillo entre la mitad y el 20%, y coral durante el último 20%. El tamaño de la porción y los mensajes **Mucho**, **La mitad** y **Poquito** permiten entenderlo sin depender del color ni de los números.
+- **Empezar**, **Pausar**, **Continuar** y **Volver a empezar** controlan el reloj. Escape también pausa. Para cambiar la duración durante la cuenta, primero vuelve a empezar.
+- Cambiar de pestaña o de ventana no lo pausa: calcula lo que queda con la hora real, aunque el navegador ralentice sus actualizaciones. Al volver actualiza la vista. Salir al selector o usar el logo lo pausa y conserva lo que queda al entrar de nuevo.
+- Al llegar a cero aparece **Nuestro ratito terminó** y suena una campanita suave si el sonido está activado. No hay alarmas repetidas, parpadeos ni penalizaciones. **Otra vez** inicia la misma duración.
+- El reloj no se guarda al recargar. Comparte el botón de sonido con los juegos; no altera sus retos ni su progreso. Los lectores de pantalla anuncian los cambios de etapa y la pausa, sin anunciar cada segundo.
 
 ### Teclado Mágico de Soni
 
@@ -60,6 +69,8 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 - `soni/particles.js`: elementos animados, límite de 120, eliminación y temporizadores de respaldo.
 - `soni/effects.js`: efectos normales, reacciones especiales y celebraciones. Añade nuevos efectos aquí.
 - `soni/game.js`: ciclo de entrada/salida y coordinación; `soni/soni.css`: selector y diseño de Soni, con clases independientes de Fabi.
+- `timer/timer.js`: cuenta basada en tiempo real, etapas visuales, validación de duración y pausa al salir; `timer/timer.css`: reloj de color, controles táctiles y selector de tres actividades.
+- `tests/timer.test.cjs`: integración del timer en Edge, con tiempo controlado para comprobar etapas, pausa, final y navegación sin esperar minutos reales.
 - `tests/keyboard.test.cjs`: pruebas de integración con Edge y Playwright, además de pruebas de intensidad y límites de audio.
 - `README.md`: ejecución, publicación y comprobaciones.
 
@@ -68,6 +79,8 @@ Los archivos de Soni se cargan con scripts clásicos `defer` ordenados; también
 ## Comprobar el nuevo juego
 
 Con Node.js, Playwright disponible y Microsoft Edge instalado, ejecuta `node tests/keyboard.test.cjs`. Las pruebas usan un navegador de prueba sin interfaz visible, sin alterar el perfil habitual. La variable opcional `SCREENSHOT_DIR` guarda capturas para revisar el diseño.
+
+Para comprobar el timer, ejecuta también `node tests/timer.test.cjs`. Revisa duraciones inválidas, las tres etapas y el área restante, pausa/continuación, salida y regreso, Escape, final único, repetición, reinicio, silencio, movimiento reducido y vistas de 390 y 320 px.
 
 Se comprueban A+S+D+F+J sostenidas, auto-repeat sin partículas nuevas, siete teclas simultáneas, modificadores independientes, teclas numéricas/numpad compartidas, Space/Tab/Enter, efectos especiales, 160 pulsaciones rápidas, límite y eliminación de partículas, limpieza de foco/visibilidad, silencio, diseño móvil, movimiento reducido y entradas/salidas repetidas. También se completan los tres niveles originales de Fabi con errores, pausa y repetición, comprobando que no haya errores JavaScript.
 

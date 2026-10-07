@@ -90,11 +90,14 @@ function renderSound() {
 }
 function showScreen(next) {
   window.SoniGame.stop();
+  window.VisualTimer.leave();
   screen = next;
-  for (const id of ['chooser', 'soni', 'home', 'game', 'finish']) $(id).hidden = id !== next;
+  for (const id of ['chooser', 'soni', 'timer', 'home', 'game', 'finish']) $(id).hidden = id !== next;
   document.body.classList.toggle('playing-soni', next === 'soni');
+  document.body.classList.toggle('showing-timer', next === 'timer');
   $('settings-open').hidden = !['home', 'finish'].includes(next);
   if (next === 'soni') window.SoniGame.start({ sound: options.sound, layout: options.layout });
+  if (next === 'timer') window.VisualTimer.enter({ onStart: enableAudio, onFinish: () => chime(true) });
 }
 function poolFor(settings) {
   const level = LEVELS[settings.level];
@@ -265,8 +268,10 @@ function chooseGame() {
 document.querySelector('.brand').addEventListener('click', event => { event.preventDefault(); chooseGame(); });
 $('fabi-chooser').addEventListener('click', chooseGame);
 $('soni-home').addEventListener('click', chooseGame);
+$('timer-home').addEventListener('click', chooseGame);
 $('choose-fabi').addEventListener('click', () => { showScreen('home'); $('player-name').focus({ preventScroll: true }); });
 $('choose-soni').addEventListener('click', () => { showScreen('soni'); $('soni-title').focus({ preventScroll: true }); });
+$('choose-timer').addEventListener('click', () => { showScreen('timer'); $('timer-title').focus({ preventScroll: true }); });
 $('pause').addEventListener('click', pauseGame); $('resume').addEventListener('click', resumeGame);
 $('pause-dialog').addEventListener('cancel', event => { event.preventDefault(); resumeGame(); });
 $('hint').addEventListener('click', () => { if (screen !== 'game' || paused || round.transitioning) return; clearHintTimer(); hintVisible = true; renderKeys(); });

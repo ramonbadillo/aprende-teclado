@@ -1,0 +1,56 @@
+/* A shrinking colored area shows time without requiring reading numbers. */
+.game-choices{grid-template-columns:repeat(3,1fr);max-width:1020px;gap:18px}
+.game-choice{padding-left:20px;padding-right:20px}
+.timer-choice{border-color:#e5d5ac;background:linear-gradient(145deg,#fffef7,#fff3dc);box-shadow:0 7px 0 #e5d5ac60}
+.timer-choice:hover{box-shadow:0 12px 0 #e5d5ac60}
+.timer-choice strong,.timer-choice .choice-link{color:#886127}
+.showing-timer .mobile-notice{display:none}
+.timer-screen{--timer-color:#79bda5;max-width:940px;margin:auto;padding:8px 0 22px}
+.timer-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.timer-badge{border:1px solid #e5d5ac;background:#fffcf3;border-radius:24px;padding:9px 15px;color:#886127;font-size:12px}
+.timer-screen h1{font-size:clamp(34px,4.5vw,52px);letter-spacing:-1.8px}
+.timer-screen .eyebrow{margin:8px 0 12px}
+#timer-title:focus{outline:none}
+.timer-intro{color:#55717b;font-size:16px;line-height:1.5;margin:14px 0 28px}
+.timer-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:42px;align-items:center}
+.timer-visual{min-width:0}
+.timer-dial{width:min(100%,350px);aspect-ratio:1;margin:0 auto;position:relative;display:grid;place-items:center;border:12px solid #fff;border-radius:50%;background:conic-gradient(var(--timer-color) var(--remaining),#e5ece8 0);box-shadow:0 8px 0 #d4e3db80,0 20px 45px #365f4c0a}
+.timer-dial:after{content:"";position:absolute;left:calc(50% - 1px);top:5px;height:22px;width:2px;background:#42635580}
+.timer-top-mark{position:absolute;top:-31px;left:calc(50% - 12px);font-size:24px;color:#426c59}
+.timer-dial-center{display:flex;flex-direction:column;align-items:center;justify-content:center;width:54%;aspect-ratio:1;background:#fffdf5;border-radius:50%;box-shadow:0 3px 15px #365f4c0a}
+#timer-face{font-size:40px;line-height:1;color:#987131;margin-bottom:6px}
+#timer-digits{font-size:clamp(28px,4vw,44px);font-weight:bold;letter-spacing:-1.5px;font-variant-numeric:tabular-nums}
+#timer-caption{font-size:12px;color:#607b73;margin-top:5px}
+.timer-message{font-size:20px;font-weight:bold;line-height:1.4;min-height:56px;display:grid;place-items:center;margin:24px 0 12px}
+.timer-legend{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;font-size:12px}
+.timer-legend>span{display:flex;align-items:center;gap:6px;padding:9px 11px;border:2px solid transparent;border-radius:22px;background:#ffffff90}
+.timer-legend i{width:11px;height:11px;background:#79bda5;border-radius:50%}
+.timer-legend [data-stage="half"] i{background:#edc367}
+.timer-legend [data-stage="little"] i{background:#e9987e}
+.timer-screen[data-stage="plenty"] .timer-legend [data-stage="plenty"],.timer-screen[data-stage="half"] .timer-legend [data-stage="half"],.timer-screen[data-stage="little"] .timer-legend [data-stage="little"]{border-color:#56756f;font-weight:bold}
+.timer-screen[data-stage="half"]{--timer-color:#edc367}
+.timer-screen[data-stage="little"]{--timer-color:#e9987e}
+.timer-screen[data-state="paused"] .timer-dial{border-style:dashed;border-color:#a8bcb3}
+.timer-screen[data-state="done"] .timer-dial-center{background:#edf5e9}
+.timer-screen[data-state="done"] #timer-face{color:#246b58}
+.timer-panel{text-align:left;background:#fffdf8;border:1px solid #dce7dd;border-radius:24px;padding:28px;box-shadow:0 6px 0 #d4e3db40}
+.timer-settings{border:0;margin:0;padding:0;min-width:0}
+.timer-settings>legend{font-size:19px;font-weight:bold;margin-bottom:24px}
+.timer-setting-label{font-size:14px;font-weight:bold;margin:0 0 10px}
+.timer-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.timer-presets button{min-height:45px;padding:8px 2px;background:#fff;border:1.5px solid #dce5dd;border-radius:10px;font-size:14px}
+.timer-presets button[aria-pressed="true"]{background:#edf5e9;border-color:#59957d;font-weight:bold}
+.timer-custom{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;margin-top:16px}
+.timer-custom span{white-space:nowrap}
+.timer-custom input{width:68px;min-height:44px;padding:8px;border:1.5px solid #bdcec3;border-radius:9px;color:var(--ink);background:#fff}
+.timer-custom input:focus-visible{outline:3px solid #226b98;outline-offset:3px}
+.timer-custom input[aria-invalid="true"]{border-color:#a64134}
+.timer-error{font-size:13px;line-height:1.4;color:#934233;margin:10px 0 0}
+.timer-error:empty{display:none}
+.timer-actions{display:grid;gap:12px;margin-top:26px}
+.timer-note{font-size:12px;line-height:1.7;color:#607b73;text-align:center;margin:20px 0 0}
+.timer-screen button:disabled,.timer-settings:disabled{opacity:.6}
+.timer-screen button:disabled,.timer-settings:disabled label{cursor:default}
+@media(max-width:800px){.game-choices{gap:12px}.game-choice{padding:22px 13px}.game-choice strong{font-size:29px}.choice-title{font-size:17px}.timer-layout{gap:24px}.timer-panel{padding:22px}.timer-dial{width:min(100%,310px)}.timer-message{font-size:18px}}
+@media(max-width:650px){.game-choices{grid-template-columns:1fr;max-width:370px}.game-choice{display:grid;grid-template-columns:64px 1fr;column-gap:14px;text-align:left;align-items:start;padding:20px}.choice-art{grid-row:1/5;font-size:29px;margin:auto 0;overflow-wrap:anywhere}.choice-title{font-size:15px;margin:3px 0 7px}.choice-description,.choice-link{font-size:12px}.choice-link{margin-top:12px}.timer-layout{grid-template-columns:1fr;gap:24px}.timer-dial{width:280px}.timer-intro{font-size:14px;max-width:300px;margin:14px auto 28px}.timer-panel{width:100%;max-width:370px;margin:auto}.timer-toolbar{margin-bottom:24px}.timer-badge{font-size:11px;padding:8px 10px}.timer-toolbar button{font-size:12px;padding:8px 12px}#timer-digits{font-size:38px}.timer-message{min-height:50px;margin-top:20px}}
+@media(max-width:360px){.timer-dial{width:250px}.timer-panel{padding:18px}.timer-badge{display:none}.timer-legend{gap:4px}.timer-legend>span{padding:8px}}

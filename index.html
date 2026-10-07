@@ -9,12 +9,14 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cellipse cx='20' cy='17' rx='13' ry='16' fill='%23ec805e'/%3E%3Cpath d='M20 32v8' stroke='%23395260'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./soni/soni.css">
+  <link rel="stylesheet" href="./timer/timer.css">
   <script src="./soni/keyboard.js" defer></script>
   <script src="./soni/bursts.js" defer></script>
   <script src="./soni/audio.js" defer></script>
   <script src="./soni/particles.js" defer></script>
   <script src="./soni/effects.js" defer></script>
   <script src="./soni/game.js" defer></script>
+  <script src="./timer/timer.js" defer></script>
   <script src="./script.js" defer></script>
 </head>
 <body>
@@ -35,17 +37,45 @@
     <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
   </header>
   <main>
-    <p class="mobile-notice">¡Mejor con teclado! En una computadora podrás jugar con las teclas de verdad.</p>
+    <p class="mobile-notice">Los juegos de teclado se disfrutan mejor en computadora. ¡El reloj también funciona aquí!</p>
     <section id="chooser" class="screen chooser-screen" aria-labelledby="chooser-title">
       <div class="chooser-art" aria-hidden="true">☁ <span>🌈</span> ☁</div>
       <p class="eyebrow">UN POQUITO DE MAGIA PARA CADA UNA</p>
-      <h1 id="chooser-title" tabindex="-1">¿Quién va a <span>jugar?</span></h1>
-      <p class="intro">Dos maneras de llenar el cielo de colores.</p>
+      <h1 id="chooser-title" tabindex="-1">¿Qué vamos a <span>hacer?</span></h1>
+      <p class="intro">Aprender, jugar o ver cómo pasa el tiempo.</p>
       <div class="game-choices">
         <button id="choose-fabi" class="game-choice fabi-choice"><span class="choice-art" aria-hidden="true">👧 🎈</span><strong>Fabi</strong><span class="choice-title">Aprende el teclado</span><span class="choice-description">Letras, sílabas y pequeños descubrimientos.</span><span class="choice-link">Vamos a aprender <span aria-hidden="true">→</span></span></button>
         <button id="choose-soni" class="game-choice soni-choice"><span class="choice-art" aria-hidden="true">👶 ✨</span><strong>Soni</strong><span class="choice-title">Teclado Mágico</span><span class="choice-description">Toca las teclas y deja que pase la magia.</span><span class="choice-link">Vamos a jugar <span aria-hidden="true">→</span></span></button>
+        <button id="choose-timer" class="game-choice timer-choice"><span class="choice-art" aria-hidden="true">⏳ ☀️</span><strong>Fabi y Soni</strong><span class="choice-title">Tiempo con calma</span><span class="choice-description">Un reloj de colores para ver cuánto falta.</span><span class="choice-link">Vamos sin prisas <span aria-hidden="true">→</span></span></button>
       </div>
-      <p class="gentle-note">Con el teclado de la compu y toda la imaginación.</p>
+      <p class="gentle-note">Un ratito para aprender, jugar y disfrutar.</p>
+    </section>
+    <section id="timer" class="screen timer-screen" hidden aria-labelledby="timer-title" data-state="ready" data-stage="plenty">
+      <div class="timer-toolbar"><button id="timer-home" class="quiet-button">← Elegir actividad</button><span class="timer-badge">☀ Un ratito para ti</span></div>
+      <p class="eyebrow">EL TIEMPO TAMBIÉN SE PUEDE VER</p>
+      <h1 id="timer-title" tabindex="-1">Tiempo <span>con calma</span></h1>
+      <p class="timer-intro">El color es el tiempo que queda. Se va haciendo pequeñito.</p>
+      <div class="timer-layout">
+        <div class="timer-visual">
+          <div id="timer-dial" class="timer-dial" role="img" aria-label="Quedan 5 minutos, todo el reloj está lleno de color" style="--remaining:100%">
+            <span class="timer-top-mark" aria-hidden="true">✦</span>
+            <div class="timer-dial-center" aria-hidden="true"><span id="timer-face">☀</span><span id="timer-digits">5:00</span><span id="timer-caption">por disfrutar</span></div>
+          </div>
+          <p id="timer-message" class="timer-message" role="status" aria-live="polite">¡Tenemos mucho tiempo!</p>
+          <div class="timer-legend" aria-label="El reloj cambia según el tiempo que queda"><span data-stage="plenty"><i aria-hidden="true"></i>Mucho</span><span data-stage="half"><i aria-hidden="true"></i>La mitad</span><span data-stage="little"><i aria-hidden="true"></i>Poquito</span></div>
+        </div>
+        <div class="timer-panel">
+          <fieldset id="timer-settings" class="timer-settings">
+            <legend>Preparamos nuestro ratito</legend>
+            <p class="timer-setting-label">¿Cuánto tiempo?</p>
+            <div class="timer-presets" role="group" aria-label="Duraciones rápidas"><button type="button" data-minutes="1" aria-pressed="false">1 min</button><button type="button" data-minutes="3" aria-pressed="false">3 min</button><button type="button" data-minutes="5" aria-pressed="true">5 min</button><button type="button" data-minutes="10" aria-pressed="false">10 min</button></div>
+            <label class="timer-custom" for="timer-minutes">O elige los minutos <span><input id="timer-minutes" type="number" min="1" max="120" step="1" value="5" required aria-describedby="timer-error"> min</span></label>
+            <p id="timer-error" class="timer-error" role="status"></p>
+          </fieldset>
+          <div class="timer-actions"><button id="timer-toggle" class="primary-button">Empezar →</button><button id="timer-reset" class="quiet-button" disabled>↻ Volver a empezar</button></div>
+          <p class="timer-note">Puedes pausar cuando lo necesites.<br>Al terminar, una campanita suave.</p>
+        </div>
+      </div>
     </section>
     <section id="soni" class="screen soni-screen" hidden aria-labelledby="soni-title">
       <div class="soni-toolbar"><button id="soni-home" class="quiet-button">← Elegir juego</button><span class="soni-badge">👶 Un cielo para Soni</span></div>
