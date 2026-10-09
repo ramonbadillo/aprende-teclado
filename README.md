@@ -16,6 +16,8 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas claves, servicios de pago ni configurar un dominio. La entrega contiene el código listo para publicar; no publica ni modifica la configuración remota del repositorio automáticamente.
 
+El script principal y los recursos del piano tienen una versión en su URL (`?v=…`) para descargar el código actualizado aunque GitHub Pages conserve archivos anteriores en caché. Al modificar esos archivos en una publicación futura, incrementa su versión en `index.html`. Si el navegador conserva el HTML anterior, usa **Ctrl + F5** después de publicar.
+
 ## Cómo jugar
 
 Elige **Fabi**, **Soni**, **Tiempo con calma**, **Respira con la mariposa** o **Mi primer piano** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
@@ -105,6 +107,8 @@ Para comprobar el timer, ejecuta también `node tests/timer.test.cjs`. Revisa du
 Para comprobar la mariposa, ejecuta `node tests/breathing.test.cjs`. Revisa apertura y cierre de alas, fases de respiración, pausa precisa, Escape, pérdida de foco, cambio de pestaña, navegación entre actividades, final único, repetición, reinicio, silencio, movimiento reducido y vistas de 390 y 320 px. `SCREENSHOT_DIR` permite guardar capturas.
 
 Para comprobar el piano, ejecuta `node tests/piano.test.cjs`. Revisa la afinación Do/Mi/Sol, los límites y la limpieza del audio, acordes, pulsaciones sostenidas, teclado y ratón sobre una misma nota, liberación fuera del piano, Enter, Estrellita, Escape, pérdida de foco, silencio, navegación, pantalla táctil, movimiento reducido, vistas de 390 y 320 px y funcionamiento sin Web Audio. `SCREENSHOT_DIR` guarda capturas. La calidad sonora en los altavoces se comprueba manualmente.
+
+Para comprobar una actualización con archivos antiguos en caché, ejecuta `node tests/navigation-cache.test.cjs`. Sirve las páginas localmente, guarda la URL anterior del script en la caché HTTP del navegador y comprueba que el menú actualizado abre el piano y permite tocar y volver al inicio.
 
 Se comprueban A+S+D+F+J sostenidas, auto-repeat sin partículas nuevas, siete teclas simultáneas, modificadores independientes, teclas numéricas/numpad compartidas, Space/Tab/Enter, efectos especiales, 160 pulsaciones rápidas, límite y eliminación de partículas, limpieza de foco/visibilidad, silencio, diseño móvil, movimiento reducido y entradas/salidas repetidas. También se completan los tres niveles originales de Fabi con errores, pausa y repetición, comprobando que no haya errores JavaScript.
 
