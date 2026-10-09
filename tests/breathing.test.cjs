@@ -22,7 +22,7 @@ const { chromium } = require('playwright');
   };
   try {
     await page.goto(pathToFileURL(path.join(__dirname, '../index.html')).href);
-    assert.equal(await page.locator('.game-choice').count(), 4);
+    assert.equal(await page.locator('.game-choice').count(), 5);
     await shot('breathing-chooser');
     await page.locator('#choose-breathing').click();
     assert.equal(await page.locator('#breathing').isVisible(), true);

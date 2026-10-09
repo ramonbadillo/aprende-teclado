@@ -1,0 +1,59 @@
+.piano-choice{grid-column:1/-1;justify-self:center;width:100%;max-width:420px;border-color:#d7cce5;background:linear-gradient(145deg,#fffdf8,#f0eaf8);box-shadow:0 7px 0 #d7cce560}
+.piano-choice:hover{box-shadow:0 12px 0 #d7cce560}
+.piano-choice strong,.piano-choice .choice-link{color:#78618f}
+.showing-piano .mobile-notice{display:none}
+.showing-piano .scenery{background:radial-gradient(ellipse at 50% 50%,#fffaf2,#f1eef8 60%,#ecf7fc)}
+.piano-screen{max-width:900px;margin:auto;padding:8px 0 20px}
+.piano-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}
+.piano-badge{font-size:12px;color:#78618f;padding:9px 15px;background:#fff9;border:1px solid #ded4e8;border-radius:24px}
+.piano-screen h1{font-size:clamp(34px,5vw,52px);letter-spacing:-1.7px}
+.piano-screen h1 span{color:#78618f}
+#piano-title:focus{outline:none}
+.piano-intro{font-size:16px;line-height:1.6;color:#637582;margin:17px 0 0}
+.piano-music{display:flex;align-items:center;justify-content:center;gap:25px;height:104px;color:#b39bc9;font-size:42px}
+#piano-note{font-size:clamp(20px,3vw,30px);font-weight:bold;color:#78618f}
+.piano-instrument{padding:19px 22px 23px;border:1px solid #d5cce0;border-radius:24px;background:linear-gradient(135deg,#847296,#645674);box-shadow:0 8px 0 #51476022,0 20px 35px #62527612}
+.piano-caption{display:flex;justify-content:space-between;gap:12px;color:#fffc;font-size:12px;margin-bottom:15px}
+.piano-keys{position:relative;height:235px;isolation:isolate;display:flex;gap:0}
+.piano-key{position:absolute;left:calc(var(--position)*100%/8);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:12px;padding:0 2px 20px;border:1px solid #d7d5d4;user-select:none;touch-action:none;transition:background .12s,box-shadow .12s,transform .12s}
+.piano-white{width:12.5%;height:100%;border-radius:0 0 12px 12px;background:linear-gradient(#fff,#fffcf5);box-shadow:inset 0 -6px 0 #dedbd7;color:#57636d}
+.piano-black{z-index:1;width:8%;height:62%;border:1px solid #3f3749;border-radius:0 0 8px 8px;background:linear-gradient(110deg,#51485e,#302a38);box-shadow:inset 0 -5px 0 #221e28;color:#fff;padding-bottom:13px;gap:8px}
+.piano-key-name{font-size:15px;font-weight:bold}
+.piano-black .piano-key-name{font-size:11px}
+.piano-key kbd{font:700 17px "Trebuchet MS",Arial,sans-serif;border:1px solid #c4c3c1;border-radius:7px;padding:4px 8px;min-width:31px;background:#fff8}
+.piano-black kbd{background:#ffffff15;border-color:#8c8197;font-size:14px}
+.piano-key.is-held{background:var(--note-color);box-shadow:inset 0 -2px 0 #0002;transform:translateY(3px);color:#2b3443}
+.piano-key.is-next:after{content:"★";position:absolute;bottom:94px;color:#92701e;font-size:23px}
+.piano-key.is-next{background:#fff0c5}
+.piano-key.is-next.is-held{background:var(--note-color)}
+.piano-key:focus-visible{z-index:2;outline-offset:-5px}
+.piano-keyboard-hint{font-size:12px;line-height:1.8;color:#6e7685;margin:23px 0}
+.piano-keyboard-hint b{letter-spacing:2px;color:#586573;white-space:nowrap}
+.piano-lesson .quiet-button{background:#fff9;border-color:#d7cce5;color:#78618f;font-weight:bold}
+#piano-guide{font-size:15px;line-height:1.6;color:#637582;min-height:24px;margin:16px 0 10px}
+.piano-progress{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:12px auto;max-width:320px}
+.piano-progress span{width:12px;height:12px;border:1px solid #b6a4c9;border-radius:50%;background:#fff8}
+.piano-progress span.complete{background:#8c72ab;border-color:#8c72ab}
+.piano-audio-message{font-size:13px;line-height:1.5;color:#8d572e;margin:15px 0 0}
+.piano-audio-message:empty{display:none}
+.piano-note{font-size:12px;color:#7c8290;margin:20px 0 0}
+@media(max-width:600px){
+  .piano-toolbar{flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+  .piano-badge{font-size:11px}
+  .piano-intro{font-size:14px}
+  .piano-music{height:85px;gap:12px;font-size:30px}
+  .piano-instrument{padding:12px 8px 14px;border-radius:15px}
+  .piano-caption{font-size:10px;justify-content:center;margin-bottom:12px}
+  .piano-caption span:last-child{display:none}
+  .piano-keys{height:195px}
+  .piano-key{padding-bottom:15px;gap:10px}
+  .piano-key-name{font-size:11px}
+  .piano-black .piano-key-name{font-size:9px}
+  .piano-black{padding-bottom:12px;gap:6px}
+  .piano-key kbd{font-size:13px;min-width:0;padding:3px 5px;border-radius:5px}
+  .piano-black kbd{font-size:11px;padding:3px 4px}
+  .piano-key.is-next:after{bottom:80px;font-size:19px}
+  .piano-keyboard-hint{max-width:280px;margin:20px auto;font-size:11px}
+  #piano-guide{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){.piano-key{transition:none}}

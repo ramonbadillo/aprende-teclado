@@ -1,6 +1,6 @@
 # Fabi y Soni · Juega con el teclado
 
-Cuatro actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, recursos externos ni backend.
+Cinco actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, recursos externos ni backend.
 
 ## Ejecutar localmente
 
@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/`, `timer/` y `breathing/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/`, `timer/`, `breathing/` y `piano/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -18,7 +18,15 @@ Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas 
 
 ## Cómo jugar
 
-Elige **Fabi**, **Soni**, **Tiempo con calma** o **Respira con la mariposa** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+Elige **Fabi**, **Soni**, **Tiempo con calma**, **Respira con la mariposa** o **Mi primer piano** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+
+### Mi primer piano · para Fabi y Soni
+
+- Toca una octava de Do a Do agudo: **A S D F G H J K** corresponden a las ocho teclas blancas; **W E T Y U** a las cinco negras (sostenidos). Las letras indican posiciones físicas del teclado, también al mantener Shift.
+- Puedes tocar acordes manteniendo varias teclas. Cada tecla se ilumina hasta soltarla; mantenerla pulsada no repite la nota. También funciona con clics, pantalla táctil o Enter/Espacio al enfocar un botón del piano.
+- **Aprender Estrellita** guía las primeras 14 notas de la canción con una estrella en la siguiente tecla y puntos de avance. Las otras notas suenan libremente y no restan progreso. Suelta y vuelve a pulsar para las notas repetidas. Puedes volver al modo libre o repetir al terminar.
+- El sonido se sintetiza localmente con un ataque suave y armónicos que decaen, sin descargar grabaciones. Hay un máximo de 16 voces, incluidas las notas que se están apagando. Soltar una tecla amortigua la nota; silenciar, salir, Escape o cambiar de ventana/pestaña detiene el audio y limpia las teclas.
+- Comparte el botón de sonido y su preferencia guardada con las otras actividades. Si el navegador no ofrece Web Audio, muestra un aviso y permite seguir explorando las notas visualmente. La melodía se reinicia al salir y no guarda datos adicionales.
 
 ### Respira con la mariposa · para Fabi y Soni
 
@@ -78,7 +86,9 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 - `soni/effects.js`: efectos normales, reacciones especiales y celebraciones. Añade nuevos efectos aquí.
 - `soni/game.js`: ciclo de entrada/salida y coordinación; `soni/soni.css`: selector y diseño de Soni, con clases independientes de Fabi.
 - `timer/timer.js`: cuenta basada en tiempo real, etapas visuales, validación de duración y pausa al salir; `timer/timer.css`: reloj de color y controles táctiles.
-- `breathing/breathing.js`: cuatro ciclos, animación sincronizada, pausa y limpieza al salir; `breathing/breathing.css`: jardín, alas, selector de cuatro actividades y movimiento reducido.
+- `breathing/breathing.js`: cuatro ciclos, animación sincronizada, pausa y limpieza al salir; `breathing/breathing.css`: jardín, alas, selector y movimiento reducido.
+- `piano/audio.js`: afinación, armónicos, apagado de notas y límite de voces; `piano/piano.js`: teclado físico y táctil, acordes, limpieza y guía de Estrellita; `piano/piano.css`: instrumento adaptable y teclas iluminadas.
+- `tests/piano.test.cjs`: afinación y límites de audio, acordes, entradas simultáneas, melodía, accesibilidad, silencio, navegación, pantalla táctil y vistas móviles.
 - `tests/breathing.test.cjs`: integración de la mariposa en Edge con reloj controlado, navegación, pausas, sonido y vistas móviles.
 - `tests/timer.test.cjs`: integración del timer en Edge, con tiempo controlado para comprobar etapas, pausa, final y navegación sin esperar minutos reales.
 - `tests/keyboard.test.cjs`: pruebas de integración con Edge y Playwright, además de pruebas de intensidad y límites de audio.
@@ -93,6 +103,8 @@ Con Node.js, Playwright disponible y Microsoft Edge instalado, ejecuta `node tes
 Para comprobar el timer, ejecuta también `node tests/timer.test.cjs`. Revisa duraciones inválidas, las tres etapas y el área restante, pausa/continuación, salida y regreso, Escape, final único, repetición, reinicio, silencio, movimiento reducido y vistas de 390 y 320 px.
 
 Para comprobar la mariposa, ejecuta `node tests/breathing.test.cjs`. Revisa apertura y cierre de alas, fases de respiración, pausa precisa, Escape, pérdida de foco, cambio de pestaña, navegación entre actividades, final único, repetición, reinicio, silencio, movimiento reducido y vistas de 390 y 320 px. `SCREENSHOT_DIR` permite guardar capturas.
+
+Para comprobar el piano, ejecuta `node tests/piano.test.cjs`. Revisa la afinación Do/Mi/Sol, los límites y la limpieza del audio, acordes, pulsaciones sostenidas, teclado y ratón sobre una misma nota, liberación fuera del piano, Enter, Estrellita, Escape, pérdida de foco, silencio, navegación, pantalla táctil, movimiento reducido, vistas de 390 y 320 px y funcionamiento sin Web Audio. `SCREENSHOT_DIR` guarda capturas. La calidad sonora en los altavoces se comprueba manualmente.
 
 Se comprueban A+S+D+F+J sostenidas, auto-repeat sin partículas nuevas, siete teclas simultáneas, modificadores independientes, teclas numéricas/numpad compartidas, Space/Tab/Enter, efectos especiales, 160 pulsaciones rápidas, límite y eliminación de partículas, limpieza de foco/visibilidad, silencio, diseño móvil, movimiento reducido y entradas/salidas repetidas. También se completan los tres niveles originales de Fabi con errores, pausa y repetición, comprobando que no haya errores JavaScript.
 
