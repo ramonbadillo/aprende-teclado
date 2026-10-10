@@ -1,0 +1,122 @@
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const { pathToFileURL } = require('node:url');
+const { chromium } = require('playwright');
+(async () => {
+  const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL || 'chrome', headless: true });
+  try {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
+    const errors = []; page.on('pageerror', error => errors.push(error.message));
+    const url = pathToFileURL(path.resolve(__dirname, '../index.html')).href;
+    await page.goto(url);
+    await page.locator('#choose-clay').click();
+    const stamped = () => page.locator('.clay-imprint.is-stamped').count();
+    assert.equal(await page.locator('#clay-word').textContent(), 'ROSAS');
+    assert.equal(await page.locator('.clay-letter').count(), 32);
+    assert.equal(await page.locator('[data-clay-difficulty=medium]').getAttribute('aria-pressed'), 'true');
+    assert.equal(await page.locator('#clay-bunny.is-happy').count(), 0);
+    await page.keyboard.press('s'); assert.equal(await stamped(), 1);
+    await page.keyboard.press('s'); assert.equal(await stamped(), 2);
+    await page.locator('[data-clay-difficulty=easy]').click();
+    assert.equal(await page.locator('.clay-letter').count(), 20);
+    assert.equal(await stamped(), 2);
+    assert.equal(await page.locator('.clay-letter.is-used').count(), 2);
+    await page.locator('[data-clay-difficulty=hard]').focus(); await page.keyboard.press('Enter');
+    assert.equal(await page.locator('.clay-letter').count(), 48);
+    assert.equal(await stamped(), 2);
+    assert.equal(await page.locator('.clay-letter.is-used').count(), 2);
+    await page.keyboard.press('s'); assert.equal(await stamped(), 2);
+    await page.keyboard.press('z'); assert.equal(await stamped(), 2);
+    await page.keyboard.down('r'); await page.keyboard.down('r'); await page.keyboard.up('r');
+    assert.equal(await stamped(), 3);
+    await page.locator('#clay-hint').click();
+    assert.equal(await page.locator('.clay-letter.is-hint').textContent(), 'O');
+    await page.locator('.clay-letter[data-letter=O]').click();
+    await page.locator('.clay-letter[data-letter=O]').click({ force: true }); assert.equal(await stamped(), 4);
+    await page.locator('[data-clay-color=mint]').click();
+    await page.keyboard.press('a');
+    assert.equal(await stamped(), 5);
+    assert.equal(await page.locator('#clay-bunny.is-happy').count(), 1);
+    assert.match(await page.locator('#clay-bunny').getAttribute('aria-label'), /celebra.*ROSAS/);
+    await page.waitForFunction(() => !document.getElementById('clay-bunny').classList.contains('is-celebrating'));
+    assert.equal(await page.locator('#clay-bunny.is-happy').count(), 1);
+    assert.equal(await page.locator('.clay-keepsake').count(), 1);
+    await page.locator('[data-clay-difficulty=easy]').click();
+    assert.equal(await page.locator('#clay-next').isVisible(), true);
+    assert.equal(await page.locator('.clay-keepsake').count(), 1);
+    assert.equal(await page.locator('.clay-letter.is-used').count(), 5);
+    await page.locator('[data-clay-difficulty=hard]').click();
+    await page.keyboard.press('a'); assert.equal(await page.locator('.clay-keepsake').count(), 1);
+    await page.locator('#clay-next').click();
+    assert.equal(await page.locator('#clay-bunny.is-happy').count(), 0);
+    await page.locator('#clay-home').click(); await page.keyboard.press('d');
+    await page.locator('#choose-clay').click(); assert.equal(await stamped(), 0);
+    assert.equal(await page.locator('.clay-letter').count(), 48);
+    await page.locator('#clay-guide').uncheck();
+    assert.equal(await page.locator('#clay-word').textContent(), '·······');
+    await page.locator('#clay-title').focus(); await page.keyboard.type('dibujos');
+    assert.equal(await page.locator('#clay-word').textContent(), 'DIBUJOS');
+    await page.locator('#clay-guide').check();
+    const rest = ['JUGUETES', 'PAPA', 'MAMA', 'SILLA', 'COMPUTADORA', 'PEPE', 'LEGO', 'FLORES'];
+    for (const word of rest) {
+      await page.locator('#clay-next').click();
+      assert.equal(await page.locator('#clay-word').textContent(), word);
+      if (word === 'COMPUTADORA') {
+        await page.screenshot({ path: '/tmp/clay-desktop.png', fullPage: true });
+        for (const width of [1280, 768, 600, 390, 320]) {
+          await page.setViewportSize({ width, height: 844 });
+          assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+          const bounds = await page.locator('#clay-word').evaluate(el => ({ width: el.clientWidth, scroll: el.scrollWidth }));
+          assert.ok(bounds.scroll <= bounds.width, 'Long word fits dough');
+          const boxes = await page.locator('.clay-letter').evaluateAll(els => els.map(el => { const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, right: r.right, bottom: r.bottom }; }));
+          for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+            const a = boxes[i], b = boxes[j];
+            assert.ok(a.right <= b.x || b.right <= a.x || a.bottom <= b.y || b.bottom <= a.y, 'Scattered letters do not overlap');
+          }
+          await page.screenshot({ path: `/tmp/clay-mobile-${width}.png`, fullPage: true });
+        }
+        await page.setViewportSize({ width: 1280, height: 1000 });
+      }
+      await page.keyboard.type(word.toLowerCase());
+      assert.equal(await stamped(), word.length);
+    }
+    assert.equal(await page.locator('.clay-keepsake').count(), 10);
+    assert.equal(await page.locator('#clay-bunny-message').textContent(), '¡Lo lograste! ♥');
+    assert.match(await page.locator('#clay-status').textContent(), /Completaste tu colección/);
+    await page.screenshot({ path: '/tmp/clay-complete.png', fullPage: true });
+    await page.locator('#clay-next').click(); assert.equal(await stamped(), 0);
+    assert.equal(await page.locator('.clay-keepsake').count(), 0);
+    await page.locator('.clay-settings summary').click();
+    await page.locator('#clay-list').fill('123'); await page.locator('#clay-form button').click();
+    assert.equal(await page.locator('#clay-list').getAttribute('aria-invalid'), 'true');
+    assert.equal(await page.locator('#clay-word').textContent(), 'ROSAS');
+    await page.locator('#clay-list').fill('año, mamá, año');
+    await page.keyboard.type('a'); assert.equal(await stamped(), 0);
+    await page.locator('#clay-list').fill('año, mamá, año'); await page.locator('#clay-form button').click();
+    assert.equal(await page.locator('#clay-word').textContent(), 'AÑO');
+    await page.keyboard.press('n'); assert.equal(await stamped(), 0);
+    await page.keyboard.press('a'); await page.locator('.clay-letter[data-letter="Ñ"]').click(); await page.keyboard.press('o');
+    assert.equal(await stamped(), 3);
+    await page.locator('#clay-next').click(); await page.keyboard.type('mama');
+    assert.equal(await page.locator('#clay-word').textContent(), 'MAMÁ');
+    assert.equal(await stamped(), 4);
+    await page.locator('#clay-home').click();
+    assert.equal(await page.locator('#clay-bunny.is-celebrating').count(), 0);
+    await page.reload(); await page.locator('#choose-clay').click();
+    assert.equal(await page.locator('.clay-letter').count(), 32);
+    assert.equal(await page.locator('#clay-word').textContent(), 'AÑO');
+    await page.emulateMedia({ reducedMotion: 'reduce' }); await page.keyboard.press('a');
+    assert.equal(await page.locator('.just-stamped').evaluate(el => getComputedStyle(el).animationName), 'none');
+    await page.locator('.clay-letter[data-letter="Ñ"]').click(); await page.keyboard.press('o');
+    assert.equal(await page.locator('#clay-bunny.is-happy').count(), 1);
+    assert.equal(await page.locator('.clay-bunny-body').evaluate(el => getComputedStyle(el).animationName), 'none');
+    await page.locator('#clay-home').click(); await page.locator('#choose-hangman').click();
+    assert.equal(await page.locator('#clay').isHidden(), true);
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+    const mobile = await context.newPage(); await mobile.goto(url); await mobile.locator('#choose-clay').tap();
+    await mobile.locator('.clay-letter[data-letter=R]').tap();
+    assert.equal(await mobile.locator('.is-stamped').count(), 1);
+    assert.deepEqual(errors, []);
+    console.log('Clay: full collection, repeats, mistakes, keyboard, click, touch, hints, colors, navigation, saved lists, accents/Ñ, mobile layout and reduced motion passed.');
+  } finally { await browser.close(); }
+})().catch(error => { console.error(error); process.exit(1); });

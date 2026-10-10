@@ -95,20 +95,23 @@ function showScreen(next) {
   window.PianoGame.leave();
   window.HangmanGame.leave();
   window.PopitGame.leave();
+  window.ClayGame.leave();
   screen = next;
-  for (const id of ['chooser', 'soni', 'timer', 'breathing', 'piano', 'hangman', 'popit', 'home', 'game', 'finish']) $(id).hidden = id !== next;
+  for (const id of ['chooser', 'soni', 'timer', 'breathing', 'piano', 'hangman', 'popit', 'clay', 'home', 'game', 'finish']) $(id).hidden = id !== next;
   document.body.classList.toggle('playing-soni', next === 'soni');
   document.body.classList.toggle('showing-timer', next === 'timer');
   document.body.classList.toggle('showing-breathing', next === 'breathing');
   document.body.classList.toggle('showing-piano', next === 'piano');
   document.body.classList.toggle('showing-hangman', next === 'hangman');
   document.body.classList.toggle('showing-popit', next === 'popit');
+  document.body.classList.toggle('showing-clay', next === 'clay');
   $('settings-open').hidden = !['home', 'finish'].includes(next);
   if (next === 'soni') window.SoniGame.start({ sound: options.sound, layout: options.layout });
   if (next === 'timer') window.VisualTimer.enter({ onStart: enableAudio, onFinish: () => chime(true) });
   if (next === 'breathing') window.ButterflyBreathing.enter({ onStart: enableAudio, onFinish: () => chime() });
   if (next === 'piano') window.PianoGame.enter({ sound: options.sound });
   if (next === 'popit') window.PopitGame.enter({ sound: options.sound });
+  if (next === 'clay') window.ClayGame.enter({ onStamp: () => { enableAudio(); chime(); } });
   if (next === 'hangman') window.HangmanGame.enter({ sound: options.sound, onCorrect: () => { enableAudio(); chime(); } });
 }
 function poolFor(settings) {
@@ -285,6 +288,8 @@ $('breathing-home').addEventListener('click', chooseGame);
 $('piano-home').addEventListener('click', chooseGame);
 $('hangman-home').addEventListener('click', chooseGame);
 $('popit-home').addEventListener('click', chooseGame);
+$('clay-home').addEventListener('click', chooseGame);
+$('choose-clay').addEventListener('click', () => { showScreen('clay'); $('clay-title').focus({ preventScroll: true }); });
 $('choose-popit').addEventListener('click', () => { showScreen('popit'); $('popit-title').focus({ preventScroll: true }); });
 $('choose-fabi').addEventListener('click', () => { showScreen('home'); $('player-name').focus({ preventScroll: true }); });
 $('choose-soni').addEventListener('click', () => { showScreen('soni'); $('soni-title').focus({ preventScroll: true }); });
