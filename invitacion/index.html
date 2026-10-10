@@ -1,76 +1,12 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#fff8f4"><meta name="robots" content="noindex,nofollow">
-<title>El cuento de Fabi · Estás invitado</title>
-<meta name="description" content="Una celebración de cuento con Fabi. 14 de octubre de 2026, 3:30 p. m., en Carl’s Jr. García Salinas.">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap');
-:root{--paper:#fff8f4;--ink:#5d3547;--rose:#a34d6b;--gold:#a17a3b;--line:#cfb48a;--soft:#f5e3e8}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font-family:'DM Sans',sans-serif}a{color:inherit}a:focus-visible{outline:3px solid var(--gold);outline-offset:5px}.draft{background:#eddee3;text-align:center;padding:9px 16px;font-size:11px;line-height:1.6}.topbar{max-width:1160px;margin:auto;padding:23px 32px;display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.12em}.brand{font-weight:600}.brand span{color:var(--gold);font-size:20px;margin-right:8px}.topbar a{text-decoration:none;letter-spacing:.02em;border-bottom:1px solid var(--line);padding-bottom:4px}
-.hero{max-width:1160px;min-height:640px;margin:auto;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:24px 42px 62px;gap:38px;position:relative}.hero-copy{text-align:center;position:relative;z-index:1}.crown{width:54px;height:43px;color:var(--gold);margin-bottom:23px}.eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}.hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:64px;line-height:1.02;margin:20px 0 24px;letter-spacing:-.035em}.hero h1 span{font-style:italic;font-size:112px;color:var(--rose);display:block;line-height:1.02}.hero p{font-size:14px;line-height:1.9;max-width:350px;margin:0 auto 24px}.date-line{display:flex;align-items:center;justify-content:center;gap:17px;font-size:11px;font-weight:600;letter-spacing:.07em;margin:0 0 26px}.date-line i{height:23px;width:1px;background:var(--line)}.button{display:inline-flex;align-items:center;justify-content:center;gap:20px;text-decoration:none;background:var(--rose);color:white;padding:16px 25px;border-radius:4px;font-size:13px;min-height:48px;transition:background .2s}.button:hover{background:#873b57}.hero-note{display:block;margin-top:16px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:19px;color:#82606b}.art{position:relative;border:1px solid var(--line);border-radius:240px 240px 6px 6px;padding:14px;background:linear-gradient(155deg,#fffaf5,#f6e4ed 80%);box-shadow:0 20px 60px #c78aa11c}.art:after{content:'';position:absolute;inset:7px;border:1px solid #cfb48a65;border-radius:240px 240px 2px 2px;pointer-events:none}.castle{display:block;width:100%;height:auto}.art-label{text-align:center;position:absolute;bottom:29px;left:0;right:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;letter-spacing:.02em;font-size:22px;color:#815d67}
-.divider{display:flex;align-items:center;justify-content:center;gap:24px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:23px;color:var(--rose);padding:19px 24px;background:var(--soft)}.divider:before,.divider:after{content:'';height:1px;width:100px;background:var(--line)}.details{padding:65px 25px 64px;max-width:1000px;margin:auto}.section-title{text-align:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:42px;font-weight:500;margin:0 0 32px}.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #cfb48a70;border-bottom:1px solid #cfb48a70;padding:28px 0;gap:15px}.fact{text-align:center;padding:10px 17px}.fact+.fact{border-left:1px solid #cfb48a70}.fact svg{width:26px;height:26px;fill:none;stroke:var(--gold);stroke-width:1.5;margin-bottom:13px}.fact h3{font-size:10px;text-transform:uppercase;letter-spacing:.18em;margin:0 0 11px}.fact p{font-size:20px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;margin:0}.fact small{font-size:12px;display:block;margin-top:7px;line-height:1.6;color:#785c67}.map-link{display:inline-block;margin-top:14px;font-size:12px;text-underline-offset:4px;color:var(--rose)}
-.rsvp{background:linear-gradient(120deg,#f4e1e8,#f7ece6);padding:55px 24px 60px;text-align:center;border-top:1px solid #cfb48a50}.rsvp .eyebrow{color:var(--rose)}.rsvp h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:45px;font-weight:500;letter-spacing:-.02em;margin:16px 0}.rsvp p{max-width:420px;font-size:14px;line-height:1.8;margin:0 auto 24px}.pending{display:inline-block;border:1px solid #bd909e80;border-radius:5px;padding:16px 22px;font-size:12px;background:#fff9f480;line-height:1.7}footer{text-align:center;padding:25px 20px;font-size:12px}footer span{color:var(--rose)}
-@media(max-width:700px){.topbar{padding:19px 20px;font-size:10px}.hero{grid-template-columns:1fr;padding:22px 25px 42px;gap:30px}.crown{margin-bottom:15px;width:45px;height:35px}.hero h1{font-size:51px;margin-top:17px}.hero h1 span{font-size:94px}.hero p{font-size:13px;max-width:315px}.date-line{font-size:10px;gap:12px}.art{max-width:350px;width:100%;margin:auto}.divider{font-size:21px;gap:13px}.divider:before,.divider:after{width:35px}.facts{grid-template-columns:1fr;padding:5px 0;gap:0}.fact{padding:23px 10px}.fact+.fact{border-left:0;border-top:1px solid #cfb48a70}.details{padding:45px 28px}.section-title{font-size:35px}.rsvp h2{font-size:37px}.art-label{font-size:19px;bottom:23px}.hero-note{font-size:18px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-
-.rsvp-form{max-width:420px;margin:0 auto;text-align:left}.rsvp-form label{display:block;font-size:12px;font-weight:600;margin:0 0 8px}.rsvp-form input{display:block;width:100%;min-height:48px;border:1px solid #bd909e;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;border-radius:4px;padding:12px;margin-bottom:19px}.rsvp-form input:focus-visible,.rsvp-form button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.guest-counts{display:grid;grid-template-columns:1fr 1fr;gap:18px}.rsvp-form .button{width:100%;border:0;font-family:inherit;cursor:pointer}.rsvp .send-note{font-size:12px;line-height:1.65;margin:14px auto 0;color:#785c67}.rsvp .decline{font-size:12px;margin:22px 0 0;text-underline-offset:4px}
-.games-link{display:table;margin:20px auto 0;padding:11px 18px;min-height:44px;border:1px solid var(--line);border-radius:4px;font-size:13px;text-decoration:none;color:var(--ink);background:#fff8f499}.games-link:hover{background:var(--soft)}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="0; url=../fiesta-de-7-anos/">
+<link rel="canonical" href="https://ramonbadillo.github.io/aprende-teclado/fiesta-de-7-anos/">
+<title>Fiesta de 7 años de Fabi</title>
+<script>window.location.replace('../fiesta-de-7-anos/' + window.location.search + window.location.hash);</script>
 </head>
-<body>
-<header class="topbar"><div class="brand"><span aria-hidden="true">♕</span> LA FIESTA DE FABI</div><a href="#detalles">Cuándo y dónde ↗</a></header>
-<main>
-<section class="hero" aria-labelledby="titulo">
-<div class="hero-copy">
-<svg class="crown" aria-hidden="true" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m8 13 10 10L32 6l14 17 10-10-7 24H15Z"/><path d="M15 42h34M17 32h30"/><circle cx="8" cy="10" r="2"/><circle cx="32" cy="3" r="2"/><circle cx="56" cy="10" r="2"/></svg>
-<div class="eyebrow">Había una vez una celebración muy especial…</div>
-<h1 id="titulo">El cuento de <span>Fabi</span></h1>
-<p>Entre rosas, sueños y un poquito de magia,<br>¡te invitamos a una fiesta de cuento!</p>
-<div class="date-line"><time datetime="2026-10-14">14 DE OCTUBRE</time><i aria-hidden="true"></i><time datetime="2026-10-14T15:30:00-06:00">3:30 P. M.</time><i aria-hidden="true"></i><span>CARL’S JR.</span></div>
-<a class="button" href="#confirmar">Confirmar asistencia <span aria-hidden="true">↗</span></a>
-<span class="hero-note">La magia es más bonita cuando estás tú.</span>
-<a class="games-link" href="../index.html"><span aria-hidden="true">🎈</span> Jugar un ratito <span aria-hidden="true">→</span></a>
-</div>
-<div class="art">
-<svg class="castle" role="img" aria-labelledby="castillo-titulo" viewBox="0 0 440 530" xmlns="http://www.w3.org/2000/svg">
-<title id="castillo-titulo">Un castillo rosa rodeado de rosas y destellos, inspirado en La Bella Durmiente</title>
-<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#fff8ed"/><stop offset="1" stop-color="#ecdeee"/></linearGradient><linearGradient id="wall" x2="1" y2="1"><stop stop-color="#fff6eb"/><stop offset="1" stop-color="#e7b9ce"/></linearGradient><linearGradient id="roof" x2="1" y2="1"><stop stop-color="#cc8cae"/><stop offset="1" stop-color="#986287"/></linearGradient><g id="rose"><path d="M0 20q-10-15-19-7 4 12 19 7M0 26q10-18 22-12-5 13-22 12" fill="#9aaa8c"/><path d="M0 7v32" stroke="#889c7e" stroke-width="2"/><circle r="15" fill="#d68a9f"/><path d="M-12-4Q-5-17 8-9Q20 0 5 12Q-8 16-12 1Q-12-9 0-7Q12-6 7 3Q1 12-5 4Q-9-3 1-3" fill="none" stroke="#b46180" stroke-width="2"/></g><g id="spark" fill="#b99756"><path d="m0-8 2 6 6 2-6 2-2 6-2-6-6-2 6-2Z"/></g></defs>
-<path d="M20 480V220a200 200 0 0 1 400 0v260Z" fill="url(#sky)"/>
-<circle cx="305" cy="130" r="52" fill="#fff9e9" opacity=".9"/>
-<g fill="none" stroke="#c7a573" opacity=".6"><path d="M45 432V224a175 175 0 0 1 350 0v208"/><path d="M53 432V224a167 167 0 0 1 334 0v208"/></g>
-<g opacity=".5" fill="#c5b6d4"><path d="M41 400q95-77 171-24t185 2v100H41Z"/><path d="M25 431q119-47 207-8t181-31v97H25Z" fill="#b9c5ad"/></g>
-<g stroke="#ae7893" stroke-width="1.5" stroke-linejoin="round">
-<path d="M111 400V261h51v139M276 400V261h51v139" fill="url(#wall)"/><path d="m100 261 37-69 36 69Zm166 0 36-69 37 69Z" fill="url(#roof)"/>
-<path d="M182 384V192h77v192" fill="url(#wall)"/><path d="m170 192 51-99 49 99Z" fill="url(#roof)"/>
-<path d="M205 127V86h30v41M215 83V58h12v25" fill="url(#wall)"/><path d="m199 86 22-36 22 36Z" fill="url(#roof)"/>
-<path d="M220 50V28" stroke="#b99756"/><path d="M221 30q18-12 32 1-15 10-32 5" fill="#dda2b7" stroke="#c994a6"/>
-<path d="M153 404V299l68-59 67 59v105" fill="url(#wall)"/><path d="m145 299 76-72 75 72" fill="none" stroke="#bd799b" stroke-width="9"/>
-<path d="M195 404v-56a26 26 0 0 1 52 0v56Z" fill="#b17c94"/><path d="M202 404v-56a19 19 0 0 1 38 0v56" fill="#e2b4c2"/><path d="M221 330v74"/>
-<path d="M121 308v-20a15 15 0 0 1 30 0v20ZM287 308v-20a15 15 0 0 1 30 0v20ZM211 226v-19a10 10 0 0 1 20 0v19Z" fill="#ad8ca5"/>
-<path d="M91 416V346h18v-12h14v12h17v-12h14v12h18v70ZM270 416V346h18v-12h14v12h17v-12h14v12h18v70Z" fill="url(#wall)"/>
-<path d="M98 375h65M280 375h62M99 392h64M280 392h62" opacity=".45"/>
-<circle cx="221" cy="285" r="10" fill="#f8e8c5" stroke="#b99756"/><path d="M221 275v20M211 285h20" stroke="#b99756"/>
-</g>
-<path d="M201 416q-10 23-34 47h115q-36-24-40-47Z" fill="#faf0e6"/>
-<g fill="none" stroke="#93a388" stroke-width="2"><path d="M45 461q-20-59 24-118M80 464q-8-29 19-53M399 460q26-70-26-126M356 464q10-34-10-57"/><path d="M67 384q-31-3-31-26 29 2 31 26M58 406q29-17 39 0-14 21-39 0M379 382q29-12 29-30-26 0-29 30M387 415q-29-24-37-6 15 22 37 6" fill="#a8b699"/></g>
-<use href="#rose" x="65" y="355" transform="rotate(-15 65 355)"/><use href="#rose" x="41" y="415"/><use href="#rose" x="97" y="429"/><use href="#rose" x="377" y="351" transform="rotate(15 377 351)"/><use href="#rose" x="401" y="418"/><use href="#rose" x="345" y="435"/>
-<g opacity=".9"><use href="#spark" x="103" y="146"/><use href="#spark" x="337" y="199"/><use href="#spark" x="276" y="71"/><use href="#spark" x="73" y="288"/><use href="#spark" x="360" y="289"/></g>
-<g fill="#c1a268"><circle cx="143" cy="98" r="2"/><circle cx="305" cy="226" r="2"/><circle cx="322" cy="92" r="2"/><circle cx="86" cy="232" r="2"/><circle cx="161" cy="156" r="2"/></g>
-</svg><div class="art-label">Un sueño de La Bella Durmiente</div>
-</div>
-</section>
-<div class="divider">Y tú eres parte de esta historia</div>
-<section class="details" id="detalles" aria-labelledby="detalles-titulo"><h2 class="section-title" id="detalles-titulo">Una cita para soñar y celebrar</h2><div class="facts">
-<div class="fact"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 2v6M17 2v6M3 11h18M7 15h3M14 15h3"/></svg><h3>El día</h3><p><time datetime="2026-10-14">Miércoles 14 de octubre</time></p><small>2026</small></div>
-<div class="fact"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 3"/></svg><h3>La hora</h3><p><time datetime="2026-10-14T15:30:00-06:00">3:30 p. m.</time></p><small>¡Una tarde para celebrar juntos!</small></div>
-<div class="fact"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19 10c0 6-7 12-7 12S5 16 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><h3>El lugar</h3><p>Carl’s Jr. · García Salinas</p><small>Av. Francisco García Salinas 601<br>Col. Las Colinas 2, Zacatecas</small><a class="map-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&amp;query=Carl%27s+Jr&amp;query_place_id=ChIJk5AMiVdcBxQRZR3n4pK9YgI">Ver ubicación en Google Maps ↗</a></div>
-</div></section>
-<section class="rsvp" id="confirmar" aria-labelledby="confirmar-titulo"><div class="eyebrow">Tu presencia hará la magia</div><h2 id="confirmar-titulo">¿Nos acompañas en este cuento?</h2><p>Nos encantará celebrar contigo y tu familia.<br>Confirma tu asistencia para ayudarnos a preparar la fiesta.</p><form class="rsvp-form" id="rsvp-form">
-<label for="family">Tu nombre o el de tu familia</label><input id="family" name="family" type="text" placeholder="Por ejemplo: familia García" required maxlength="80" autocomplete="name">
-<div class="guest-counts"><div><label for="adults">Adultos</label><input id="adults" name="adults" type="number" min="1" max="30" step="1" value="1" required inputmode="numeric"></div><div><label for="children">Niñas y niños</label><input id="children" name="children" type="number" min="0" max="30" step="1" value="1" required inputmode="numeric"></div></div>
-<button class="button" type="submit">Continuar en WhatsApp <span aria-hidden="true">↗</span></button>
-</form><p class="send-note">Se abrirá un mensaje para la familia de Fabi.<br>Revisa los datos y toca <strong>Enviar en WhatsApp</strong> para confirmar.</p>
-<p class="decline"><a href="https://wa.me/524921012644?text=Hola%2C%20somos%20la%20familia%20____.%20Gracias%20por%20invitarnos%20a%20la%20fiesta%20de%20Fabi%20el%2014%20de%20octubre.%20Esta%20vez%20no%20podremos%20asistir.%20%C2%A1Que%20disfruten%20mucho%20su%20fiesta!" target="_blank" rel="noopener noreferrer">No podremos asistir; avisar por WhatsApp</a></p>
-<noscript><p><a href="https://wa.me/524921012644?text=Hola%2C%20quiero%20confirmar%20para%20la%20fiesta%20de%20Fabi.%20Somos%20la%20familia%20____%20y%20asistiremos%20____%20adultos%20y%20____%20ni%C3%B1as%20y%20ni%C3%B1os.">Confirmar directamente en WhatsApp</a></p></noscript></section>
-</main><footer>Con mucho cariño, la familia de Fabi <span aria-hidden="true">♡</span></footer>
-<script src="rsvp.js"></script>
-</body></html>
+<body><p>La invitación cambió de dirección. <a href="../fiesta-de-7-anos/">Abrir la fiesta de 7 años de Fabi</a>.</p></body>
+</html>

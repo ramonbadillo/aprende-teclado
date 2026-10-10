@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -18,11 +18,13 @@ Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas 
 
 El script principal y los recursos del piano y del ahorcado tienen una versión en su URL (`?v=…`) para descargar el código actualizado aunque GitHub Pages conserve archivos anteriores en caché. Al modificar esos archivos en una publicación futura, incrementa su versión en `index.html`. Si el navegador conserva el HTML anterior, usa **Ctrl + F5** después de publicar.
 
-## Invitación de Fabi
+## Fiesta de 7 años de Fabi
 
-La invitación está en `invitacion/index.html` y se publica en <https://ramonbadillo.github.io/aprende-teclado/invitacion/>. Incluye los datos de la fiesta, el mapa y la confirmación por WhatsApp. Los datos del formulario se usan para preparar el mensaje; la familia debe enviarlo desde WhatsApp para completar su confirmación.
+La invitación está en `fiesta-de-7-anos/index.html` y se publica en <https://ramonbadillo.github.io/aprende-teclado/fiesta-de-7-anos/>. Incluye los datos de la fiesta, el mapa y la confirmación por WhatsApp. Los datos del formulario se usan para preparar el mensaje; la familia debe enviarlo desde WhatsApp para completar su confirmación.
 
-El botón **Jugar un ratito** abre el menú principal del repositorio mediante una ruta relativa, por lo que muestra los juegos actuales sin mantener otra copia. Para publicar cambios en la invitación, sube `invitacion/index.html` y `invitacion/rsvp.js` a la rama configurada en GitHub Pages.
+El botón **Jugar un ratito** abre el menú principal del repositorio mediante una ruta relativa, por lo que muestra los juegos actuales sin mantener otra copia. Para publicar cambios en la invitación, sube `fiesta-de-7-anos/index.html` y `fiesta-de-7-anos/rsvp.js` a la rama configurada en GitHub Pages.
+
+La dirección anterior, `/invitacion/`, redirige a `/fiesta-de-7-anos/` para conservar los enlaces compartidos. Cada próxima fiesta puede tener su propia carpeta y dirección, manteniendo las anteriores como registro.
 
 ## Cómo jugar
 
