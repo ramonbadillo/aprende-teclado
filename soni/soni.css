@@ -11,7 +11,7 @@
 
 .invitation-link{display:inline-flex;align-items:center;justify-content:center;color:var(--ink);text-decoration:none;margin-bottom:12px}
 
-.keyboard-required{display:none;align-items:center;gap:6px;max-width:100%;margin-top:12px;padding:6px 10px;border:1px solid #e4c985;border-radius:12px;background:#fff4d7;color:#70521c;font-size:12px;font-weight:700;line-height:1.4}
-.keyboard-required>span{font-size:18px;line-height:1}
+.keyboard-required{display:none;align-items:center;gap:8px;width:fit-content;max-width:100%;min-height:36px;margin-top:12px;padding:8px 12px;border:1px solid #e4c985;border-radius:12px;background:#fff4d7;color:#70521c;font-size:13px;font-weight:700;line-height:1.4}
+.keyboard-required>span{flex-shrink:0;font-size:20px;line-height:1}
 @media(max-width:700px),(hover:none) and (pointer:coarse){.keyboard-required{display:inline-flex}}
-@media(max-width:450px){.keyboard-required{grid-column:2;justify-self:start}}
+@media(max-width:650px){.keyboard-required{grid-column:1/-1;justify-self:start}}
