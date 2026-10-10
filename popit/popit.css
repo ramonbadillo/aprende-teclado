@@ -1,0 +1,35 @@
+.popit-choice{background:linear-gradient(135deg,#fff4d9,#ffe6ec 55%,#e9e2ff);border-color:#dcb4c9;box-shadow:0 7px 0 #dcb4c950}
+.popit-choice strong,.popit-choice .choice-link{color:#935878}
+.showing-popit .mobile-notice{display:none}
+.popit-screen{max-width:760px;margin:auto;padding:8px 0 20px}
+.popit-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+.popit-badge{font-size:10px;letter-spacing:1.4px;color:#826879}
+.popit-screen h1{font-size:clamp(38px,6vw,58px);letter-spacing:-2px}
+.popit-screen h1 span{color:#ac5a82}
+#popit-title:focus{outline:none}
+.popit-intro{font-size:15px;line-height:1.6;margin:14px 0 20px;color:#607681}
+.popit-palettes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:26px}
+.popit-palettes button{background:#ffffffb8;border:1px solid #d8dfe0;padding:10px 16px;border-radius:22px;min-height:44px;font-size:13px}
+.popit-palettes button[aria-pressed=true]{background:#f9e6ee;border-color:#ac5a82;color:#814260;box-shadow:0 0 0 1px #ac5a82}
+.popit-toy{width:min(100%,428px);margin:auto;padding:15px 15px 0;background:#f7e8dc;border:2px solid #fff3e9;border-radius:49px;box-shadow:0 9px 0 #c6aaa1,0 13px 0 #b69b9466,0 25px 40px #65546b26,inset 0 2px 2px #fff;transform:rotate(-2deg)}
+.popit-board{overflow:hidden;border-radius:34px;touch-action:none;user-select:none;-webkit-user-select:none;border:1px solid #ab827755}
+.popit-row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;padding:8px 13px;background:var(--bubble)}
+.popit-row:nth-child(1){--bubble:#f28c9d}.popit-row:nth-child(2){--bubble:#f4b07e}.popit-row:nth-child(3){--bubble:#f2d875}.popit-row:nth-child(4){--bubble:#92cba5}.popit-row:nth-child(5){--bubble:#84c9d9}.popit-row:nth-child(6){--bubble:#b39bd9}
+[data-palette=ocean] .popit-row:nth-child(1){--bubble:#a6d5cf}[data-palette=ocean] .popit-row:nth-child(2){--bubble:#81cbcb}[data-palette=ocean] .popit-row:nth-child(3){--bubble:#72bdcf}[data-palette=ocean] .popit-row:nth-child(4){--bubble:#86b5d8}[data-palette=ocean] .popit-row:nth-child(5){--bubble:#9caadd}[data-palette=ocean] .popit-row:nth-child(6){--bubble:#b7a7db}
+[data-palette=candy] .popit-row:nth-child(1){--bubble:#e9a0bb}[data-palette=candy] .popit-row:nth-child(2){--bubble:#efb5cf}[data-palette=candy] .popit-row:nth-child(3){--bubble:#d5b0de}[data-palette=candy] .popit-row:nth-child(4){--bubble:#b7a3da}[data-palette=candy] .popit-row:nth-child(5){--bubble:#dab3d0}[data-palette=candy] .popit-row:nth-child(6){--bubble:#ecc2b5}
+.popit-bubble{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:50%;padding:0;border:2px solid #6b435b29;background:radial-gradient(circle at 34% 27%,#ffffff60,transparent 58%),var(--bubble);box-shadow:inset 2px 3px 4px #ffffff85,inset -3px -5px 6px #59344c35,0 3px 2px #58394e42;transition:box-shadow .1s,transform .1s;position:relative}
+.popit-bubble:after{content:'';width:28%;height:13%;border-radius:50%;background:#ffffff60;transform:translate(-35%,-100%) rotate(-30deg)}
+.popit-bubble[aria-pressed=true]{background:radial-gradient(circle at 60% 80%,#ffffff23,transparent 60%),var(--bubble);box-shadow:inset 3px 5px 8px #53324865,inset -2px -2px 3px #ffffff80;transform:scale(.94)}
+.popit-bubble[aria-pressed=true]:after{width:8px;height:8px;background:#573d523d;transform:none}
+.popit-bubble:focus-visible{outline:3px solid #284b59;outline-offset:1px;z-index:1}
+.popit-stamp{display:flex;justify-content:center;gap:20px;align-items:center;height:34px;color:#937b73;font-size:8px;font-weight:bold;letter-spacing:1.5px}
+.popit-stamp span{font-size:20px}
+.popit-summary{display:flex;justify-content:space-between;max-width:390px;margin:29px auto 0;font-size:12px;color:#72818a}
+#popit-count{color:#86516d;font-weight:bold}
+.popit-status{font-size:14px;min-height:22px;margin:16px 0;color:#86516d;line-height:1.5}
+#popit-flip{background:#8c5b83;box-shadow:0 4px 0 #674160;min-height:48px;padding:13px 27px}
+.popit-keyboard-note{font-size:11px;color:#72818a;margin:20px 0 0}
+.popit-toy.flipping{animation:popit-flip .4s ease}
+@keyframes popit-flip{50%{transform:rotate(2deg) scaleX(.84)}}
+@media(max-width:550px){.popit-badge{display:none}.popit-toolbar{margin-bottom:20px}.popit-toy{width:calc(100% - 10px);padding:10px 10px 0;border-radius:35px;transform:rotate(-1deg)}.popit-board{border-radius:24px}.popit-row{gap:6px;padding:7px 8px}.popit-intro{font-size:14px}.popit-palettes button{padding:10px 12px}.popit-stamp{gap:12px;font-size:7px;letter-spacing:1px}.popit-summary{padding:0 9px}.popit-status{min-height:42px;margin:14px 0 9px}}
+@media(prefers-reduced-motion:reduce){.popit-toy.flipping{animation:none}.popit-bubble{transition:none}}

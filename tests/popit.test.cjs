@@ -1,0 +1,67 @@
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const { pathToFileURL } = require('node:url');
+const { chromium } = require('playwright');
+(async () => {
+  const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL || 'msedge', headless: true });
+  try {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 960 } });
+    const errors = []; page.on('pageerror', error => errors.push(error.message));
+    await page.goto(pathToFileURL(path.resolve(__dirname, '../index.html')).href);
+    await page.locator('#choose-popit').click();
+    const bubbles = page.locator('.popit-bubble');
+    const pressed = () => page.locator('.popit-bubble[aria-pressed=true]').count();
+    assert.equal(await bubbles.count(), 36);
+    await bubbles.first().click(); await bubbles.first().click();
+    assert.equal(await pressed(), 1);
+    await bubbles.first().focus(); await page.keyboard.press('ArrowRight'); await page.keyboard.press('Enter');
+    assert.equal(await pressed(), 2);
+    await page.keyboard.press('ArrowDown'); await page.keyboard.press('Space');
+    assert.equal(await pressed(), 3);
+    await page.locator('[data-popit-palette=ocean]').click();
+    assert.equal(await page.locator('#popit-toy').getAttribute('data-palette'), 'ocean');
+    assert.equal(await pressed(), 3);
+    await page.locator('#popit-home').click();
+    await page.locator('#choose-popit').click(); assert.equal(await pressed(), 3);
+    const start = await bubbles.nth(12).boundingBox(), end = await bubbles.nth(17).boundingBox();
+    await page.mouse.move(start.x + start.width / 2, start.y + start.height / 2); await page.mouse.down();
+    await page.mouse.move(end.x + end.width / 2, end.y + end.height / 2, { steps: 30 }); await page.mouse.up();
+    assert.equal(await pressed(), 9);
+    for (let i = 0; i < 36; i++) await bubbles.nth(i).click();
+    assert.equal(await pressed(), 36);
+    assert.match(await page.locator('#popit-status').textContent(), /Todos hicieron pop/);
+    await page.locator('#popit-flip').click(); assert.equal(await pressed(), 0);
+    await page.locator('[data-popit-palette=rainbow]').click();
+    await bubbles.nth(7).click(); await bubbles.nth(14).click(); await bubbles.nth(21).click();
+    await page.screenshot({ path: '/tmp/popit-desktop.png', fullPage: true });
+    await page.locator('#sound').click();
+    assert.equal(await page.locator('#sound').getAttribute('aria-pressed'), 'false');
+    for (const width of [390, 320]) {
+      await page.setViewportSize({ width, height: 844 });
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+      await page.screenshot({ path: `/tmp/popit-mobile-${width}.png`, fullPage: true });
+    }
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    assert.equal(await bubbles.first().evaluate(el => getComputedStyle(el).transitionDuration), '0s');
+    await page.locator('#popit-home').click(); await page.locator('#choose-hangman').click();
+    assert.equal(await page.locator('#popit').isHidden(), true);
+    assert.equal(await page.locator('#hangman').isVisible(), true);
+    const touch = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+    const mobile = await touch.newPage();
+    mobile.on('pageerror', error => errors.push(error.message));
+    await mobile.goto(pathToFileURL(path.resolve(__dirname, '../index.html')).href);
+    await mobile.locator('#choose-popit').tap();
+    await mobile.locator('.popit-bubble').first().tap();
+    assert.equal(await mobile.locator('.popit-bubble[aria-pressed=true]').count(), 1);
+    const cdp = await touch.newCDPSession(mobile);
+    const a = await mobile.locator('.popit-bubble').nth(6).boundingBox();
+    const b = await mobile.locator('.popit-bubble').nth(11).boundingBox();
+    const x = a.x + a.width / 2, y = a.y + a.height / 2;
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
+    for (let i = 1; i <= 30; i++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x + (b.x + b.width / 2 - x) * i / 30, y: y + (b.y + b.height / 2 - y) * i / 30 }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    assert.equal(await mobile.locator('.popit-bubble[aria-pressed=true]').count(), 7);
+    assert.deepEqual(errors, []);
+    console.log('Pop it: clicks, drag, keyboard, touch swipe, reset, colors, navigation, mobile and reduced motion passed.');
+  } finally { await browser.close(); }
+})().catch(error => { console.error(error); process.exit(1); });

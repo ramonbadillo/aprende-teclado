@@ -1,0 +1,11 @@
+children-cheer.mp3
+
+Title: yay.mp3
+Author: Disarmenemyships
+Source: https://freesound.org/people/Disarmenemyships/sounds/563845/
+Audio: https://cdn.freesound.org/previews/563/563845_11121005-hq.mp3
+License: Creative Commons Zero (CC0 1.0)
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Downloaded on 2026-10-09. The source lists the sound as CC0.
+The audio file is included locally, unchanged; playback volume is reduced in the game.

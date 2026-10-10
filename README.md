@@ -1,6 +1,6 @@
 # Fabi y Soni · Juega con el teclado
 
-Cinco actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, recursos externos ni backend.
+Siete actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, conexiones a recursos externos ni backend.
 
 ## Ejecutar localmente
 
@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/`, `timer/`, `breathing/` y `piano/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/` y `popit/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -16,11 +16,27 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas claves, servicios de pago ni configurar un dominio. La entrega contiene el código listo para publicar; no publica ni modifica la configuración remota del repositorio automáticamente.
 
-El script principal y los recursos del piano tienen una versión en su URL (`?v=…`) para descargar el código actualizado aunque GitHub Pages conserve archivos anteriores en caché. Al modificar esos archivos en una publicación futura, incrementa su versión en `index.html`. Si el navegador conserva el HTML anterior, usa **Ctrl + F5** después de publicar.
+El script principal y los recursos del piano y del ahorcado tienen una versión en su URL (`?v=…`) para descargar el código actualizado aunque GitHub Pages conserve archivos anteriores en caché. Al modificar esos archivos en una publicación futura, incrementa su versión en `index.html`. Si el navegador conserva el HTML anterior, usa **Ctrl + F5** después de publicar.
 
 ## Cómo jugar
 
-Elige **Fabi**, **Soni**, **Tiempo con calma**, **Respira con la mariposa** o **Mi primer piano** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+Elige **Fabi**, **Soni**, **Tiempo con calma**, **Respira con la mariposa**, **Mi primer piano** o **Ahorcado** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+
+### Mi pop it · Pop, pop, ¡pop!
+
+- Presiona las 36 burbujas con ratón, pantalla táctil o teclado; desliza el dedo o arrastra el ratón para presionar varias. Cada burbuja cuenta una sola vez hasta darle la vuelta.
+- Elige **Arcoíris**, **Océano** o **Caramelo** sin perder el avance. **Darle la vuelta** restaura todas las burbujas en cualquier momento. Al completar el tablero aparece una invitación a jugar de nuevo, sin reloj ni penalizaciones.
+- Con Tab llegas al tablero; las flechas recorren las burbujas y Enter/Espacio las presionan. La preferencia de sonido es compartida y el pop se genera localmente, sin descargar audio. Conserva el tablero al salir y volver; recargar lo reinicia.
+- `popit/popit.js` controla las burbujas, entradas y audio; `popit/popit.css` define el juguete, paletas y diseño adaptable. Prueba con `BROWSER_CHANNEL=chrome node tests/popit.test.cjs` si Playwright está disponible: clics, arrastre, teclado, deslizamiento táctil, reinicio, navegación, colores y anchos de 390/320 px.
+
+### Ahorcado · La palabra secreta
+
+- Escoge una categoría arriba del dibujo: **Todas**, **Animales**, **Naturaleza**, **Comida**, **En casa**, **Música** o **Compañeritos de Fabi**. Hay 24 palabras y nueve nombres: Mariano, Isabela, Jade, Cami, Sarah, Farah, Fabian, Sofi Macias y Sofi Mongalo. Cada reto incluye una pista. Se barajan sin repetirse hasta recorrer la categoría y se evita repetir el último al empezar otra vuelta.
+- Al cambiar de categoría empieza un reto con seis intentos y una letra de regalo disponible. **Otra palabra** sigue en la categoría elegida. El espacio entre nombre y apellido ya está puesto: no hace falta adivinarlo, no cuenta como letra ni consume la ayuda. Al salir y volver se conserva la selección hasta recargar.
+- Escribe una letra o pulsa los botones en pantalla. Cada fallo añade una parte al dibujo; tienes seis intentos. Una letra repetida no resta intentos y todas sus apariciones se revelan juntas. Se aceptan mayúsculas, minúsculas y vocales con tilde; Ñ y N son letras diferentes. ÁRBOL y LÁPIZ muestran su ortografía con tilde.
+- **Regálame una letra** descubre una letra pendiente una vez por palabra, sin gastar intentos. **Otra palabra** permite cambiar en cualquier momento. Al acertar o agotar los intentos, se revela la palabra completa y puedes jugar otra vez.
+- Al completar una palabra suena un festejo de niños y aparecen emojis de celebración. El audio está incluido localmente bajo CC0 (fuente y licencia en `hangman/AUDIO-LICENSE.txt`). El festejo termina al silenciar, cambiar de palabra, salir o perder el foco; con movimiento reducido, los emojis aparecen sin animación.
+- Funciona con teclado, ratón y pantalla táctil, sin reloj. Al volver al menú conserva la palabra y deja de recibir letras; recargar inicia de nuevo. Comparte la preferencia de sonido, sin guardar progreso adicional.
 
 ### Mi primer piano · para Fabi y Soni
 
@@ -90,6 +106,8 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 - `timer/timer.js`: cuenta basada en tiempo real, etapas visuales, validación de duración y pausa al salir; `timer/timer.css`: reloj de color y controles táctiles.
 - `breathing/breathing.js`: cuatro ciclos, animación sincronizada, pausa y limpieza al salir; `breathing/breathing.css`: jardín, alas, selector y movimiento reducido.
 - `piano/audio.js`: afinación, armónicos, apagado de notas y límite de voces; `piano/piano.js`: teclado físico y táctil, acordes, limpieza y guía de Estrellita; `piano/piano.css`: instrumento adaptable y teclas iluminadas.
+- `hangman/hangman.js`: palabras, pistas, intentos, letras de regalo y teclado físico/táctil; `hangman/hangman.css`: dibujo, letras y diseño adaptable.
+- `tests/hangman.test.cjs`: aciertos, final de partida, letras repetidas, pistas, tildes/Ñ, navegación y pantallas pequeñas.
 - `tests/piano.test.cjs`: afinación y límites de audio, acordes, entradas simultáneas, melodía, accesibilidad, silencio, navegación, pantalla táctil y vistas móviles.
 - `tests/breathing.test.cjs`: integración de la mariposa en Edge con reloj controlado, navegación, pausas, sonido y vistas móviles.
 - `tests/timer.test.cjs`: integración del timer en Edge, con tiempo controlado para comprobar etapas, pausa, final y navegación sin esperar minutos reales.
@@ -101,6 +119,8 @@ Los archivos de Soni se cargan con scripts clásicos `defer` ordenados; también
 ## Comprobar el nuevo juego
 
 Con Node.js, Playwright disponible y Microsoft Edge instalado, ejecuta `node tests/keyboard.test.cjs`. Las pruebas usan un navegador de prueba sin interfaz visible, sin alterar el perfil habitual. La variable opcional `SCREENSHOT_DIR` guarda capturas para revisar el diseño.
+
+Para comprobar el ahorcado, ejecuta `node tests/hangman.test.cjs`. También puedes usar Chrome con `BROWSER_CHANNEL=chrome node tests/hangman.test.cjs`. `SCREENSHOT_DIR` guarda capturas. `node tests/hangman-celebration.test.cjs` comprueba la reproducción real del audio local, el silencio, los emojis y su limpieza; también acepta `BROWSER_CHANNEL=chrome`. `node tests/hangman-categories.test.cjs` comprueba categorías, los nueve nombres, espacios, ayudas y distribución de nombres largos en móvil.
 
 Para comprobar el timer, ejecuta también `node tests/timer.test.cjs`. Revisa duraciones inválidas, las tres etapas y el área restante, pausa/continuación, salida y regreso, Escape, final único, repetición, reinicio, silencio, movimiento reducido y vistas de 390 y 320 px.
 

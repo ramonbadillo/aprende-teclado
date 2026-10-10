@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="./timer/timer.css">
   <link rel="stylesheet" href="./breathing/breathing.css">
   <link rel="stylesheet" href="./piano/piano.css?v=1">
+  <link rel="stylesheet" href="./hangman/hangman.css?v=3">
+  <link rel="stylesheet" href="./popit/popit.css?v=1">
   <script src="./soni/keyboard.js" defer></script>
   <script src="./soni/bursts.js" defer></script>
   <script src="./soni/audio.js" defer></script>
@@ -22,7 +24,9 @@
   <script src="./breathing/breathing.js" defer></script>
   <script src="./piano/audio.js?v=1" defer></script>
   <script src="./piano/piano.js?v=1" defer></script>
-  <script src="./script.js?v=2" defer></script>
+  <script src="./hangman/hangman.js?v=4" defer></script>
+  <script src="./popit/popit.js?v=1" defer></script>
+  <script src="./script.js?v=5" defer></script>
 </head>
 <body>
   <svg class="svg-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -42,20 +46,78 @@
     <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
   </header>
   <main>
-    <p class="mobile-notice">Los juegos de teclado se disfrutan mejor en computadora. ¡El piano, el reloj y la mariposa también funcionan aquí!</p>
+    <p class="mobile-notice">Los juegos de teclado se disfrutan mejor en computadora. ¡El pop it, el ahorcado, el piano, el reloj y la mariposa también funcionan aquí!</p>
     <section id="chooser" class="screen chooser-screen" aria-labelledby="chooser-title">
       <div class="chooser-art" aria-hidden="true">☁ <span>🌈</span> ☁</div>
       <p class="eyebrow">UN POQUITO DE MAGIA PARA CADA UNA</p>
       <h1 id="chooser-title" tabindex="-1">¿Qué vamos a <span>hacer?</span></h1>
       <p class="intro">Aprender, jugar y hacer una pausa con calma.</p>
       <div class="game-choices">
+        <button id="choose-popit" class="game-choice popit-choice"><span class="choice-art" aria-hidden="true">🌈 🫧</span><strong>Pop, pop, ¡pop!</strong><span class="choice-title">Mi pop it</span><span class="choice-description">Burbujitas de colores para tocar y disfrutar.</span><span class="choice-link">Vamos a hacer pop <span aria-hidden="true">→</span></span></button>
         <button id="choose-fabi" class="game-choice fabi-choice"><span class="choice-art" aria-hidden="true">👧 🎈</span><strong>Fabi</strong><span class="choice-title">Aprende el teclado</span><span class="choice-description">Letras, sílabas y pequeños descubrimientos.</span><span class="choice-link">Vamos a aprender <span aria-hidden="true">→</span></span></button>
         <button id="choose-soni" class="game-choice soni-choice"><span class="choice-art" aria-hidden="true">👶 ✨</span><strong>Soni</strong><span class="choice-title">Teclado Mágico</span><span class="choice-description">Toca las teclas y deja que pase la magia.</span><span class="choice-link">Vamos a jugar <span aria-hidden="true">→</span></span></button>
         <button id="choose-timer" class="game-choice timer-choice"><span class="choice-art" aria-hidden="true">⏳ ☀️</span><strong>Nuestro ratito</strong><span class="choice-title">Tiempo con calma</span><span class="choice-description">Un reloj de colores para ver cuánto falta.</span><span class="choice-link">Vamos sin prisas <span aria-hidden="true">→</span></span></button>
         <button id="choose-breathing" class="game-choice breathing-choice"><span class="choice-art" aria-hidden="true">🦋 🌿</span><strong>Una pausa</strong><span class="choice-title">Respira con la mariposa</span><span class="choice-description">Abre sus alas, suelta el aire y disfruta un ratito de calma.</span><span class="choice-link">Vamos a respirar <span aria-hidden="true">→</span></span></button>
         <button id="choose-piano" class="game-choice piano-choice"><span class="choice-art" aria-hidden="true">🎹 🎵</span><strong>Pequeñas melodías</strong><span class="choice-title">Mi primer piano</span><span class="choice-description">Convierte tu teclado en música y descubre cada nota.</span><span class="choice-link">Vamos a tocar <span aria-hidden="true">→</span></span></button>
+        <button id="choose-hangman" class="game-choice hangman-choice"><span class="choice-art" aria-hidden="true">🔎 ✏️</span><strong>Palabra secreta</strong><span class="choice-title">El ahorcado</span><span class="choice-description">Una pista, unas letras… ¡y una palabra por descubrir!</span><span class="choice-link">Vamos a adivinar <span aria-hidden="true">→</span></span></button>
       </div>
       <p class="gentle-note">Un ratito para aprender, jugar y disfrutar.</p>
+    </section>
+    <section id="popit" class="screen popit-screen" hidden aria-labelledby="popit-title">
+      <div class="popit-toolbar"><button id="popit-home" class="quiet-button">← Elegir actividad</button><span class="popit-badge">UN RATITO PARA DISFRUTAR</span></div>
+      <p class="eyebrow">PEQUEÑAS BURBUJAS, GRANDES SONRISAS</p>
+      <h1 id="popit-title" tabindex="-1">Pop, pop, <span>¡pop!</span></h1>
+      <p class="popit-intro" id="popit-instructions">Toca las burbujitas o desliza tus dedos. Tú pones el ritmo.</p>
+      <div class="popit-palettes" role="group" aria-label="Colores del pop it">
+        <button data-popit-palette="rainbow" aria-pressed="true">🌈 Arcoíris</button>
+        <button data-popit-palette="ocean" aria-pressed="false">🌊 Océano</button>
+        <button data-popit-palette="candy" aria-pressed="false">🍬 Caramelo</button>
+      </div>
+      <div class="popit-toy" id="popit-toy" data-palette="rainbow">
+        <div class="popit-board" id="popit-board" role="group" aria-label="Pop it de 36 burbujas" aria-describedby="popit-instructions"></div>
+        <div class="popit-stamp" aria-hidden="true">FABI & SONI <span>✿</span> HECHO PARA JUGAR</div>
+      </div>
+      <div class="popit-summary"><span id="popit-count">0 / 36 pops</span><span>Sin reloj. Sin prisas.</span></div>
+      <p id="popit-status" class="popit-status" role="status" aria-live="polite">Un color, una burbuja… ¡empieza donde quieras!</p>
+      <button id="popit-flip" class="primary-button">↻ Darle la vuelta</button>
+      <p class="popit-keyboard-note">También puedes usar Tab, las flechas y Enter para hacer pop.</p>
+    </section>
+    <section id="hangman" class="screen hangman-screen" hidden aria-labelledby="hangman-title">
+      <audio id="hangman-cheer" src="./hangman/children-cheer.mp3" preload="auto" hidden></audio>
+      <div id="hangman-celebration" class="hangman-celebration" aria-hidden="true" hidden></div>
+      <div class="hangman-toolbar"><button id="hangman-home" class="quiet-button">← Elegir actividad</button><span class="hangman-badge">🔎 El ahorcado</span></div>
+      <p class="eyebrow">LETRA A LETRA, UN DESCUBRIMIENTO</p>
+      <h1 id="hangman-title" tabindex="-1">La palabra <span>secreta</span></h1>
+      <p class="hangman-intro" id="hangman-instructions">Adivina la palabra antes de completar el dibujo.<br>Escribe una letra o tócala aquí abajo. Tienes 6 intentos.</p>
+      <div class="hangman-category-picker">
+        <p id="hangman-categories-label">¿Con qué vamos a jugar?</p>
+        <div id="hangman-categories" class="hangman-categories" role="group" aria-labelledby="hangman-categories-label"></div>
+      </div>
+      <div class="hangman-board">
+        <div class="hangman-sketch">
+          <svg viewBox="0 0 220 240" aria-hidden="true" class="hangman-drawing">
+            <path class="hangman-frame" d="M30 218H190M60 218V25H145V48M60 58L92 25"/>
+            <g class="hangman-part"><circle cx="145" cy="70" r="22"/><path d="M137 76Q145 83 153 76"/><circle cx="138" cy="65" r="1"/><circle cx="152" cy="65" r="1"/></g>
+            <path class="hangman-part" d="M145 92V153"/>
+            <path class="hangman-part" d="M145 107L114 133"/>
+            <path class="hangman-part" d="M145 107L176 133"/>
+            <path class="hangman-part" d="M145 153L119 191"/>
+            <path class="hangman-part" d="M145 153L171 191"/>
+          </svg>
+          <p id="hangman-attempts" class="hangman-attempts"></p>
+          <div id="hangman-lives" class="hangman-lives" aria-hidden="true"></div>
+        </div>
+        <div class="hangman-puzzle">
+          <p id="hangman-category" class="hangman-category"></p>
+          <p id="hangman-clue" class="hangman-clue"></p>
+          <div id="hangman-word" class="hangman-word" role="img"></div>
+          <p id="hangman-status" class="hangman-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        </div>
+      </div>
+      <div id="hangman-keyboard" class="hangman-keyboard" role="group" aria-label="Letras para adivinar" aria-describedby="hangman-instructions"></div>
+      <p class="hangman-key-legend">✓ Está en la palabra · × Prueba otra letra</p>
+      <div class="hangman-actions"><button id="hangman-hint" class="quiet-button">✦ Regálame una letra</button><button id="hangman-next" class="primary-button">Otra palabra →</button></div>
+      <p class="hangman-note">Sin reloj y a tu ritmo. Cada palabra es una nueva oportunidad.</p>
     </section>
     <section id="piano" class="screen piano-screen" hidden aria-labelledby="piano-title">
       <div class="piano-toolbar"><button id="piano-home" class="quiet-button">← Elegir actividad</button><span class="piano-badge">♫ Un piano para Fabi y Soni</span></div>
