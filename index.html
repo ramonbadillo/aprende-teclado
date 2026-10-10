@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="./piano/piano.css?v=1">
   <link rel="stylesheet" href="./hangman/hangman.css?v=3">
   <link rel="stylesheet" href="./popit/popit.css?v=1">
+  <script src="./navigation.js" defer></script>
   <script src="./soni/keyboard.js" defer></script>
   <script src="./soni/bursts.js" defer></script>
   <script src="./soni/audio.js" defer></script>
@@ -42,13 +43,13 @@
     <div class="hill hill-back"></div><div class="hill hill-front"></div>
   </div>
   <header class="site-header">
-    <a class="brand" href="./index.html" aria-label="El mundo de Fabi, elegir juego"><svg viewBox="0 0 40 46" aria-hidden="true"><ellipse cx="14" cy="15" rx="10" ry="13" fill="#ed8768"/><ellipse cx="28" cy="21" rx="9" ry="12" fill="#e8ba53"/><path d="m14 28 5 16m9-11-9 11" stroke="#607883" fill="none"/></svg><span>El mundo <b>de Fabi</b></span></a>
+    <a class="brand" href="./" data-site-link aria-label="El mundo de Fabi, elegir juego"><svg viewBox="0 0 40 46" aria-hidden="true"><ellipse cx="14" cy="15" rx="10" ry="13" fill="#ed8768"/><ellipse cx="28" cy="21" rx="9" ry="12" fill="#e8ba53"/><path d="m14 28 5 16m9-11-9 11" stroke="#607883" fill="none"/></svg><span>El mundo <b>de Fabi</b></span></a>
     <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
   </header>
   <main>
     <p class="mobile-notice">Los juegos de teclado se disfrutan mejor en computadora. ¡El pop it, el ahorcado, el piano, el reloj y la mariposa también funcionan aquí!</p>
     <section id="chooser" class="screen chooser-screen" aria-labelledby="chooser-title">
-      <a class="quiet-button invitation-link" href="./fiesta-de-7-anos/index.html"><span aria-hidden="true">←</span> Volver a la invitación</a>
+      <a class="quiet-button invitation-link" href="./fiesta-de-7-anos/" data-site-link><span aria-hidden="true">←</span> Volver a la invitación</a>
       <div class="chooser-art" aria-hidden="true">☁ <span>🌈</span> ☁</div>
       <p class="eyebrow">UN POQUITO DE MAGIA PARA CADA UNA</p>
       <h1 id="chooser-title" tabindex="-1">¿Qué vamos a <span>hacer?</span></h1>

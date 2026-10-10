@@ -8,13 +8,13 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
 5. Cuando GitHub termine el despliegue, abre la dirección que muestra Pages: `https://TU-USUARIO.github.io/TU-REPOSITORIO/`.
 
-Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas claves, servicios de pago ni configurar un dominio. La entrega contiene el código listo para publicar; no publica ni modifica la configuración remota del repositorio automáticamente.
+Los enlaces públicos usan direcciones de carpeta, sin `index.html`. `navigation.js` limpia las direcciones antiguas al abrirlas por HTTP/HTTPS y conserva la navegación entre archivos al abrir el sitio localmente. Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas claves, servicios de pago ni configurar un dominio. La entrega contiene el código listo para publicar; no publica ni modifica la configuración remota del repositorio automáticamente.
 
 El script principal y los recursos del piano y del ahorcado tienen una versión en su URL (`?v=…`) para descargar el código actualizado aunque GitHub Pages conserve archivos anteriores en caché. Al modificar esos archivos en una publicación futura, incrementa su versión en `index.html`. Si el navegador conserva el HTML anterior, usa **Ctrl + F5** después de publicar.
 
