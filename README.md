@@ -1,4 +1,4 @@
-# Fabi y Soni · Juega con el teclado
+# El mundo de Fabi
 
 Siete actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, conexiones a recursos externos ni backend.
 
