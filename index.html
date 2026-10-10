@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="./piano/piano.css?v=1">
   <link rel="stylesheet" href="./hangman/hangman.css?v=3">
   <link rel="stylesheet" href="./popit/popit.css?v=1">
+  <link rel="stylesheet" href="./clay/clay.css?v=5">
   <script src="./navigation.js" defer></script>
   <script src="./soni/keyboard.js" defer></script>
   <script src="./soni/bursts.js" defer></script>
@@ -27,7 +28,8 @@
   <script src="./piano/piano.js?v=1" defer></script>
   <script src="./hangman/hangman.js?v=4" defer></script>
   <script src="./popit/popit.js?v=1" defer></script>
-  <script src="./script.js?v=5" defer></script>
+  <script src="./clay/clay.js?v=4" defer></script>
+  <script src="./script.js?v=6" defer></script>
 </head>
 <body>
   <svg class="svg-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +49,7 @@
     <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
   </header>
   <main>
-    <p class="mobile-notice">Los juegos de teclado se disfrutan mejor en computadora. ¡El pop it, el ahorcado, el piano, el reloj y la mariposa también funcionan aquí!</p>
+    <p class="mobile-notice">Los juegos de teclado se disfrutan mejor en computadora. ¡Plasticonejo, el pop it, el ahorcado, el piano, el reloj y la mariposa también funcionan aquí!</p>
     <section id="chooser" class="screen chooser-screen" aria-labelledby="chooser-title">
       <a class="quiet-button invitation-link" href="./fiesta-de-7-anos/" data-site-link><span aria-hidden="true">←</span> Volver a la invitación</a>
       <div class="chooser-art" aria-hidden="true">☁ <span>🌈</span> ☁</div>
@@ -55,8 +57,9 @@
       <h1 id="chooser-title" tabindex="-1">¿Qué vamos a <span>hacer?</span></h1>
       <p class="intro">Aprender, jugar y hacer una pausa con calma.</p>
       <div class="game-choices">
-        <button id="choose-fabi" class="game-choice fabi-choice"><span class="choice-art" aria-hidden="true">👧 🎈</span><strong>Fabi</strong><span class="choice-title">Aprende el teclado</span><span class="choice-description">Letras, sílabas y pequeños descubrimientos.</span><span class="choice-link">Vamos a aprender <span aria-hidden="true">→</span></span><span class="keyboard-required"><span aria-hidden="true">⌨️</span> Requiere teclado</span></button>
-        <button id="choose-soni" class="game-choice soni-choice"><span class="choice-art" aria-hidden="true">👶 ✨</span><strong>Soni</strong><span class="choice-title">Teclado Mágico</span><span class="choice-description">Toca las teclas y deja que pase la magia.</span><span class="choice-link">Vamos a jugar <span aria-hidden="true">→</span></span><span class="keyboard-required"><span aria-hidden="true">⌨️</span> Requiere teclado</span></button>
+        <button id="choose-clay" class="game-choice clay-choice"><span class="choice-art" aria-hidden="true">✿ ABC</span><strong>Plasticonejo</strong><span class="choice-title">Busca, toca y estampa</span><span class="choice-description">Letras regadas y palabras que dejan huella.</span><span class="choice-link">Vamos al taller <span aria-hidden="true">→</span></span></button>
+        <button id="choose-fabi" class="game-choice fabi-choice"><span class="choice-art" aria-hidden="true">👧 🎈</span><strong>Globos de letras</strong><span class="choice-title">Aprende el teclado</span><span class="choice-description">Escribe letras, sílabas y palabras para llenar el cielo de globos.</span><span class="choice-link">Vamos a aprender <span aria-hidden="true">→</span></span><span class="keyboard-required"><span aria-hidden="true">⌨️</span> Requiere teclado</span></button>
+        <button id="choose-soni" class="game-choice soni-choice"><span class="choice-art" aria-hidden="true">👶 ✨</span><strong>Teclado mágico</strong><span class="choice-title">Explora colores y sonidos</span><span class="choice-description">Presiona cualquier tecla y descubre luces, figuras y sonidos.</span><span class="choice-link">Vamos a jugar <span aria-hidden="true">→</span></span><span class="keyboard-required"><span aria-hidden="true">⌨️</span> Requiere teclado</span></button>
         <button id="choose-timer" class="game-choice timer-choice"><span class="choice-art" aria-hidden="true">⏳ ☀️</span><strong>Nuestro ratito</strong><span class="choice-title">Tiempo con calma</span><span class="choice-description">Un reloj de colores para ver cuánto falta.</span><span class="choice-link">Vamos sin prisas <span aria-hidden="true">→</span></span></button>
         <button id="choose-breathing" class="game-choice breathing-choice"><span class="choice-art" aria-hidden="true">🦋 🌿</span><strong>Una pausa</strong><span class="choice-title">Respira con la mariposa</span><span class="choice-description">Abre sus alas, suelta el aire y disfruta un ratito de calma.</span><span class="choice-link">Vamos a respirar <span aria-hidden="true">→</span></span></button>
         <button id="choose-piano" class="game-choice piano-choice"><span class="choice-art" aria-hidden="true">🎹 🎵</span><strong>Pequeñas melodías</strong><span class="choice-title">Mi primer piano</span><span class="choice-description">Convierte tu teclado en música y descubre cada nota.</span><span class="choice-link">Vamos a tocar <span aria-hidden="true">→</span></span></button>
@@ -64,6 +67,84 @@
         <button id="choose-popit" class="game-choice popit-choice"><span class="choice-art" aria-hidden="true">🌈 🫧</span><strong>Pop, pop, ¡pop!</strong><span class="choice-title">Mi pop it</span><span class="choice-description">Burbujitas de colores para tocar y disfrutar.</span><span class="choice-link">Vamos a hacer pop <span aria-hidden="true">→</span></span></button>
       </div>
       <p class="gentle-note">Un ratito para aprender, jugar y disfrutar.</p>
+    </section>
+    <section id="clay" class="screen clay-screen" hidden aria-labelledby="clay-title">
+      <div class="clay-toolbar"><button id="clay-home" class="quiet-button">← Elegir actividad</button><span class="clay-badge">✿ MI TALLER DE PALABRAS</span></div>
+      <h1 id="clay-title" tabindex="-1"><span>Plasticonejo</span></h1>
+      <p class="clay-intro" id="clay-instructions">Encuentra las letras y deja su huella. ¡Con el teclado o tocándolas!</p>
+      <div class="clay-difficulties" role="group" aria-label="Dificultad del juego">
+        <button type="button" data-clay-difficulty="easy" aria-pressed="false"><strong>Fácil</strong><span>20 letras</span></button>
+        <button type="button" data-clay-difficulty="medium" aria-pressed="true"><strong>Mediano</strong><span>32 letras</span></button>
+        <button type="button" data-clay-difficulty="hard" aria-pressed="false"><strong>Difícil</strong><span>48 letras</span></button>
+      </div>
+      <div class="clay-workbench">
+        <div class="clay-bench-heading"><span>BUSCA · TOCA · ESTAMPA</span><span id="clay-round"></span></div>
+        <div id="clay-letters-top" class="clay-scatter" role="group" aria-label="Letras regadas arriba" aria-describedby="clay-instructions"></div>
+        <div class="clay-center">
+          <div id="clay-dough" class="clay-dough" data-color="lilac">
+            <svg class="clay-surface" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <defs>
+                <path id="clay-handmade-shape" d="M34 82C43 56 79 40 125 39C168 39 170 19 228 24C274 29 291 17 337 18C383 19 401 32 452 23C508 12 537 23 579 27C626 32 655 14 703 27C742 38 772 27 813 42C845 54 875 42 905 61C927 75 938 75 948 95C958 115 945 127 962 149C980 173 962 190 945 207C931 221 942 236 914 251C883 267 853 257 825 270C794 285 757 270 716 279C672 289 638 273 592 280C547 287 520 275 481 283C438 292 412 274 368 280C325 286 306 268 265 275C217 283 198 260 156 262C113 264 103 245 75 239C43 232 54 215 37 199C15 178 34 158 25 138C16 117 23 101 34 82Z"/>
+                <linearGradient id="clay-soft-light" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff" stop-opacity=".3"/><stop offset=".28" stop-color="#fff" stop-opacity=".08"/><stop offset=".65" stop-color="#422635" stop-opacity="0"/><stop offset="1" stop-color="#422635" stop-opacity=".16"/></linearGradient>
+                <radialGradient id="clay-thumb-dent"><stop stop-color="#473040" stop-opacity=".13"/><stop offset=".7" stop-color="#473040" stop-opacity=".04"/><stop offset="1" stop-color="#473040" stop-opacity="0"/></radialGradient>
+                <clipPath id="clay-surface-clip"><use href="#clay-handmade-shape"/></clipPath>
+                <filter id="clay-grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+              </defs>
+              <use href="#clay-handmade-shape" fill="var(--edge)" transform="translate(0 6)"/>
+              <use href="#clay-handmade-shape" fill="var(--dough)"/>
+              <use href="#clay-handmade-shape" fill="url(#clay-soft-light)"/>
+              <g clip-path="url(#clay-surface-clip)">
+                <ellipse cx="122" cy="82" rx="74" ry="38" fill="url(#clay-thumb-dent)" transform="rotate(-15 122 82)"/>
+                <ellipse cx="843" cy="222" rx="96" ry="34" fill="url(#clay-thumb-dent)" transform="rotate(-12 843 222)"/>
+                <ellipse cx="770" cy="59" rx="65" ry="22" fill="url(#clay-thumb-dent)"/>
+                <path d="M70 92Q87 62 132 63M192 44Q215 37 247 43M856 68Q893 64 914 89M78 210Q96 232 128 228M755 258Q805 248 827 254" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="5" stroke-linecap="round"/>
+                <path d="M62 101Q77 77 104 75M72 106Q86 85 109 82M847 234Q880 233 896 217M851 242Q883 239 904 223M269 258Q284 253 300 258" fill="none" stroke="var(--press)" stroke-opacity=".12" stroke-width="2.5" stroke-linecap="round"/>
+                <rect width="1000" height="300" filter="url(#clay-grain)" opacity=".12" style="mix-blend-mode:soft-light"/>
+              </g>
+            </svg>
+            <p id="clay-cue" class="clay-cue">TU PALABRA DE PLASTILINA</p>
+            <div id="clay-word" class="clay-word" role="img" aria-label="Palabra por descubrir"></div>
+            <p id="clay-progress" class="clay-progress"></p>
+          </div>
+          <div id="clay-bunny" class="clay-bunny" role="img" aria-label="Un conejito de plastilina te acompaña">
+            <svg viewBox="0 0 180 220" aria-hidden="true" focusable="false">
+              <defs>
+                <radialGradient id="bunny-clay" cx=".35" cy=".25" r=".8"><stop stop-color="#fff4df"/><stop offset=".58" stop-color="#eddbc0"/><stop offset="1" stop-color="#c2a586"/></radialGradient>
+                <radialGradient id="bunny-pink" cx=".3" cy=".25" r=".8"><stop stop-color="#f5b9ad"/><stop offset="1" stop-color="#d58b83"/></radialGradient>
+                <filter id="bunny-soft-shadow" x="-30%" y="-20%" width="160%" height="150%"><feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#795b50" flood-opacity=".2"/></filter>
+              </defs>
+              <ellipse class="clay-bunny-shadow" cx="91" cy="203" rx="51" ry="9" fill="#765e4a" opacity=".16"/>
+              <g class="clay-bunny-body" filter="url(#bunny-soft-shadow)">
+                <path d="M126 164C143 151 158 161 154 175C152 186 137 188 128 180Z" fill="url(#bunny-clay)"/>
+                <path d="M59 143C49 154 45 180 58 192C71 204 116 204 129 190C141 176 130 151 120 141Z" fill="url(#bunny-clay)"/>
+                <path d="M73 158C68 164 66 183 78 188C90 193 107 189 111 181C117 162 101 149 88 152Z" fill="#fff1da" opacity=".65"/>
+                <g class="clay-bunny-ear clay-bunny-ear-left"><path d="M62 96C51 77 37 35 47 20C60 2 78 39 80 60L82 97Z" fill="url(#bunny-clay)"/><path d="M63 78C55 58 48 33 54 28C60 26 70 52 72 77Z" fill="url(#bunny-pink)"/></g>
+                <g class="clay-bunny-ear clay-bunny-ear-right"><path d="M98 92C96 62 112 12 126 17C143 20 137 53 125 79L118 100Z" fill="url(#bunny-clay)"/><path d="M108 78C109 59 119 29 125 28C132 29 124 59 117 79Z" fill="url(#bunny-pink)"/></g>
+                <path d="M49 96C55 81 73 79 89 82C107 76 127 87 133 100C146 120 135 144 115 150C97 157 69 153 53 143C38 133 39 111 49 96Z" fill="url(#bunny-clay)"/>
+                <path d="M53 103Q55 94 65 92M113 91Q123 94 127 103" fill="none" stroke="#fff8e9" stroke-opacity=".6" stroke-width="3" stroke-linecap="round"/>
+                <ellipse cx="59" cy="125" rx="10" ry="7" fill="#e6a294" opacity=".7"/><ellipse cx="121" cy="125" rx="10" ry="7" fill="#e6a294" opacity=".7"/>
+                <g class="clay-bunny-eyes"><ellipse cx="70" cy="112" rx="4.2" ry="5.3" fill="#513f43"/><ellipse cx="109" cy="112" rx="4.4" ry="5.2" fill="#513f43"/><circle cx="71" cy="110" r="1.4" fill="#fff"/><circle cx="110" cy="110" r="1.4" fill="#fff"/></g>
+                <path class="clay-bunny-happy-eyes" d="M64 113Q70 104 76 113M103 113Q109 104 115 113" fill="none" stroke="#513f43" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M84 122Q90 118 96 122Q97 125 90 129Q82 125 84 122Z" fill="url(#bunny-pink)"/>
+                <path d="M90 129V132M78 132Q83 140 90 132Q97 140 102 132" fill="none" stroke="#715154" stroke-width="2.2" stroke-linecap="round"/>
+                <g class="clay-bunny-paw clay-bunny-paw-left"><path d="M56 148C47 142 35 151 36 165C37 177 48 180 55 169C60 161 62 152 56 148Z" fill="url(#bunny-clay)"/><path d="M42 165L43 170M47 164L48 169" stroke="#b1957a" stroke-opacity=".55" stroke-width="1.5" stroke-linecap="round"/></g>
+                <g class="clay-bunny-paw clay-bunny-paw-right"><path d="M125 148C133 141 145 150 145 163C143 178 133 180 126 169C121 160 119 153 125 148Z" fill="url(#bunny-clay)"/><path d="M134 164L133 169M140 165L139 170" stroke="#b1957a" stroke-opacity=".55" stroke-width="1.5" stroke-linecap="round"/></g>
+                <path d="M67 185C50 180 39 191 45 199C50 207 72 207 79 199C83 193 77 188 67 185Z" fill="url(#bunny-clay)"/><path d="M111 185C126 181 139 192 134 200C129 208 107 208 101 200C96 193 102 187 111 185Z" fill="url(#bunny-clay)"/>
+                <path d="M53 195L54 200M60 195L61 201M119 196L118 201M126 195L125 200" stroke="#b1957a" stroke-opacity=".55" stroke-width="1.7" stroke-linecap="round"/>
+              </g>
+              <g class="clay-bunny-sparkles" fill="#d8a642"><path d="M24 65L27 73L35 76L27 79L24 87L21 79L13 76L21 73Z"/><path d="M155 84L158 92L167 95L158 98L155 106L152 98L144 95L152 92Z"/><circle cx="37" cy="116" r="3" fill="#b397cb"/><circle cx="145" cy="52" r="4" fill="#df9a8d"/></g>
+            </svg>
+            <span id="clay-bunny-message" class="clay-bunny-message" aria-hidden="true">¡Vamos, tú puedes!</span>
+          </div>
+        </div>
+        <div id="clay-letters-bottom" class="clay-scatter" role="group" aria-label="Letras regadas abajo" aria-describedby="clay-instructions"></div>
+        <div class="clay-bench-footer"><div class="clay-colors" role="group" aria-label="Color de la plastilina"><span>Tu color</span><button data-clay-color="lilac" aria-label="Lila" aria-pressed="true"></button><button data-clay-color="peach" aria-label="Durazno" aria-pressed="false"></button><button data-clay-color="mint" aria-label="Menta" aria-pressed="false"></button></div><span>⌨ Teclado &nbsp; · &nbsp; ☝ Ratón o dedo</span></div>
+      </div>
+      <p id="clay-status" class="clay-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div class="clay-actions"><button id="clay-hint" class="quiet-button">✦ Dame una pista</button><button id="clay-next" class="primary-button" hidden>Siguiente palabra →</button><label class="clay-guide"><input id="clay-guide" type="checkbox" checked> Ver el molde</label></div>
+      <div class="clay-collection"><h2>Mis palabras <span id="clay-total">0</span></h2><p id="clay-empty">Cada palabra terminada se queda aquí. ✿</p><div id="clay-gallery" aria-label="Palabras terminadas"></div></div>
+      <details class="clay-settings"><summary>✎ Cambiar la lista de palabras</summary><form id="clay-form"><label for="clay-list">Escribe hasta 30 palabras, separadas por comas o por renglones.</label><textarea id="clay-list" rows="3" maxlength="500" spellcheck="false" aria-describedby="clay-list-help clay-list-error"></textarea><p id="clay-list-help">De 2 a 12 letras por palabra. Puedes usar Ñ y tildes. Al guardar empieza una colección nueva.</p><p id="clay-list-error" role="status"></p><button class="quiet-button" type="submit">Guardar y jugar</button></form></details>
+      <p class="clay-note">Sin reloj, sin prisas. Una huellita a la vez.</p>
     </section>
     <section id="popit" class="screen popit-screen" hidden aria-labelledby="popit-title">
       <div class="popit-toolbar"><button id="popit-home" class="quiet-button">← Elegir actividad</button><span class="popit-badge">UN RATITO PARA DISFRUTAR</span></div>
@@ -209,8 +290,8 @@
       </div>
     </section>
     <section id="soni" class="screen soni-screen" hidden aria-labelledby="soni-title">
-      <div class="soni-toolbar"><button id="soni-home" class="quiet-button">← Elegir juego</button><span class="soni-badge">👶 Un cielo para Soni</span></div>
-      <div class="soni-heading"><p class="eyebrow">CADA TECLA ES UNA SORPRESA</p><h1 id="soni-title" tabindex="-1">Teclado Mágico <span>de Soni</span></h1></div>
+      <div class="soni-toolbar"><button id="soni-home" class="quiet-button">← Elegir juego</button><span class="soni-badge">✨ Colores y sonidos al tocar</span></div>
+      <div class="soni-heading"><p class="eyebrow">CADA TECLA ES UNA SORPRESA</p><h1 id="soni-title" tabindex="-1">Teclado <span>mágico</span></h1></div>
       <div id="soni-stage" class="soni-stage" aria-hidden="true"><div class="soni-idle"><span class="idle-star">✦</span><span class="idle-rainbow">🌈</span><span class="idle-bubble">🫧</span><p>¡Toca el teclado y haz magia!</p></div><div id="soni-particles" class="soni-particles"></div></div>
       <div class="soni-keyboard-panel"><div class="soni-keyboard-caption"><span>✨ Tus teclas mágicas</span><span>¡Todas hacen algo bonito!</span></div><div id="soni-keyboard" class="soni-keyboard" aria-label="Teclado físico: las teclas se iluminan mientras las presionas"></div></div>
     </section>
@@ -218,7 +299,7 @@
       <button id="fabi-chooser" class="quiet-button">← Elegir juego</button>
       <div class="welcome-art" aria-hidden="true"><svg class="little-balloon mint"><use href="#balloon-art"/></svg><svg class="little-balloon gold"><use href="#balloon-art"/></svg><svg class="little-balloon coral"><use href="#balloon-art"/></svg><span class="art-letter letter-a">A</span><span class="art-letter letter-b">B</span><span class="art-letter letter-f">F</span></div>
       <p class="eyebrow">UN POQUITO DE MAGIA, LETRA A LETRA</p>
-      <h1 id="home-title">Los globos <span>de Fabi</span></h1>
+      <h1 id="home-title">Globos <span>de letras</span></h1>
       <p class="intro">¡Encuentra las letras y llena el cielo de colores!</p>
       <div class="name-entry">
         <label for="player-name">¿Cómo te llamas?</label>
@@ -241,7 +322,7 @@
       <p id="feedback" class="feedback" role="status" aria-live="polite">¡Tú puedes! Busca la letra.</p>
       <div class="keyboard-panel"><div class="keyboard-caption"><span>Tu teclado, tu mapa de letras</span><button id="hint" class="hint-button">✧ Ver pista</button></div><div id="keyboard" class="keyboard" aria-label="Guía del teclado físico"></div><p class="keyboard-note">Usa el teclado de tu computadora para jugar</p></div>
     </section>
-    <section id="finish" class="screen finish-screen" hidden aria-labelledby="finish-title"><div class="finish-medal" aria-hidden="true">★</div><p class="eyebrow">10 GLOBOS, MUCHOS DESCUBRIMIENTOS</p><h1 id="finish-title" tabindex="-1">¡Lo hiciste, Fabi!</h1><p class="intro">Tu cielo ya está lleno de colores.</p><div class="achievement-row"><div><strong>10</strong><span>globos completados</span></div><div><strong id="round-letters">0</strong><span>letras acertadas</span></div><div><strong id="round-new">0</strong><span>letras practicadas</span></div></div><p id="finish-message" class="finish-message"></p><button id="replay" class="primary-button">Volver a jugar <span aria-hidden="true">↻</span></button><button id="rest" class="quiet-button rest-button">Descansar un ratito</button></section>
+    <section id="finish" class="screen finish-screen" hidden aria-labelledby="finish-title"><div class="finish-medal" aria-hidden="true">★</div><p class="eyebrow">10 GLOBOS, MUCHOS DESCUBRIMIENTOS</p><h1 id="finish-title" tabindex="-1">¡Lo hiciste!</h1><p class="intro">Tu cielo ya está lleno de colores.</p><div class="achievement-row"><div><strong>10</strong><span>globos completados</span></div><div><strong id="round-letters">0</strong><span>letras acertadas</span></div><div><strong id="round-new">0</strong><span>letras practicadas</span></div></div><p id="finish-message" class="finish-message"></p><button id="replay" class="primary-button">Volver a jugar <span aria-hidden="true">↻</span></button><button id="rest" class="quiet-button rest-button">Descansar un ratito</button></section>
   </main>
   <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span><button id="settings-open" class="settings-link">⚙ Ajustes para mamá y papá</button></footer>
   <dialog id="settings" aria-labelledby="settings-title"><form method="dialog"><div class="dialog-heading"><h2 id="settings-title">Ajustes para mamá y papá</h2><button class="close-button" aria-label="Cerrar ajustes" value="close">×</button></div><p>Un cielo a su medida. Los cambios se aplican en la próxima partida.</p><label class="setting-label" for="letter-set">Letras del nivel 1</label><select id="letter-set"><option value="starter">Primeros pasos · vocales + F, B</option><option value="growing">Un poco más · + M, P, L, S, T, N</option><option value="all">Todo el abecedario · incluida la Ñ</option></select><label class="setting-label" for="layout">Distribución del teclado</label><select id="layout"><option value="es">Español · con Ñ</option><option value="en">Inglés · sin Ñ</option></select><label class="setting-label" for="help">Ayuda para encontrar la tecla</label><select id="help"><option value="always">Siempre visible</option><option value="wait">Después de esperar 5 segundos</option><option value="request">A petición · botón Ver pista</option></select><div class="saved-progress"><h3>Sus pequeños grandes logros</h3><p id="saved-stats"></p><p id="practice-stats"></p></div><p class="storage-note" id="storage-note">El progreso se guarda solo en este navegador y computadora.</p><div id="erase-confirm" hidden><p>¿Borrar las partidas y el progreso? Los ajustes se conservarán. No se puede deshacer.</p><button type="button" id="erase-yes" class="danger-button">Sí, borrar progreso</button><button type="button" id="erase-no" class="quiet-button">Cancelar</button></div><div class="dialog-actions"><button type="button" id="erase" class="text-button">Borrar progreso</button><button class="primary-button small" value="done">Listo</button></div></form></dialog>

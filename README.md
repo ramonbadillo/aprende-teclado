@@ -1,6 +1,6 @@
 # El mundo de Fabi
 
-Siete actividades en español con un selector inicial: **Fabi — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Soni — Teclado Mágico** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, conexiones a recursos externos ni backend.
+Ocho actividades en español con un selector inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, conexiones a recursos externos ni backend.
 
 ## Ejecutar localmente
 
@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -28,7 +28,18 @@ La dirección anterior, `/invitacion/`, redirige a `/fiesta-de-7-anos/` para con
 
 ## Cómo jugar
 
-Elige **Fabi**, **Soni**, **Tiempo con calma**, **Respira con la mariposa**, **Mi primer piano** o **Ahorcado** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Fabi, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Fabi.
+Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira con la mariposa**, **Mi primer piano** o **Ahorcado** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Globos de letras, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Globos de letras.
+
+### Plasticonejo · Busca, toca y estampa
+
+- Elige **Fácil (20 letras)**, **Mediano (32 letras)** o **Difícil (48 letras)** y busca con el teclado, el ratón o la pantalla táctil. Empieza en Mediano. Puedes cambiar de dificultad sin perder las huellitas de la palabra actual ni tu colección; solo se reorganizan las letras. La dificultad se mantiene al salir al menú y vuelve a Mediano al recargar. Incluyen todas las letras de la palabra y otras para hacer más entretenida la búsqueda. Cada acierto estampa una letra en la plastilina del centro; puedes encontrarlas en cualquier orden. Las repetidas se estampan una por una, sin perder el avance al equivocarse. No hay reloj ni vidas.
+- La lista inicial es **rosas, dibujos, juguetes, papa, mama, silla, computadora, pepe, lego y flores**. Se recorre en ese orden; **Siguiente palabra** aparece al completar cada una. Todas quedan en una colección durante la sesión. **Volver a jugar** empieza una colección nueva al terminar.
+- Un conejito de plastilina acompaña la palabra. Al completarla levanta las patitas, da tres saltitos y se queda sonriendo. El festejo se detiene al salir, perder el foco o cambiar de pestaña; con movimiento reducido, celebra con su sonrisa y estrellas sin saltar.
+- **Ver el molde** muestra las siluetas de las letras. Desmárcalo para descubrirlas sin ver la palabra. **Dame una pista** señala una letra pendiente con una estrella, sin resolverla. Elige plastilina lila, durazno o menta sin perder el avance.
+- **Cambiar la lista de palabras** admite hasta 30 palabras distintas, de 2 a 12 letras, separadas por comas, punto y coma o renglones. Permite tildes y Ñ. Guardar reinicia la colección; solo la lista se conserva en este navegador mediante `fabi-clay-words-v1`. No se envían datos. Si no se puede guardar, permite jugar e informa de la limitación.
+- Acepta vocales sin tilde para estampar su forma acentuada; N y Ñ son diferentes. Mantener una tecla no estampa repetidamente. Los campos de edición y los atajos del navegador no responden como letras del juego.
+- Conserva la partida al salir y volver al menú, y deja de recibir letras fuera de la actividad. Comparte el sonido con los otros juegos y respeta movimiento reducido. Los dibujos y efectos se crean localmente con CSS.
+- `clay/clay.js` controla las palabras y entradas; `clay/clay.css` define la masa y los sellos. `BROWSER_CHANNEL=chrome node tests/clay.test.cjs` verifica una colección completa, letras repetidas, errores, pistas, personalización, guardado, tildes/Ñ, navegación, tacto y diseño a 320/390 px (requiere Playwright).
 
 ### Mi pop it · Pop, pop, ¡pop!
 
@@ -71,7 +82,7 @@ Elige **Fabi**, **Soni**, **Tiempo con calma**, **Respira con la mariposa**, **M
 - Al llegar a cero aparece **Nuestro ratito terminó** y suena una campanita suave si el sonido está activado. No hay alarmas repetidas, parpadeos ni penalizaciones. **Otra vez** inicia la misma duración.
 - El reloj no se guarda al recargar. Comparte el botón de sonido con los juegos; no altera sus retos ni su progreso. Los lectores de pantalla anuncian los cambios de etapa y la pausa, sin anunciar cada segundo.
 
-### Teclado Mágico de Soni
+### Teclado mágico
 
 - Solo pulsa el teclado físico. Letras, números, modificadores, flechas y demás teclas que lleguen a la página producen efectos. El teclado dibujado es una guía, sin controles táctiles ni respuestas incorrectas.
 - Puedes mantener varias teclas: cada una permanece iluminada hasta soltarla. Se utilizan códigos físicos (`event.code`) para reconocer la posición incluso al mantener Shift. Las dos teclas Shift/Ctrl/Alt se siguen por separado. Se muestra Ñ en distribución española y punto y coma en inglesa.
@@ -82,7 +93,7 @@ Elige **Fabi**, **Soni**, **Tiempo con calma**, **Respira con la mariposa**, **M
 - Space, Tab y Enter no desplazan, cambian el foco o activan accidentalmente botones mientras se juega. Los atajos reservados por el navegador y el sistema pueden interrumpir el juego. F5/F11/F12 y combinaciones Meta conservan su comportamiento; perder foco o cambiar la visibilidad limpia inmediatamente teclas, efectos y sonidos.
 - Al salir se retiran los listeners, partículas y temporizadores. Se respeta movimiento reducido con efectos breves de opacidad. El juego sigue funcionando si no hay audio disponible.
 
-### Los globos de Fabi
+### Globos de letras
 
 - Escribe tu nombre, elige cualquiera de los tres niveles y pulsa **Jugar** (o Enter desde el campo del nombre). El saludo y la felicitación usan ese nombre; puedes cambiarlo al volver al inicio. Se recuerda en este navegador. Cada partida tiene diez retos, sin reloj, vidas ni penalizaciones.
 - Escribe la letra destacada usando el teclado físico. Las letras completadas se marcan, y un error conserva lo ya escrito. Se aceptan mayúsculas y minúsculas, incluida la Ñ.
@@ -96,7 +107,7 @@ Elige **Fabi**, **Soni**, **Tiempo con calma**, **Respira con la mariposa**, **M
 
 Se guarda nombre, nivel, ayuda, grupo de letras, distribución, sonido, partidas completadas, letras acertadas y letras por practicar en `localStorage`, con la clave `los-globos-de-fabi-v1`. No se envía ningún dato. El progreso es compartido en este navegador: cambiar el nombre no crea un perfil independiente. Los cambios de ajustes se usan en la siguiente partida; el sonido cambia inmediatamente.
 
-Una respuesta incorrecta aumenta en uno la necesidad de practicar la letra objetivo; acertarla la reduce en uno. Cuando llega a cero se retira de la lista. Es una orientación sencilla para acompañar a Fabi, no una calificación. Se muestran primero las letras que acumulan más intentos pendientes.
+Una respuesta incorrecta aumenta en uno la necesidad de practicar la letra objetivo; acertarla la reduce en uno. Cuando llega a cero se retira de la lista. Es una orientación sencilla para acompañar a quien juega, no una calificación. Se muestran primero las letras que acumulan más intentos pendientes.
 
 El guardado corresponde a este navegador y origen, no se sincroniza entre dispositivos y puede desaparecer al borrar los datos del navegador. Si localStorage no está disponible, se continúa en memoria. **Borrar progreso** requiere confirmación y conserva las preferencias. No se reanuda una partida incompleta tras recargar.
 
@@ -110,7 +121,7 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 - `soni/audio.js`: síntesis suave, escala pentatónica, máximo de voces, volumen normalizado y silencio.
 - `soni/particles.js`: elementos animados, límite de 120, eliminación y temporizadores de respaldo.
 - `soni/effects.js`: efectos normales, reacciones especiales y celebraciones. Añade nuevos efectos aquí.
-- `soni/game.js`: ciclo de entrada/salida y coordinación; `soni/soni.css`: selector y diseño de Soni, con clases independientes de Fabi.
+- `soni/game.js`: ciclo de entrada/salida y coordinación; `soni/soni.css`: selector y diseño de Teclado mágico, con clases independientes de Globos de letras.
 - `timer/timer.js`: cuenta basada en tiempo real, etapas visuales, validación de duración y pausa al salir; `timer/timer.css`: reloj de color y controles táctiles.
 - `breathing/breathing.js`: cuatro ciclos, animación sincronizada, pausa y limpieza al salir; `breathing/breathing.css`: jardín, alas, selector y movimiento reducido.
 - `piano/audio.js`: afinación, armónicos, apagado de notas y límite de voces; `piano/piano.js`: teclado físico y táctil, acordes, limpieza y guía de Estrellita; `piano/piano.css`: instrumento adaptable y teclas iluminadas.
@@ -122,7 +133,7 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 - `tests/keyboard.test.cjs`: pruebas de integración con Edge y Playwright, además de pruebas de intensidad y límites de audio.
 - `README.md`: ejecución, publicación y comprobaciones.
 
-Los archivos de Soni se cargan con scripts clásicos `defer` ordenados; también funcionan abriendo `index.html` directamente, sin requerir un servidor para módulos JavaScript.
+Los archivos de Teclado mágico se cargan con scripts clásicos `defer` ordenados; también funcionan abriendo `index.html` directamente, sin requerir un servidor para módulos JavaScript.
 
 ## Comprobar el nuevo juego
 
@@ -138,9 +149,9 @@ Para comprobar el piano, ejecuta `node tests/piano.test.cjs`. Revisa la afinaci�
 
 Para comprobar una actualización con archivos antiguos en caché, ejecuta `node tests/navigation-cache.test.cjs`. Sirve las páginas localmente, guarda la URL anterior del script en la caché HTTP del navegador y comprueba que el menú actualizado abre el piano y permite tocar y volver al inicio.
 
-Se comprueban A+S+D+F+J sostenidas, auto-repeat sin partículas nuevas, siete teclas simultáneas, modificadores independientes, teclas numéricas/numpad compartidas, Space/Tab/Enter, efectos especiales, 160 pulsaciones rápidas, límite y eliminación de partículas, limpieza de foco/visibilidad, silencio, diseño móvil, movimiento reducido y entradas/salidas repetidas. También se completan los tres niveles originales de Fabi con errores, pausa y repetición, comprobando que no haya errores JavaScript.
+Se comprueban A+S+D+F+J sostenidas, auto-repeat sin partículas nuevas, siete teclas simultáneas, modificadores independientes, teclas numéricas/numpad compartidas, Space/Tab/Enter, efectos especiales, 160 pulsaciones rápidas, límite y eliminación de partículas, limpieza de foco/visibilidad, silencio, diseño móvil, movimiento reducido y entradas/salidas repetidas. También se completan los tres niveles de Globos de letras con errores, pausa y repetición, comprobando que no haya errores JavaScript.
 
-Para comprobar manualmente: entra en Soni, mantén A+S+D+F+J, suelta solo D y verifica que las otras cuatro siguen iluminadas; golpea varias zonas del teclado y cambia de ventana mientras mantienes teclas. Al volver todas deben estar apagadas. Escucha el resultado real con sonido activado y silenciado: las pruebas comprueban los límites del audio, pero no evalúan cómo suena en tus altavoces.
+Para comprobar manualmente: entra en Teclado mágico, mantén A+S+D+F+J, suelta solo D y verifica que las otras cuatro siguen iluminadas; golpea varias zonas del teclado y cambia de ventana mientras mantienes teclas. Al volver todas deben estar apagadas. Escucha el resultado real con sonido activado y silenciado: las pruebas comprueban los límites del audio, pero no evalúan cómo suena en tus altavoces.
 
 ## Comprobación del flujo
 
