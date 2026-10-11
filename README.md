@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `space/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, `theme.css`, `theme.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `space/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -27,6 +27,8 @@ El botón **Jugar un ratito** abre el menú principal del repositorio mediante u
 La dirección anterior, `/invitacion/`, redirige a `/fiesta-de-7-anos/` para conservar los enlaces compartidos. Cada próxima fiesta puede tener su propia carpeta y dirección, manteniendo las anteriores como registro.
 
 ## Cómo jugar
+
+El botón de luna junto al sonido activa el **modo oscuro**: un cielo con estrellas de brillo suave, una luna y colores nocturnos en el menú y las nueve actividades. El botón de sol vuelve al modo claro. El modo claro es el predeterminado, con un cielo azul suave y tarjetas pastel para reducir las superficies blancas; después se recuerda la elección en este navegador con `fabi-theme-v1`. Funciona también si el navegador no permite guardar. Las estrellas permanecen quietas cuando se solicita movimiento reducido. `theme.js` aplica la preferencia antes de mostrar la página y `theme.css` contiene los colores y el cielo nocturno.
 
 Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira con la mariposa**, **Mi primer piano** o **Ahorcado** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Globos de letras, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Globos de letras.
 

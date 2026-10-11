@@ -1,0 +1,62 @@
+/* The theme wraps the activities; colorful toys keep their own palettes. */
+.header-actions{display:flex;align-items:center;gap:10px}
+#theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+#theme-toggle span[aria-hidden]{margin:0;font-size:22px;line-height:1}
+.night-stars,.night-moon{display:none}
+:root[data-theme=light]{color-scheme:light;background:#a9cfe6}
+:root[data-theme=light] body:not(.showing-space){background:transparent}
+:root[data-theme=light] body:not(.showing-space) .scenery{background:radial-gradient(ellipse at 50% 65%,#c1deec 0%,#a9cfe6 55%,#8ebbdc 100%)}
+:root[data-theme=light] .cloud{color:#e1eff7;opacity:.65}
+:root[data-theme=light] .game-choice{background:linear-gradient(145deg,#dcebf4,#cddfea)}
+:root[data-theme=light] :is(.soni-choice,.piano-choice,.clay-choice){background:linear-gradient(145deg,#e2e5f3,#d7ddef)}
+:root[data-theme=light] :is(.timer-choice,.hangman-choice){background:linear-gradient(145deg,#ece8d7,#dfdfd3)}
+:root[data-theme=light] .breathing-choice{background:linear-gradient(145deg,#dcece4,#cddfd9)}
+:root[data-theme=light] .popit-choice{background:linear-gradient(145deg,#ebdfe9,#dcdff0)}
+:root[data-theme=light] :is(.keyboard-panel,.soni-keyboard-panel,.timer-panel,.level-card){background:#dcebf2;border-color:#b2cbd9}
+:root[data-theme=light] .level-card:has(input:checked){background:#d5e8e2;border-color:#59957d}
+:root[data-theme=dark]{color-scheme:dark;background:#10182e;color:#e8edff;--ink:#e8edff;--green:#9ddfc7;--night-muted:#b5c2dc;--night-panel:#1d2a45;--night-border:#455579}
+:root[data-theme=dark] body{background:transparent}
+:root[data-theme=dark] .scenery{background:radial-gradient(ellipse at 75% 15%,#35335d80,transparent 45%),radial-gradient(ellipse at 15% 70%,#1d52604d,transparent 55%),linear-gradient(#10182e,#1b2948)}
+:root[data-theme=dark] .scenery .cloud{display:none}
+:root[data-theme=dark] .scenery .night-stars{display:block;position:absolute;inset:0;opacity:1;background-image:radial-gradient(circle,#dbeaff 1px,transparent 1.7px),radial-gradient(circle,#d8caff 1px,transparent 1.6px),radial-gradient(circle,#fff2cc 1.5px,transparent 2px);background-size:137px 173px,211px 139px,307px 251px;background-position:17px 39px,83px 91px,127px 67px}
+:root[data-theme=dark] .night-stars::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,#fff7dc 1.5px,transparent 2.5px),radial-gradient(circle,#d5e7ff 1px,transparent 2px);background-size:263px 227px,179px 293px;background-position:65px 137px,147px 31px;animation:night-shimmer 6s ease-in-out infinite alternate}
+:root[data-theme=dark] .scenery .night-moon{display:block;position:absolute;top:145px;right:8%;width:54px;height:54px;border-radius:50%;box-shadow:inset -13px -7px 0 #ffebbe;transform:rotate(-15deg);filter:drop-shadow(0 0 18px #ffe5b044);opacity:.9}
+:root[data-theme=dark] .scenery .sky-spark{display:block;color:#ffdf9c;opacity:.8;text-shadow:0 0 16px #ffe0a680}
+:root[data-theme=dark] .scenery .hill{display:block;opacity:1}
+:root[data-theme=dark] .hill-back{background:#1c3948}
+:root[data-theme=dark] .hill-front{background:#254752}
+:root[data-theme=dark] :is(.brand,.clay-screen){color:var(--ink)}
+:root[data-theme=dark] :is(.quiet-button,.hint-button,.soni-badge,.timer-badge,.breathing-badge,.piano-badge,.hangman-badge,.timer-presets button,.popit-palettes button,.hangman-category-button,.clay-difficulties button){background:#23324f;color:var(--ink);border-color:var(--night-border)}
+:root[data-theme=dark] :is(.quiet-button,.hint-button,.timer-presets button,.popit-palettes button,.hangman-category-button,.clay-difficulties button):hover{background:#304263}
+:root[data-theme=dark] :is(.primary-button){background:#327760;color:#fff;box-shadow:0 4px 0 #163f37}
+:root[data-theme=dark] .primary-button:hover{background:#3b866d}
+:root[data-theme=dark] .game-choice{--choice-accent:#9ddfc7;background:linear-gradient(145deg,#25344d,#1b283f);border-color:#4d6e70;box-shadow:0 7px 0 #080f234d}
+:root[data-theme=dark] :is(.soni-choice,.clay-choice,.piano-choice){--choice-accent:#d1b6fa;background:linear-gradient(145deg,#322f51,#24263f);border-color:#61557e}
+:root[data-theme=dark] :is(.timer-choice,.hangman-choice){--choice-accent:#f4d293;background:linear-gradient(145deg,#3d3543,#29283c);border-color:#78654f}
+:root[data-theme=dark] .space-choice{--choice-accent:#b8c5ff;background:linear-gradient(145deg,#2b3659,#252642);border-color:#5a648b}
+:root[data-theme=dark] .popit-choice{--choice-accent:#f2b6d2;background:linear-gradient(145deg,#3e304e,#292941);border-color:#7d5678}
+:root[data-theme=dark] .game-choice:hover{border-color:var(--choice-accent);box-shadow:0 12px 0 #080f234d,0 0 25px #b4c9ff0d}
+:root[data-theme=dark] .game-choice :is(strong,.choice-link){color:var(--choice-accent)}
+:root[data-theme=dark] :is(.intro,.eyebrow,.choice-description,.gentle-note,footer,.settings-link,.level-card small,.level-card strong+span,.keyboard-caption,.keyboard-note,.soni-keyboard-caption,.soni-idle p,.timer-intro,.timer-note,#timer-caption,.breathing-intro,.breathing-guidance p,.breathing-count,.breathing-note,.piano-intro,.piano-keyboard-hint,.piano-keyboard-hint b,#piano-guide,.piano-note,.hangman-intro,.hangman-attempts,.hangman-key-legend,.hangman-note,.popit-intro,.popit-summary,.popit-keyboard-note,.clay-intro,.clay-badge,.clay-bench-heading,.clay-bench-footer,.clay-settings,.clay-collection p,.clay-note,.popit-badge){color:var(--night-muted)}
+:root[data-theme=dark] :is(.screen h1 span,.breathing-guidance h2,#piano-note,.hangman-category,.hangman-status,.hangman-clue,.hangman-category-picker p,.popit-status,#popit-count,.feedback){color:#b9dacc}
+:root[data-theme=dark] :is(.soni-heading h1 span,.piano-screen h1 span,.clay-screen h1 span,.breathing-screen h1 span){color:#d1b6fa}
+:root[data-theme=dark] :is(.keyboard-panel,.soni-keyboard-panel,.timer-panel,.hangman-board,.clay-settings form,dialog,.level-card){background:var(--night-panel);border-color:var(--night-border);box-shadow:0 7px 0 #080f2329}
+:root[data-theme=dark] :is(.level-card:hover,.level-card:has(input:checked)){background:#293d4d;border-color:#8fc9b1}
+:root[data-theme=dark] .clay-workbench{background:radial-gradient(circle,#64728b40 1px,transparent 1px) 0 0/22px 22px,#26314a;border-color:var(--night-border);box-shadow:0 7px 0 #131d33}
+:root[data-theme=dark] :is(.name-entry input,select,.timer-custom input,.clay-settings textarea){background:#152239;color:var(--ink);border-color:#657695}
+:root[data-theme=dark] .name-entry input::placeholder{color:#a9b9d0}
+:root[data-theme=dark] :is(.saved-progress,.timer-legend>span,.clay-collection h2 span){background:#2b3d50}
+:root[data-theme=dark] dialog p{color:var(--night-muted)}
+:root[data-theme=dark] dialog::backdrop{background:#060b20ad}
+:root[data-theme=dark] :is(.mobile-notice,.keyboard-required){background:#3c3543;color:#f3dca9;border-color:#766544}
+:root[data-theme=dark] .key:not(.target):not(.pressed),:root[data-theme=dark] .soni-key:not(.is-held),:root[data-theme=dark] .hangman-key:not(.correct):not(.incorrect){background:#2b3a57;color:#e8edff;border-color:#5a6b8c}
+:root[data-theme=dark] :is(.timer-presets button,.popit-palettes button,.hangman-category-button,.clay-difficulties button)[aria-pressed=true]{background:#454268;color:#f1e7ff;border-color:#b59bda;box-shadow:0 2px 0 #8e77b0}
+:root[data-theme=dark] .timer-dial{border-color:#455777;background:conic-gradient(var(--timer-color) var(--remaining),#25334e 0);box-shadow:0 8px 0 #080f2350}
+:root[data-theme=dark] .timer-dial-center{background:#1d2a45}
+:root[data-theme=dark] :is(.timer-top-mark,.timer-screen[data-state=done] #timer-face){color:#9ddfc7}
+:root[data-theme=dark] .breathing-halo{background:radial-gradient(circle,#b5a2d333,transparent 72%);border-color:#77899b55}
+:root[data-theme=dark] :is(.name-entry p,.timer-error,#clay-list-error,.feedback.retry,.piano-audio-message){color:#ffbba9}
+:root[data-theme=dark] :focus-visible{outline-color:#f6dca0}
+@keyframes night-shimmer{from{opacity:.35}to{opacity:.95}}
+@media(max-width:550px){.header-actions{gap:7px}#theme-toggle{width:44px;height:44px;padding:8px;flex-shrink:0}.theme-label{display:none}.site-header{gap:8px}#sound{white-space:nowrap}:root[data-theme=dark] .scenery .night-moon{right:7%;top:185px;width:38px;height:38px;opacity:.65}}
+@media(prefers-reduced-motion:reduce){.night-stars::after{animation:none!important;opacity:.7}}
