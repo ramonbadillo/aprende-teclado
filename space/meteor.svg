@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <radialGradient id="rock" cx=".28" cy=".18" r=".88">
+      <stop stop-color="#b5a393"/><stop offset=".42" stop-color="#89786d"/><stop offset=".78" stop-color="#625753"/><stop offset="1" stop-color="#3b3740"/>
+    </radialGradient>
+    <linearGradient id="pit" x1="0" y1="0" x2=".35" y2="1">
+      <stop stop-color="#302c32"/><stop offset=".5" stop-color="#514641"/><stop offset="1" stop-color="#8d7a69"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2=".2" y2="1">
+      <stop stop-color="#6d5e53"/><stop offset="1" stop-color="#c3ad92"/>
+    </linearGradient>
+    <path id="shape" d="M35 5 49 3 61 8 72 7 85 17 88 29 96 41 93 54 96 63 86 77 76 82 67 93 53 94 42 97 30 91 18 87 12 75 5 67 7 54 3 43 9 29 12 19 25 14Z"/>
+    <clipPath id="surface"><use href="#shape"/></clipPath>
+  </defs>
+  <use href="#shape" fill="url(#rock)" stroke="#b7a28d" stroke-width="1.5" stroke-linejoin="round"/>
+  <g clip-path="url(#surface)">
+    <path d="M6 44 14 23 28 18 36 9 50 6 61 12 73 11 84 20" stroke="#dfc6a6" stroke-opacity=".4" stroke-width="3" stroke-linejoin="round"/>
+    <path d="m92 45-6 18-11 11-9 12-14 3-17-3-15-6-11-9 10 17 13 5 12 5 14-4 12 1 9-12 12-5 10-15Z" fill="#292632" opacity=".3"/>
+    <!-- Impact craters: dark recessed interiors and a raised, sunlit lower rim. -->
+    <ellipse cx="28" cy="29" rx="12" ry="10" transform="rotate(-25 28 29)" fill="url(#pit)" stroke="url(#rim)" stroke-width="2.8"/>
+    <path d="M19 28q3-8 13-6" stroke="#352e2c" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="77" cy="38" rx="8" ry="10" transform="rotate(-24 77 38)" fill="url(#pit)" stroke="url(#rim)" stroke-width="2.5"/>
+    <ellipse cx="66" cy="77" rx="12" ry="9" transform="rotate(-18 66 77)" fill="url(#pit)" stroke="url(#rim)" stroke-width="2.8"/>
+    <ellipse cx="25" cy="70" rx="7" ry="6" transform="rotate(20 25 70)" fill="url(#pit)" stroke="url(#rim)" stroke-width="2"/>
+    <ellipse cx="57" cy="20" rx="4.5" ry="3.5" fill="url(#pit)" stroke="url(#rim)" stroke-width="1.5"/>
+    <ellipse cx="85" cy="60" rx="3.5" ry="4" fill="url(#pit)" stroke="url(#rim)" stroke-width="1.3"/>
+    <path d="m11 50 9 3-2 7m21 24 5-8-3-5m35-53-7 4 1 5" stroke="#433b38" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>
+    <g fill="#dbc2a1" opacity=".42"><circle cx="44" cy="17" r="1.2"/><circle cx="15" cy="42" r="1"/><circle cx="37" cy="39" r=".8"/><circle cx="47" cy="84" r="1.3"/><circle cx="79" cy="72" r="1"/><circle cx="63" cy="34" r="1"/><circle cx="34" cy="62" r=".8"/></g>
+    <g fill="#332f33" opacity=".55"><circle cx="41" cy="27" r="1.4"/><circle cx="16" cy="63" r="1.5"/><circle cx="49" cy="72" r="1.2"/><circle cx="73" cy="57" r="1.6"/><circle cx="34" cy="81" r="1"/><circle cx="83" cy="26" r="1"/></g>
+  </g>
+</svg>

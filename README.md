@@ -1,6 +1,6 @@
 # El mundo de Fabi
 
-Nueve actividades en español con un selector inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, conexiones a recursos externos ni backend.
+Diez actividades en español con un selector inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. **A colorear** convierte una imagen local en contornos negros para descargar o imprimir y colorear. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, conexiones a recursos externos ni backend.
 
 ## Ejecutar localmente
 
@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, `theme.css`, `theme.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `space/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, `theme.css`, `theme.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `space/`, `coloring/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -28,9 +28,19 @@ La dirección anterior, `/invitacion/`, redirige a `/fiesta-de-7-anos/` para con
 
 ## Cómo jugar
 
-El botón de luna junto al sonido activa el **modo oscuro**: un cielo con estrellas de brillo suave, una luna y colores nocturnos en el menú y las nueve actividades. El botón de sol vuelve al modo claro. El modo claro es el predeterminado, con un cielo azul suave y tarjetas pastel para reducir las superficies blancas; después se recuerda la elección en este navegador con `fabi-theme-v1`. Funciona también si el navegador no permite guardar. Las estrellas permanecen quietas cuando se solicita movimiento reducido. `theme.js` aplica la preferencia antes de mostrar la página y `theme.css` contiene los colores y el cielo nocturno.
+El botón de luna junto al sonido activa el **modo oscuro**: un cielo con estrellas de brillo suave, una luna y colores nocturnos en el menú y las diez actividades. El botón de sol vuelve al modo claro. El modo claro es el predeterminado, con un cielo azul suave y tarjetas pastel para reducir las superficies blancas; después se recuerda la elección en este navegador con `fabi-theme-v1`. Funciona también si el navegador no permite guardar. Las estrellas permanecen quietas cuando se solicita movimiento reducido. `theme.js` aplica la preferencia antes de mostrar la página y `theme.css` contiene los colores y el cielo nocturno.
 
 Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira con la mariposa**, **Mi primer piano** o **Ahorcado** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Globos de letras, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Globos de letras.
+
+### A colorear · Tu dibujo, nuevos colores
+
+- Elige una imagen **JPG, PNG o WebP**, o arrastra un archivo al recuadro. Admite hasta 20 MB y 40 megapíxeles. **Probar con un ejemplo** dibuja un pequeño jardín localmente para ver la transformación sin elegir un archivo.
+- Compara el original con los contornos. Ajusta **Cantidad de detalles**, **Limpiar el dibujo** y **Grosor del trazo**; el resultado se actualiza automáticamente. **Restablecer ajustes** vuelve a los valores iniciales. Las zonas transparentes se convierten en blanco.
+- **Descargar PNG** guarda exactamente la hoja mostrada, en blanco y negro y sin interfaz. **Imprimir mi dibujo** abre la impresión del navegador y solo imprime la hoja, incluso en modo oscuro. Las imágenes grandes se reducen conservando su proporción a un máximo de 1400 píxeles en el lado largo; el tamaño final aparece sobre el resultado.
+- Funciona mejor con ilustraciones de colores definidos y fondos claros. Es procesamiento de contornos, sin inteligencia artificial ni servicios externos: las fotos pueden conservar sombras y texturas, y los trazos oscuros anchos pueden dejar contornos dobles. Más limpieza y menos detalle pueden ayudar; no interpreta objetos ni reconstruye partes del dibujo.
+- No carga la imagen a internet ni la guarda en localStorage. Se conserva en memoria al volver al menú; **Quitar imagen** o recargar la página la retira de la herramienta. Los archivos inválidos muestran un mensaje y conservan la última imagen válida.
+- `coloring/filters.js` detecta bordes en los canales de color, suaviza, conecta contornos y ajusta el grosor. `coloring/coloring.js` maneja carga, vista previa y exportación; `coloring/coloring.css` incluye impresión, móvil y tema oscuro. Todo funciona también abriendo `index.html` directamente.
+- `node tests/coloring-filters.test.cjs` comprueba bordes, transparencia, áreas cerradas y ajustes sin dependencias. `BROWSER_CHANNEL=chrome node tests/coloring.test.cjs` comprueba el flujo completo, PNG descargado, errores, navegación, privacidad, impresión y pantallas estrechas (requiere Playwright).
 
 ### Astroletras · Una misión de otro planeta
 
