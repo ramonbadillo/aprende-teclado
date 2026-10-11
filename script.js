@@ -96,8 +96,9 @@ function showScreen(next) {
   window.HangmanGame.leave();
   window.PopitGame.leave();
   window.ClayGame.leave();
+  window.SpaceGame.leave();
   screen = next;
-  for (const id of ['chooser', 'soni', 'timer', 'breathing', 'piano', 'hangman', 'popit', 'clay', 'home', 'game', 'finish']) $(id).hidden = id !== next;
+  for (const id of ['chooser', 'soni', 'timer', 'breathing', 'piano', 'hangman', 'popit', 'clay', 'space', 'home', 'game', 'finish']) $(id).hidden = id !== next;
   document.body.classList.toggle('playing-soni', next === 'soni');
   document.body.classList.toggle('showing-timer', next === 'timer');
   document.body.classList.toggle('showing-breathing', next === 'breathing');
@@ -105,6 +106,8 @@ function showScreen(next) {
   document.body.classList.toggle('showing-hangman', next === 'hangman');
   document.body.classList.toggle('showing-popit', next === 'popit');
   document.body.classList.toggle('showing-clay', next === 'clay');
+  document.body.classList.toggle('showing-space', next === 'space');
+  if (next === 'space') window.SpaceGame.enter({ sound: options.sound });
   $('settings-open').hidden = !['home', 'finish'].includes(next);
   if (next === 'soni') window.SoniGame.start({ sound: options.sound, layout: options.layout });
   if (next === 'timer') window.VisualTimer.enter({ onStart: enableAudio, onFinish: () => chime(true) });
@@ -288,6 +291,8 @@ $('breathing-home').addEventListener('click', chooseGame);
 $('piano-home').addEventListener('click', chooseGame);
 $('hangman-home').addEventListener('click', chooseGame);
 $('popit-home').addEventListener('click', chooseGame);
+$('space-home').addEventListener('click', chooseGame);
+$('choose-space').addEventListener('click', () => { showScreen('space'); $('space-title').focus({ preventScroll: true }); });
 $('clay-home').addEventListener('click', chooseGame);
 $('choose-clay').addEventListener('click', () => { showScreen('clay'); $('clay-title').focus({ preventScroll: true }); });
 $('choose-popit').addEventListener('click', () => { showScreen('popit'); $('popit-title').focus({ preventScroll: true }); });
@@ -300,7 +305,7 @@ $('choose-hangman').addEventListener('click', () => { showScreen('hangman'); $('
 $('pause').addEventListener('click', pauseGame); $('resume').addEventListener('click', resumeGame);
 $('pause-dialog').addEventListener('cancel', event => { event.preventDefault(); resumeGame(); });
 $('hint').addEventListener('click', () => { if (screen !== 'game' || paused || round.transitioning) return; clearHintTimer(); hintVisible = true; renderKeys(); });
-$('sound').addEventListener('click', () => { options.sound = !options.sound; renderSound(); window.SoniGame.setSound(options.sound); window.PianoGame.setSound(options.sound); window.HangmanGame.setSound(options.sound); window.PopitGame.setSound(options.sound); if (options.sound && !['soni', 'piano', 'popit'].includes(screen)) { enableAudio(); chime(); } persist(); });
+$('sound').addEventListener('click', () => { options.sound = !options.sound; renderSound(); window.SoniGame.setSound(options.sound); window.PianoGame.setSound(options.sound); window.HangmanGame.setSound(options.sound); window.PopitGame.setSound(options.sound); window.SpaceGame.setSound(options.sound); if (options.sound && !['soni', 'piano', 'popit'].includes(screen)) { enableAudio(); chime(); } persist(); });
 document.querySelectorAll('input[name="level"]').forEach(input => {
   input.checked = Number(input.value) === options.level;
   input.addEventListener('change', () => { options.level = Number(input.value); persist(); });

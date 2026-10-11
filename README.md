@@ -1,6 +1,6 @@
 # El mundo de Fabi
 
-Ocho actividades en español con un selector inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, conexiones a recursos externos ni backend.
+Nueve actividades en español con un selector inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas, conexiones a recursos externos ni backend.
 
 ## Ejecutar localmente
 
@@ -8,7 +8,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, las carpetas completas `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `space/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -29,6 +29,15 @@ La dirección anterior, `/invitacion/`, redirige a `/fiesta-de-7-anos/` para con
 ## Cómo jugar
 
 Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira con la mariposa**, **Mi primer piano** o **Ahorcado** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Globos de letras, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Globos de letras.
+
+### Astroletras · Una misión de otro planeta
+
+- Pulsa **Despegar** y escribe cualquiera de las letras de los meteoritos para disparar desde el cohete. También puedes usar el teclado en pantalla. Se aceptan mayúsculas, minúsculas y Ñ; mantener una tecla no repite disparos ni daños. Los atajos y las teclas que no son letras se ignoran.
+- Empiezas con **6 vidas**. Una letra que no aparece en los meteoritos o un meteorito que alcanza el cohete resta una vida. Las grietas, las alas dañadas y el humo muestran cómo se va destruyendo la nave. Al agotarlas, puedes reparar y reiniciar con seis vidas.
+- Destruye **20 meteoritos** para ganar. Empiezas con dos y aparecen hasta tres a la vez, con letras diferentes. Tardan entre 14 y 21 segundos en acercarse; la barrita bajo cada uno muestra el tiempo restante.
+- **Pausar**, Escape, salir al menú y cambiar de ventana o pestaña detienen el juego. Al regresar, pulsa **Continuar misión**. Recargar reinicia la partida; no se guardan datos adicionales.
+- Comparte el control de sonido. Los efectos y dibujos se generan localmente, sin descargas. Con movimiento reducido, los meteoritos se quedan quietos y sus barras muestran cuánto falta para el impacto.
+- `space/space.js` controla la partida y `space/space.css` su aspecto. `BROWSER_CHANNEL=chrome node tests/space.test.cjs` comprueba aciertos, errores, seis vidas, choques, pausa, victoria, reinicio, navegación y pantallas pequeñas (requiere Playwright).
 
 ### Plasticonejo · Busca, toca y estampa
 
