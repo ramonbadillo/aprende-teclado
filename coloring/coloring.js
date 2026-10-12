@@ -5,6 +5,9 @@ window.ColoringTool = (() => {
   const maxSide = 1400, maxBytes = 20 * 1024 * 1024;
   let active = false, pixels = null, ready = false, busy = false, loading = false;
   let dirty = false, renderTimer = null, loadVersion = 0, imageName = 'mi-dibujo';
+  let remoteController = null, readingClipboard = false;
+  const pasteHint = 'Usa Ctrl+V o ⌘+V fuera del buscador, o elige un archivo de tu dispositivo.';
+  const copyImageHint = 'No encontramos una imagen copiada. En Google, abre el menú de la imagen y elige «Copiar imagen», no «Copiar enlace». Luego vuelve aquí para pegarla.';
 
   function status(message, error = false) {
     $('coloring-status').textContent = message;
@@ -15,6 +18,7 @@ window.ColoringTool = (() => {
     $('coloring-download').disabled = !ready || busy || dirty;
     $('coloring-print').disabled = !ready || busy || dirty;
     $('coloring-clear').disabled = !pixels && !loading;
+    $('coloring-paste').disabled = readingClipboard;
     $('coloring-previews').setAttribute('aria-busy', String(busy));
   }
   function settings() {
@@ -46,7 +50,34 @@ window.ColoringTool = (() => {
     // Give the browser a chance to paint the busy state; debounce slider changes.
     renderTimer = setTimeout(render, 120);
   }
-  function acceptCanvas(canvas, name) {
+  function showCredit(credit) {
+    const element = $('coloring-credit');
+    element.replaceChildren(); element.hidden = !credit;
+    if (!credit) return;
+    element.append(document.createTextNode(`${credit.title}${credit.creator ? ' · ' + credit.creator : ''} · ${credit.license}`));
+    if (credit.sourceUrl) {
+      const link = document.createElement('a');
+      link.href = credit.sourceUrl; link.textContent = 'Ver imagen original';
+      link.target = '_blank'; link.rel = 'noopener noreferrer';
+      element.append(document.createTextNode(' · '), link);
+    }
+    if (credit.previewOnly) element.append(document.createTextNode(' · Vista previa de menor resolución; puede perder nitidez al imprimir.'));
+  }
+  function beginLoad() {
+    if (remoteController) remoteController.abort();
+    remoteController = null;
+    readingClipboard = false;
+    ++loadVersion; clearTimeout(renderTimer);
+    loading = false; busy = false; updateControls();
+    return loadVersion;
+  }
+  function failLoad(message) {
+    loading = false; busy = false;
+    // Finish a pending edit to the previous image if its replacement is invalid.
+    if (dirty && pixels && active) render();
+    updateControls(); status(message, true);
+  }
+  function acceptCanvas(canvas, name, credit = null) {
     const ratio = Math.min(1, maxSide / Math.max(canvas.width, canvas.height));
     source.width = Math.max(1, Math.round(canvas.width * ratio));
     source.height = Math.max(1, Math.round(canvas.height * ratio));
@@ -60,43 +91,141 @@ window.ColoringTool = (() => {
     $('coloring-size').textContent = `${source.width} × ${source.height} px`;
     source.hidden = false; output.hidden = true;
     $('coloring-source-empty').hidden = true; $('coloring-output-empty').hidden = false;
+    showCredit(credit);
     loading = false; busy = false; ready = false;
     updateControls(); scheduleRender();
   }
-  async function loadFile(file) {
-    if (!file) return;
-    const version = ++loadVersion;
-    clearTimeout(renderTimer); loading = false; busy = false; updateControls();
-    function fail(message) {
-      loading = false; busy = false;
-      // Finish a pending edit to the previous image if the replacement is invalid.
-      if (dirty && pixels && active) render();
-      updateControls(); status(message, true);
-    }
-    if (!(file.type ? /^image\/(png|jpeg|webp)$/.test(file.type) : /\.(png|jpe?g|webp)$/i.test(file.name))) {
-      fail('Elige una imagen JPG, PNG o WebP.'); return;
-    }
-    if (!file.size || file.size > maxBytes) { fail('Elige una imagen de hasta 20 MB que no esté vacía.'); return; }
+  async function decodeBlob(blob, name, version, credit = null) {
     let url;
-    loading = true; busy = true; updateControls(); status('Abriendo tu imagen en este dispositivo…');
     try {
-      url = URL.createObjectURL(file);
+      url = URL.createObjectURL(blob);
       const img = new Image();
       await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject; img.src = url; });
-      if (version !== loadVersion) return;
+      if (version !== loadVersion) return false;
       if (!img.naturalWidth || !img.naturalHeight || img.naturalWidth * img.naturalHeight > 40000000) throw new Error('size');
       const ratio = Math.min(1, maxSide / Math.max(img.naturalWidth, img.naturalHeight));
       const canvas = document.createElement('canvas');
       canvas.width = Math.max(1, Math.round(img.naturalWidth * ratio)); canvas.height = Math.max(1, Math.round(img.naturalHeight * ratio));
       canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-      acceptCanvas(canvas, file.name);
-    } catch (error) {
-      if (version !== loadVersion) return;
-      fail(error?.message === 'size' ? 'Esta imagen es demasiado grande. Prueba una de menos de 40 megapíxeles.' : 'No pudimos abrir esa imagen. Prueba otro archivo JPG, PNG o WebP.');
+      acceptCanvas(canvas, name, credit);
+      return true;
     } finally { if (url) URL.revokeObjectURL(url); }
   }
+  async function loadFile(file) {
+    if (!file) return;
+    const version = beginLoad();
+    if (!(file.type ? /^image\/(png|jpeg|webp)$/.test(file.type) : /\.(png|jpe?g|webp)$/i.test(file.name))) {
+      failLoad('Elige una imagen JPG, PNG o WebP.'); return;
+    }
+    if (!file.size || file.size > maxBytes) { failLoad('Elige una imagen de hasta 20 MB que no esté vacía.'); return; }
+    loading = true; busy = true; updateControls(); status('Abriendo tu imagen en este dispositivo…');
+    try {
+      await decodeBlob(file, file.name, version);
+    } catch (error) {
+      if (version !== loadVersion) return;
+      failLoad(error?.message === 'size' ? 'Esta imagen es demasiado grande. Prueba una de hasta 40 megapíxeles.' : 'No pudimos abrir esa imagen. Prueba otro archivo JPG, PNG o WebP.');
+    }
+  }
+  function pastedFile(blob) {
+    const extension = blob.type === 'image/jpeg' ? 'jpg' : blob.type.split('/')[1] || 'png';
+    return new File([blob], `Imagen pegada.${extension}`, { type: blob.type });
+  }
+  async function pasteClipboard() {
+    if (!active || readingClipboard) return;
+    if (!navigator.clipboard?.read) {
+      status(`Este navegador no permite pegar con el botón. ${pasteHint}`, true); return;
+    }
+    const version = beginLoad();
+    readingClipboard = loading = busy = true;
+    updateControls(); status('Buscando la imagen que copiaste…');
+    try {
+      // Read only after this explicit click. Ordinary navigation never reads the clipboard.
+      const items = await navigator.clipboard.read();
+      if (version !== loadVersion || !active) return;
+      const images = items.filter(item => item.types.some(type => type.startsWith('image/')));
+      if (!images.length) { failLoad(copyImageHint); return; }
+      if (images.length > 1) { failLoad('Copia una sola imagen a la vez.'); return; }
+      const item = images[0];
+      const type = ['image/png', 'image/jpeg', 'image/webp'].find(mime => item.types.includes(mime));
+      if (!type) { failLoad('Elige una imagen JPG, PNG o WebP.'); return; }
+      const blob = await item.getType(type);
+      if (version !== loadVersion || !active) return;
+      await loadFile(pastedFile(blob));
+    } catch {
+      if (version === loadVersion && active) failLoad(`No pudimos acceder a la imagen copiada. ${pasteHint}`);
+    } finally {
+      if (version === loadVersion) { readingClipboard = false; updateControls(); }
+    }
+  }
+  document.addEventListener('paste', event => {
+    if (!active || event.defaultPrevented || document.querySelector('dialog[open]')) return;
+    const target = event.target;
+    if (target instanceof Element && (target.closest('input, textarea, select') || target.isContentEditable)) return;
+    const files = Array.from(event.clipboardData?.files || []);
+    if (files.length) {
+      event.preventDefault();
+      if (files.length !== 1) { beginLoad(); failLoad('Copia una sola imagen a la vez.'); return; }
+      loadFile(files[0].type.startsWith('image/') ? pastedFile(files[0]) : files[0]);
+    } else if (event.clipboardData?.types.length) {
+      // Text/HTML can contain a remote image URL. Never fetch it as a pasted image.
+      beginLoad(); failLoad(copyImageHint);
+    }
+  });
+  async function fetchImage(url, controller) {
+    const response = await fetch(url, { signal: controller.signal, mode: 'cors', credentials: 'omit', referrerPolicy: 'no-referrer' });
+    if (!response.ok) throw new Error(response.status === 429 ? 'rate' : 'network');
+    if (Number(response.headers.get('content-length')) > maxBytes) { await response.body.cancel(); throw new Error('size'); }
+    const mime = (response.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
+    if (!/^image\/(png|jpeg|webp)$/.test(mime)) { await response.body.cancel(); throw new Error('format'); }
+    // Bound the body as well as its header; some image servers omit Content-Length.
+    const reader = response.body.getReader(), chunks = [];
+    let total = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > maxBytes) { await reader.cancel(); throw new Error('size'); }
+      chunks.push(value);
+    }
+    if (!total) throw new Error('format');
+    return new Blob(chunks, { type: mime });
+  }
+  async function loadRemote(item) {
+    // Only accept the known image proxy; original image hosts need not permit CORS.
+    if (!/^https:\/\/api\.openverse\.org\/v1\/images\/[0-9a-f-]{36}\/thumb\/\?full_size=true$/i.test(item.url)) return false;
+    const version = beginLoad(), controller = new AbortController();
+    remoteController = controller;
+    const timer = setTimeout(() => controller.abort(), 20000);
+    loading = true; busy = true; updateControls(); status('Abriendo la imagen elegida…');
+    const liveStatus = $('coloring-status');
+    liveStatus.tabIndex = -1; liveStatus.focus({ preventScroll: true });
+    liveStatus.scrollIntoView({ block: 'center', behavior: 'auto' });
+    try {
+      // Cached previews can remain available after the original image disappears.
+      const candidates = [item.url, item.url.replace('?full_size=true', '')];
+      for (let attempt = 0; attempt < candidates.length; attempt++) {
+        try {
+          const blob = await fetchImage(candidates[attempt], controller);
+          if (version !== loadVersion || !active) return false;
+          const extension = blob.type === 'image/jpeg' ? 'jpg' : blob.type.split('/')[1];
+          return await decodeBlob(blob, `${item.title}.${extension}`, version, { ...item, previewOnly: attempt > 0 });
+        } catch (error) {
+          if (version !== loadVersion) return false;
+          if (attempt || controller.signal.aborted || error.message === 'rate') throw error;
+          status('La imagen original no está disponible. Probando con la vista previa…');
+        }
+      }
+    } catch (error) {
+      if (version !== loadVersion) return false;
+      failLoad(error?.message === 'size' ? 'Esta imagen es demasiado grande. Prueba otra de la galería.' : error?.message === 'rate' ? 'El buscador alcanzó su límite de imágenes. Prueba más tarde o usa un archivo de tu dispositivo.' : 'No pudimos abrir esa imagen. Elige otra o intenta de nuevo.');
+      return false;
+    } finally {
+      clearTimeout(timer);
+      if (remoteController === controller) remoteController = null;
+    }
+  }
   function example() {
-    ++loadVersion; clearTimeout(renderTimer);
+    beginLoad();
     const canvas = document.createElement('canvas'); canvas.width = 1000; canvas.height = 760;
     const c = canvas.getContext('2d');
     c.fillStyle = '#fff'; c.fillRect(0, 0, 1000, 760);
@@ -134,17 +263,18 @@ window.ColoringTool = (() => {
     $('coloring-smoothing').value = '1'; $('coloring-thickness').value = '2';
   }
   function clear() {
-    ++loadVersion; clearTimeout(renderTimer);
+    beginLoad();
     pixels = null; ready = busy = loading = dirty = false;
     source.width = source.height = output.width = output.height = 1;
     source.hidden = output.hidden = true;
     $('coloring-source-empty').hidden = $('coloring-output-empty').hidden = false;
     $('coloring-filename').textContent = 'El punto de partida'; $('coloring-filename').removeAttribute('title');
     $('coloring-size').textContent = 'Una nueva posibilidad'; $('coloring-file').value = '';
-    defaults(); updateControls(); status('Tu imagen se queda en este dispositivo. No se sube a internet.');
+    showCredit(null); defaults(); updateControls(); status('Tu imagen se queda en este dispositivo. No se sube a internet.');
     $('coloring-pick').focus({ preventScroll: true });
   }
   $('coloring-pick').addEventListener('click', () => $('coloring-file').click());
+  $('coloring-paste').addEventListener('click', pasteClipboard);
   $('coloring-file').addEventListener('change', event => { const file = event.target.files[0]; event.target.value = ''; loadFile(file); });
   $('coloring-example').addEventListener('click', example);
   $('coloring-detail').addEventListener('input', () => { $('coloring-detail-value').value = $('coloring-detail').value; scheduleRender(); });
@@ -175,8 +305,14 @@ window.ColoringTool = (() => {
     if (event.dataTransfer.files.length !== 1) { status('Elige un solo dibujo a la vez.', true); return; }
     loadFile(event.dataTransfer.files[0]);
   });
+  window.ColoringSearch.init({ onSelect: loadRemote });
   return {
-    enter() { active = true; if (dirty && !loading) scheduleRender(); },
-    leave() { active = false; clearTimeout(renderTimer); dropzone.classList.remove('is-dragging'); if (!loading) busy = false; updateControls(); }
+    enter() { active = true; window.ColoringSearch.enter(); if (dirty && !loading) scheduleRender(); },
+    leave() {
+      active = false; window.ColoringSearch.leave();
+      if (remoteController || readingClipboard) { beginLoad(); status('Carga detenida. Puedes elegir otra imagen cuando vuelvas.'); }
+      clearTimeout(renderTimer); dropzone.classList.remove('is-dragging');
+      if (!loading) busy = false; updateControls();
+    }
   };
 })();

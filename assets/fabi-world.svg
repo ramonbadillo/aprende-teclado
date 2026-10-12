@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
+  <title>El mundito de Fabi</title>
+  <defs>
+    <radialGradient id="ocean" cx=".3" cy=".25" r=".85"><stop stop-color="#bceaf0"/><stop offset="1" stop-color="#68b8d1"/></radialGradient>
+    <clipPath id="globe"><circle cx="48" cy="48" r="38"/></clipPath>
+  </defs>
+  <circle cx="48" cy="48" r="43" fill="#fffaf0"/>
+  <circle cx="48" cy="48" r="38" fill="url(#ocean)"/>
+  <g clip-path="url(#globe)" fill="#78ae87" stroke="#4d8b70" stroke-width="1.2" stroke-linejoin="round">
+    <path d="m14 23 12-8 13 1 7 7-6 7-9 1-2 7 7 5-3 7-7-2-4-8-8-2-5-8Z"/>
+    <path d="m33 48 9 3 8 10-4 9-6 5-4 10-4-4 1-13-5-10Z"/>
+    <path d="m53 12 14 1 17 13 6 15-12 4-7-7-8 1-4-6-9-2 2-7 8-3Z"/>
+    <path d="m58 39 11 2 6 11-5 11-8 7-5-9-1-9-5-7Z"/>
+    <path d="m76 66 10-3 5 10-11 5-7-4Z"/>
+  </g>
+  <path d="M20 54a29 29 0 0 0 7 14" stroke="#fffaf0" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+  <circle cx="48" cy="48" r="38" stroke="#448ca8" stroke-width="1.5"/>
+</svg>
