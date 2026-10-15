@@ -307,6 +307,30 @@ $('choose-timer').addEventListener('click', () => { showScreen('timer'); $('time
 $('choose-breathing').addEventListener('click', () => { showScreen('breathing'); $('breathing-title').focus({ preventScroll: true }); });
 $('choose-piano').addEventListener('click', () => { showScreen('piano'); $('piano-title').focus({ preventScroll: true }); });
 $('choose-hangman').addEventListener('click', () => { showScreen('hangman'); $('hangman-title').focus({ preventScroll: true }); });
+// Cuenta aperturas desde el menú; volver, pausar o reiniciar no añade otra apertura.
+const ACTIVITY_NAMES = {
+  fabi: 'Globos de letras',
+  soni: 'Teclado mágico',
+  timer: 'Tiempo con calma',
+  breathing: 'Respira con la mariposa',
+  piano: 'Mi primer piano',
+  hangman: 'Ahorcado',
+  popit: 'Mi pop it',
+  clay: 'Plasticonejo',
+  space: 'Astroletras',
+  coloring: 'A colorear'
+};
+for (const [activityId, activityName] of Object.entries(ACTIVITY_NAMES)) {
+  $(`choose-${activityId}`).addEventListener('click', () => {
+    if (typeof window.gtag !== 'function') return;
+    try {
+      window.gtag('event', 'activity_open', {
+        activity_id: activityId,
+        activity_name: activityName
+      });
+    } catch { /* La medición es opcional; las actividades siguen funcionando. */ }
+  });
+}
 $('pause').addEventListener('click', pauseGame); $('resume').addEventListener('click', resumeGame);
 $('pause-dialog').addEventListener('cancel', event => { event.preventDefault(); resumeGame(); });
 $('hint').addEventListener('click', () => { if (screen !== 'game' || paused || round.transitioning) return; clearHintTimer(); hintVisible = true; renderKeys(); });

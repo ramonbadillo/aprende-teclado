@@ -12,7 +12,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, `theme.css`, `theme.js`, las carpetas completas `assets/`, `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `space/`, `coloring/`, `fiesta-de-7-anos/` e `invitacion/`, y `README.md` a la raíz de tu repositorio.
+1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, `theme.css`, `theme.js`, las carpetas completas `assets/`, `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `space/`, `coloring/`, `fiesta-de-7-anos/`, y `README.md` a la raíz de tu repositorio.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -22,13 +22,25 @@ Los enlaces públicos usan direcciones de carpeta, sin `index.html`. `navigation
 
 El script principal y los recursos del piano y del ahorcado tienen una versión en su URL (`?v=…`) para descargar el código actualizado aunque GitHub Pages conserve archivos anteriores en caché. Al modificar esos archivos en una publicación futura, incrementa su versión en `index.html`. Si el navegador conserva el HTML anterior, usa **Ctrl + F5** después de publicar.
 
+## Uso de actividades en Google Analytics
+
+Las dos páginas incluyen la etiqueta de Google Analytics `G-DSSKXYFM89`. En la página principal, abrir cualquiera de las diez actividades desde el menú envía el evento `activity_open`, con `activity_id` (identificador estable) y `activity_name` (nombre visible). Cada nueva apertura cuenta, incluso si una persona vuelve a elegir la misma actividad. Volver al menú, pausar o reiniciar una partida no genera aperturas adicionales. Esto mide selecciones de actividades, no tiempo de juego ni partidas completadas. Estos parámetros no incluyen nombres de jugadores, palabras escritas, imágenes ni datos del formulario.
+
+Para comparar las actividades:
+
+1. Publica los archivos actualizados. En Analytics, abre **Administrar → Visualización de datos → Definiciones personalizadas** y crea una dimensión llamada **Actividad**, con alcance **Evento** y parámetro `activity_name`.
+2. Abre una actividad en el sitio publicado y comprueba `activity_open` en **Tiempo real**.
+3. En **Explorar**, crea una exploración de formato libre con **Actividad** como filas y **Número de eventos** y **Total de usuarios** como valores. Filtra **Nombre del evento** para que sea exactamente `activity_open` y ordena por número de eventos de mayor a menor. Así verás aperturas y usuarios por actividad.
+
+Los informes con la dimensión personalizada pueden tardar entre 24 y 48 horas en estar disponibles después de crearla y empezar a enviar datos. La medición comienza al publicar; no reconstruye usos anteriores y puede ser bloqueada por el navegador.
+
+Referencia: [Dimensiones personalizadas relativas al evento en GA4](https://support.google.com/analytics/answer/14239696?hl=es).
+
 ## Fiesta de 7 años de Fabi
 
-La invitación está en `fiesta-de-7-anos/index.html` y se publica en <https://ramonbadillo.github.io/aprende-teclado/fiesta-de-7-anos/>. Incluye los datos de la fiesta, el mapa y la confirmación por WhatsApp. Los datos del formulario se usan para preparar el mensaje; la familia debe enviarlo desde WhatsApp para completar su confirmación.
+La página `fiesta-de-7-anos/index.html` ahora agradece a quienes acompañaron a Fabi en su cumpleaños y los invita a seguir jugando en El mundo de Fabi. Conserva la ilustración del castillo, el estilo de cuento y Google Analytics. El enlace del encabezado y el botón del planeta abren el menú principal mediante una ruta relativa.
 
-El botón circular **Entrar al mundo de Fabi**, con el planeta del logo y una banda rosa, abre el menú principal del repositorio mediante una ruta relativa, por lo que muestra los juegos actuales sin mantener otra copia. Para publicar cambios en la invitación, sube `fiesta-de-7-anos/index.html`, `fiesta-de-7-anos/rsvp.js` y `assets/fabi-world.svg` a la rama configurada en GitHub Pages.
-
-La dirección anterior, `/invitacion/`, redirige a `/fiesta-de-7-anos/` para conservar los enlaces compartidos. Cada próxima fiesta puede tener su propia carpeta y dirección, manteniendo las anteriores como registro.
+Se retiraron los datos del evento, el mapa y la confirmación por WhatsApp, junto con el archivo `rsvp.js`. La carpeta antigua `invitacion/` se eliminó; su dirección ya no redirige. La página de agradecimiento conserva la dirección `/fiesta-de-7-anos/`.
 
 ## Cómo jugar
 
