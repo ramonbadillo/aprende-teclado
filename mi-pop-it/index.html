@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi pop it · El mundo de Fabi</title>
+  <script src="../canonical-url.js?v=1"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSSKXYFM89"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DSSKXYFM89');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a9cfe6">
+  <script src="../theme.js?v=2"></script>
+  <meta name="description" content="Explora un pop it de colores con burbujas para tocar.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+  <meta property="og:title" content="Mi pop it · El mundo de Fabi">
+  <meta property="og:description" content="Explora un pop it de colores con burbujas para tocar.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="../popit/popit.css?v=1">
+  <link rel="stylesheet" href="../theme.css?v=2">
+  <script src="../navigation.js?v=2" defer></script>
+  <script src="../popit/popit.js?v=1" defer></script>
+  <script src="../activity-page.js?v=1" defer></script>
+</head>
+<body data-activity="popit" class="showing-popit">
+  <svg class="svg-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5 1.2-7-5-5 7-1Z"/></symbol>
+      <symbol id="cloud" viewBox="0 0 240 100"><path d="M35 89C-5 89-6 37 34 34 42-8 109-8 124 30c28-22 71-4 73 26 48-2 51 33 14 33Z" fill="currentColor"/></symbol>
+      <symbol id="balloon-art" viewBox="0 0 220 310"><path d="M110 221c-22 39 25 46 0 87" fill="none" stroke="#849da5" stroke-width="2"/><path d="m110 206-9 18h18Z" fill="currentColor"/><ellipse cx="110" cy="108" rx="87" ry="103" fill="currentColor"/><path d="M51 76c3-20 13-34 28-41" fill="none" stroke="white" stroke-opacity=".52" stroke-width="11" stroke-linecap="round"/></symbol>
+    </defs>
+  </svg>
+  <div class="scenery" aria-hidden="true">
+    <div class="night-stars"></div>
+    <div class="night-moon"></div>
+    <svg class="cloud cloud-one"><use href="#cloud"/></svg><svg class="cloud cloud-two"><use href="#cloud"/></svg><svg class="cloud cloud-three"><use href="#cloud"/></svg>
+    <span class="sky-spark spark-one">✦</span><span class="sky-spark spark-two">✧</span><span class="sky-spark spark-three">✦</span>
+    <div class="hill hill-back"></div><div class="hill hill-front"></div>
+  </div>
+  <header class="site-header">
+    <a class="brand" href="../" data-site-link aria-label="El mundo de Fabi, elegir actividad">
+      <img class="brand-mark" src="../assets/fabi-world.svg?v=2" width="64" height="64" alt="">
+      <span class="brand-name">El mundo de <b>Fabi</b></span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle" class="quiet-button" type="button" aria-label="Modo oscuro" aria-pressed="false"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Modo oscuro</span></button>
+      <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
+    </div>
+  </header>
+  <main>
+<section id="popit" class="screen popit-screen" aria-labelledby="popit-title">
+      <div class="popit-toolbar"><a id="popit-home" class="quiet-button" href="../" data-site-link>← Elegir actividad</a><span class="popit-badge">UN RATITO PARA DISFRUTAR</span></div>
+      <p class="eyebrow">PEQUEÑAS BURBUJAS, GRANDES SONRISAS</p>
+      <h1 id="popit-title" tabindex="-1">Pop, pop, <span>¡pop!</span></h1>
+      <p class="popit-intro" id="popit-instructions">Toca las burbujitas o desliza tus dedos. Tú pones el ritmo.</p>
+      <div class="popit-palettes" role="group" aria-label="Colores del pop it">
+        <button data-popit-palette="rainbow" aria-pressed="true">🌈 Arcoíris</button>
+        <button data-popit-palette="ocean" aria-pressed="false">🌊 Océano</button>
+        <button data-popit-palette="candy" aria-pressed="false">🍬 Caramelo</button>
+      </div>
+      <div class="popit-toy" id="popit-toy" data-palette="rainbow">
+        <div class="popit-board" id="popit-board" role="group" aria-label="Pop it de 36 burbujas" aria-describedby="popit-instructions"></div>
+        <div class="popit-stamp" aria-hidden="true">FABI & SONI <span>✿</span> HECHO PARA JUGAR</div>
+      </div>
+      <div class="popit-summary"><span id="popit-count">0 / 36 pops</span><span>Sin reloj. Sin prisas.</span></div>
+      <p id="popit-status" class="popit-status" role="status" aria-live="polite">Un color, una burbuja… ¡empieza donde quieras!</p>
+      <button id="popit-flip" class="primary-button">↻ Darle la vuelta</button>
+      <p class="popit-keyboard-note">También puedes usar Tab, las flechas y Enter para hacer pop.</p>
+    </section>
+  </main>
+  <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
+</body>
+</html>

@@ -22,7 +22,7 @@ const root = path.resolve(__dirname, '..');
       response.end('window.legacyNavigationLoaded = true;');
       return;
     }
-    const file = path.resolve(root, '.' + decodeURIComponent(url.pathname));
+    const file = path.resolve(root, '.' + decodeURIComponent(url.pathname), ...(url.pathname.endsWith('/') ? ['index.html'] : []));
     if (!file.startsWith(root + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
       response.writeHead(404); response.end(); return;
     }
@@ -32,7 +32,7 @@ const root = path.resolve(__dirname, '..');
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   let browser;
   try {
-    browser = await chromium.launch({ channel: 'msedge', headless: true });
+    browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL || 'chrome', headless: true });
     const page = await browser.newPage();
     const errors = []; page.on('pageerror', error => errors.push(error.message));
     const origin = `http://127.0.0.1:${server.address().port}`;

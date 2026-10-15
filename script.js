@@ -43,7 +43,7 @@ function persist() {
   catch { storageAvailable = false; }
 }
 
-let screen = 'chooser';
+let screen = 'home';
 let round = null;
 let paused = false;
 let hintVisible = false;
@@ -89,36 +89,9 @@ function renderSound() {
   $('sound-label').textContent = options.sound ? 'Sonido activado' : 'Sonido silenciado';
 }
 function showScreen(next) {
-  window.SoniGame.stop();
-  window.VisualTimer.leave();
-  window.ButterflyBreathing.leave();
-  window.PianoGame.leave();
-  window.HangmanGame.leave();
-  window.PopitGame.leave();
-  window.ClayGame.leave();
-  window.SpaceGame.leave();
-  window.ColoringTool.leave();
   screen = next;
-  for (const id of ['chooser', 'soni', 'timer', 'breathing', 'piano', 'hangman', 'popit', 'clay', 'space', 'coloring', 'home', 'game', 'finish']) $(id).hidden = id !== next;
-  document.body.classList.toggle('playing-soni', next === 'soni');
-  document.body.classList.toggle('showing-timer', next === 'timer');
-  document.body.classList.toggle('showing-breathing', next === 'breathing');
-  document.body.classList.toggle('showing-piano', next === 'piano');
-  document.body.classList.toggle('showing-hangman', next === 'hangman');
-  document.body.classList.toggle('showing-popit', next === 'popit');
-  document.body.classList.toggle('showing-clay', next === 'clay');
-  document.body.classList.toggle('showing-space', next === 'space');
-  document.body.classList.toggle('showing-coloring', next === 'coloring');
-  if (next === 'coloring') window.ColoringTool.enter();
-  if (next === 'space') window.SpaceGame.enter({ sound: options.sound });
+  for (const id of ['home', 'game', 'finish']) $(id).hidden = id !== next;
   $('settings-open').hidden = !['home', 'finish'].includes(next);
-  if (next === 'soni') window.SoniGame.start({ sound: options.sound, layout: options.layout });
-  if (next === 'timer') window.VisualTimer.enter({ onStart: enableAudio, onFinish: () => chime(true) });
-  if (next === 'breathing') window.ButterflyBreathing.enter({ onStart: enableAudio, onFinish: () => chime() });
-  if (next === 'piano') window.PianoGame.enter({ sound: options.sound });
-  if (next === 'popit') window.PopitGame.enter({ sound: options.sound });
-  if (next === 'clay') window.ClayGame.enter({ onStamp: () => { enableAudio(); chime(); } });
-  if (next === 'hangman') window.HangmanGame.enter({ sound: options.sound, onCorrect: () => { enableAudio(); chime(); } });
 }
 function poolFor(settings) {
   const level = LEVELS[settings.level];
@@ -283,58 +256,10 @@ window.addEventListener('blur', () => { heldKeys.clear(); pauseGame(); });
 document.addEventListener('visibilitychange', () => { if (document.hidden) { heldKeys.clear(); pauseGame(); } });
 $('play').addEventListener('click', startGame); $('replay').addEventListener('click', startGame);
 $('go-home').addEventListener('click', goHome); $('rest').addEventListener('click', goHome); $('pause-home').addEventListener('click', goHome);
-function chooseGame() {
-  goHome(); showScreen('chooser'); $('chooser-title').focus({ preventScroll: true });
-}
-document.querySelector('.brand').addEventListener('click', event => { event.preventDefault(); chooseGame(); });
-$('fabi-chooser').addEventListener('click', chooseGame);
-$('soni-home').addEventListener('click', chooseGame);
-$('timer-home').addEventListener('click', chooseGame);
-$('breathing-home').addEventListener('click', chooseGame);
-$('piano-home').addEventListener('click', chooseGame);
-$('hangman-home').addEventListener('click', chooseGame);
-$('popit-home').addEventListener('click', chooseGame);
-$('space-home').addEventListener('click', chooseGame);
-$('coloring-home').addEventListener('click', chooseGame);
-$('choose-coloring').addEventListener('click', () => { showScreen('coloring'); $('coloring-title').focus({ preventScroll: true }); });
-$('choose-space').addEventListener('click', () => { showScreen('space'); $('space-title').focus({ preventScroll: true }); });
-$('clay-home').addEventListener('click', chooseGame);
-$('choose-clay').addEventListener('click', () => { showScreen('clay'); $('clay-title').focus({ preventScroll: true }); });
-$('choose-popit').addEventListener('click', () => { showScreen('popit'); $('popit-title').focus({ preventScroll: true }); });
-$('choose-fabi').addEventListener('click', () => { showScreen('home'); $('player-name').focus({ preventScroll: true }); });
-$('choose-soni').addEventListener('click', () => { showScreen('soni'); $('soni-title').focus({ preventScroll: true }); });
-$('choose-timer').addEventListener('click', () => { showScreen('timer'); $('timer-title').focus({ preventScroll: true }); });
-$('choose-breathing').addEventListener('click', () => { showScreen('breathing'); $('breathing-title').focus({ preventScroll: true }); });
-$('choose-piano').addEventListener('click', () => { showScreen('piano'); $('piano-title').focus({ preventScroll: true }); });
-$('choose-hangman').addEventListener('click', () => { showScreen('hangman'); $('hangman-title').focus({ preventScroll: true }); });
-// Cuenta aperturas desde el menú; volver, pausar o reiniciar no añade otra apertura.
-const ACTIVITY_NAMES = {
-  fabi: 'Globos de letras',
-  soni: 'Teclado mágico',
-  timer: 'Tiempo con calma',
-  breathing: 'Respira con la mariposa',
-  piano: 'Mi primer piano',
-  hangman: 'Ahorcado',
-  popit: 'Mi pop it',
-  clay: 'Plasticonejo',
-  space: 'Astroletras',
-  coloring: 'A colorear'
-};
-for (const [activityId, activityName] of Object.entries(ACTIVITY_NAMES)) {
-  $(`choose-${activityId}`).addEventListener('click', () => {
-    if (typeof window.gtag !== 'function') return;
-    try {
-      window.gtag('event', 'activity_open', {
-        activity_id: activityId,
-        activity_name: activityName
-      });
-    } catch { /* La medición es opcional; las actividades siguen funcionando. */ }
-  });
-}
 $('pause').addEventListener('click', pauseGame); $('resume').addEventListener('click', resumeGame);
 $('pause-dialog').addEventListener('cancel', event => { event.preventDefault(); resumeGame(); });
 $('hint').addEventListener('click', () => { if (screen !== 'game' || paused || round.transitioning) return; clearHintTimer(); hintVisible = true; renderKeys(); });
-$('sound').addEventListener('click', () => { options.sound = !options.sound; renderSound(); window.SoniGame.setSound(options.sound); window.PianoGame.setSound(options.sound); window.HangmanGame.setSound(options.sound); window.PopitGame.setSound(options.sound); window.SpaceGame.setSound(options.sound); if (options.sound && !['soni', 'piano', 'popit'].includes(screen)) { enableAudio(); chime(); } persist(); });
+$('sound').addEventListener('click', () => { options.sound = !options.sound; renderSound(); if (options.sound) { enableAudio(); chime(); } persist(); });
 document.querySelectorAll('input[name="level"]').forEach(input => {
   input.checked = Number(input.value) === options.level;
   input.addEventListener('change', () => { options.level = Number(input.value); persist(); });
@@ -364,4 +289,6 @@ $('player-name').addEventListener('keydown', event => {
   }
 });
 renderSound();
-showScreen('chooser');
+showScreen('home');
+
+window.addEventListener('pagehide', pauseGame);

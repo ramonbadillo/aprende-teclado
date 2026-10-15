@@ -1,10 +1,10 @@
 # El mundo de Fabi
 
-Diez actividades en español con un selector inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. **A colorear** convierte una imagen local en contornos negros para descargar o imprimir y colorear. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas ni backend. Las actividades y la conversión de imágenes funcionan localmente; el buscador opcional de A colorear consulta Openverse por internet.
+Diez actividades en español, cada una en su propia página, con un menú inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. **A colorear** convierte una imagen local en contornos negros para descargar o imprimir y colorear. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas ni backend. Las actividades y la conversión de imágenes funcionan localmente; el buscador opcional de A colorear consulta Openverse por internet.
 
 ## Identidad visual
 
-El logo es un pequeño planeta Tierra de océanos azules y continentes verdes, enmarcado por un borde crema para que destaque sobre fondos claros y oscuros. `assets/fabi-world.svg` contiene el símbolo vectorial del encabezado; `assets/favicon.svg` es su versión simplificada para pestañas. El nombre usa texto adaptable a los modos claro y oscuro. La descripción de la página y la de Open Graph se mantienen juntas en `index.html`.
+El logo es un pequeño planeta Tierra de océanos azules y continentes verdes, enmarcado por un borde crema para que destaque sobre fondos claros y oscuros. `assets/fabi-world.svg` contiene el símbolo vectorial del encabezado; `assets/favicon.svg` es su versión simplificada para pestañas. El nombre usa texto adaptable a los modos claro y oscuro. Cada página tiene título y descripción propios, incluidos sus metadatos de Open Graph.
 
 ## Ejecutar localmente
 
@@ -12,29 +12,42 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube `index.html`, `styles.css`, `script.js`, `navigation.js`, `theme.css`, `theme.js`, las carpetas completas `assets/`, `soni/`, `timer/`, `breathing/`, `piano/`, `hangman/`, `popit/`, `clay/`, `space/`, `coloring/`, `fiesta-de-7-anos/`, y `README.md` a la raíz de tu repositorio.
+1. Sube el contenido del sitio a la raíz del repositorio, incluidas las diez carpetas de páginas de actividades indicadas abajo, las carpetas de recursos y los archivos compartidos `activity-page.js`, `canonical-url.js`, `navigation.js`, `theme.js`, `styles.css` y `theme.css`.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
 5. Cuando GitHub termine el despliegue, abre la dirección que muestra Pages: `https://TU-USUARIO.github.io/TU-REPOSITORIO/`.
 
-Los enlaces públicos usan direcciones de carpeta, sin `index.html`. `navigation.js` limpia las direcciones antiguas al abrirlas por HTTP/HTTPS y conserva la navegación entre archivos al abrir el sitio localmente. Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas claves, servicios de pago ni configurar un dominio. La entrega contiene el código listo para publicar; no publica ni modifica la configuración remota del repositorio automáticamente.
+Los enlaces públicos usan direcciones de carpeta, sin `index.html`. `canonical-url.js` normaliza las direcciones terminadas en `index.html` antes de inicializar Analytics; `navigation.js` conserva la navegación entre archivos al abrir el sitio localmente. Los recursos usan rutas relativas y funcionan en un subdirectorio. No necesitas claves, servicios de pago ni configurar un dominio. La entrega contiene el código listo para publicar; no publica ni modifica la configuración remota del repositorio automáticamente.
 
-El script principal y los recursos del piano y del ahorcado tienen una versión en su URL (`?v=…`) para descargar el código actualizado aunque GitHub Pages conserve archivos anteriores en caché. Al modificar esos archivos en una publicación futura, incrementa su versión en `index.html`. Si el navegador conserva el HTML anterior, usa **Ctrl + F5** después de publicar.
+Los scripts compartidos y los recursos del piano y del ahorcado tienen una versión en su URL (`?v=…`) para descargar el código actualizado aunque GitHub Pages conserve archivos anteriores en caché. Al modificar esos archivos en una publicación futura, incrementa su versión en las páginas que los cargan. Si el navegador conserva el HTML anterior, usa **Ctrl + F5** después de publicar.
 
-## Uso de actividades en Google Analytics
+## Páginas de actividades y Google Analytics
 
-Las dos páginas incluyen la etiqueta de Google Analytics `G-DSSKXYFM89`. En la página principal, abrir cualquiera de las diez actividades desde el menú envía el evento `activity_open`, con `activity_id` (identificador estable) y `activity_name` (nombre visible). Cada nueva apertura cuenta, incluso si una persona vuelve a elegir la misma actividad. Volver al menú, pausar o reiniciar una partida no genera aperturas adicionales. Esto mide selecciones de actividades, no tiempo de juego ni partidas completadas. Estos parámetros no incluyen nombres de jugadores, palabras escritas, imágenes ni datos del formulario.
+La portada es únicamente el menú. Cada tarjeta es un enlace normal a un documento HTML independiente con título, descripción y recursos de su actividad. Las direcciones funcionan al abrirlas directamente, recargar, compartirlas o usar Atrás/Adelante; también admiten publicación bajo un subdirectorio de GitHub Pages.
 
-Para comparar las actividades:
+| Actividad | Dirección |
+| --- | --- |
+| Globos de letras | `/globos-de-letras/` |
+| Teclado mágico | `/teclado-magico/` |
+| Tiempo con calma | `/tiempo-con-calma/` |
+| Respira con la mariposa | `/respira-con-la-mariposa/` |
+| Mi primer piano | `/mi-primer-piano/` |
+| Ahorcado | `/ahorcado/` |
+| Mi pop it | `/mi-pop-it/` |
+| Plasticonejo | `/plasticonejo/` |
+| Astroletras | `/astroletras/` |
+| A colorear | `/a-colorear/` |
 
-1. Publica los archivos actualizados. En Analytics, abre **Administrar → Visualización de datos → Definiciones personalizadas** y crea una dimensión llamada **Actividad**, con alcance **Evento** y parámetro `activity_name`.
-2. Abre una actividad en el sitio publicado y comprueba `activity_open` en **Tiempo real**.
-3. En **Explorar**, crea una exploración de formato libre con **Actividad** como filas y **Número de eventos** y **Total de usuarios** como valores. Filtra **Nombre del evento** para que sea exactamente `activity_open` y ordena por número de eventos de mayor a menor. Así verás aperturas y usuarios por actividad.
+Las doce páginas (menú, diez actividades y agradecimiento) incluyen la etiqueta `G-DSSKXYFM89` una sola vez. Analytics registra la visita normal de cada documento con su ruta y título. Se retiró el evento `activity_open`: ya no hace falta una dimensión personalizada para comparar actividades ni se envían visitas virtuales al pausar, reiniciar o cambiar de nivel dentro de un juego.
 
-Los informes con la dimensión personalizada pueden tardar entre 24 y 48 horas en estar disponibles después de crearla y empezar a enviar datos. La medición comienza al publicar; no reconstruye usos anteriores y puede ser bloqueada por el navegador.
+Después de publicar, abre **Informes → Interacción → Páginas y pantallas** en Analytics. Usa **Título de página** o **Ruta de página**, y ordena por **Vistas** o **Usuarios activos** para identificar las actividades más visitadas. El tiempo de interacción indica cuánto tiempo permanece la página en primer plano, no necesariamente tiempo jugando. Los datos nuevos comienzan al publicar; los usos anteriores no se redistribuyen entre las nuevas rutas. Si ese informe no aparece en el menú de tu propiedad, un editor puede añadirlo desde la biblioteca de informes.
 
-Referencia: [Dimensiones personalizadas relativas al evento en GA4](https://support.google.com/analytics/answer/14239696?hl=es).
+Referencia: [Informe Páginas y pantallas de GA4](https://support.google.com/analytics/answer/12926732?hl=es-419).
+
+El tema, el sonido y el progreso que ya se guardaba en localStorage se comparten entre páginas del mismo origen. Abrir de nuevo una actividad desde el menú comienza una sesión nueva; las partidas e imágenes que solo estaban en memoria no se guardan al salir. El botón Atrás puede restaurar un documento anterior según la caché del navegador. Cada actividad detiene sus efectos al abandonarla.
+
+`node --test tests/activity-pages.test.cjs` verifica rutas, títulos, recursos, ausencia de juegos ajenos en cada documento, una sola configuración de Analytics, compatibilidad con subdirectorios y preferencias compartidas.
 
 ## Fiesta de 7 años de Fabi
 
@@ -55,13 +68,13 @@ Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira
 - El botón de pegado pide acceso al portapapeles solo al pulsarlo; el navegador puede solicitar permiso. Si no lo admite o se rechaza, se puede usar el atajo de pegar o elegir un archivo descargado. No lee el portapapeles al abrir la actividad. Pegar un enlace muestra instrucciones y no descarga esa dirección. Los campos de texto conservan su pegado normal.
 - **Buscar imágenes** permite escribir una idea, ver una galería y pulsar **Colorear** para procesar la imagen elegida directamente. Las sugerencias Gatos, Mariposas, Flores y Dinosaurios ayudan a empezar. Se buscan **Dibujos** de forma predeterminada; **Dibujos y fotos** amplía el catálogo. **Ver más imágenes** carga otra página.
 - El buscador usa la [API pública de Openverse](https://api.openverse.org/v1/) sin cuentas, claves ni backend. Consulta imágenes declaradas CC0 o de dominio público y excluye los resultados marcados como sensibles por el proveedor (`mature=false`). Algunos temas o personajes pueden tener pocas imágenes en este catálogo. Los nombres en inglés también pueden ayudar.
-- La búsqueda envía a Openverse el texto escrito y los filtros; las miniaturas y la imagen seleccionada se descargan desde su servicio de imágenes. La conversión ocurre en el navegador y no se suben archivos propios ni resultados. No hay peticiones externas hasta iniciar una búsqueda. Los resultados se conservan temporalmente en memoria para evitar consultas repetidas.
+- La búsqueda envía a Openverse el texto escrito y los filtros; las miniaturas y la imagen seleccionada se descargan desde su servicio de imágenes. La conversión ocurre en el navegador y no se suben archivos propios ni resultados. El buscador no hace peticiones externas hasta iniciar una búsqueda; Analytics se carga al abrir la página. Los resultados se conservan temporalmente en memoria para evitar consultas repetidas.
 - Se muestran enlaces a la fuente y licencia de cada resultado, y el crédito de la imagen seleccionada. La resolución depende del original disponible. Si el original falla, intenta usar la miniatura disponible y avisa cuando el resultado tiene menor resolución; las miniaturas que fallan se retiran de la galería. Si el servicio no responde, limita las búsquedas o una imagen no se puede descargar, se muestra un mensaje y la carga local sigue disponible. Elegir otro archivo, quitar la imagen o salir de la actividad cancela la descarga pendiente.
 - Elige una imagen **JPG, PNG o WebP**, o arrastra un archivo al recuadro. Admite hasta 20 MB y 40 megapíxeles. **Probar con un ejemplo** dibuja un pequeño jardín localmente para ver la transformación sin elegir un archivo.
 - Compara el original con los contornos. Ajusta **Cantidad de detalles**, **Limpiar el dibujo** y **Grosor del trazo**; el resultado se actualiza automáticamente. **Restablecer ajustes** vuelve a los valores iniciales. Las zonas transparentes se convierten en blanco.
 - **Descargar PNG** guarda exactamente la hoja mostrada, en blanco y negro y sin interfaz. **Imprimir mi dibujo** abre la impresión del navegador y solo imprime la hoja, incluso en modo oscuro. Las imágenes grandes se reducen conservando su proporción a un máximo de 1400 píxeles en el lado largo; el tamaño final aparece sobre el resultado.
 - Funciona mejor con ilustraciones de colores definidos y fondos claros. La conversión es procesamiento local de contornos, sin inteligencia artificial ni servicios externos: las fotos pueden conservar sombras y texturas, y los trazos oscuros anchos pueden dejar contornos dobles. Más limpieza y menos detalle pueden ayudar; no interpreta objetos ni reconstruye partes del dibujo.
-- No carga la imagen a internet ni la guarda en localStorage. Se conserva en memoria al volver al menú; **Quitar imagen** o recargar la página la retira de la herramienta. Los archivos inválidos muestran un mensaje y conservan la última imagen válida.
+- No carga la imagen a internet ni la guarda en localStorage. Se conserva en memoria mientras esta página permanece abierta; **Quitar imagen**, recargar o volver al menú la retira de la herramienta. Los archivos inválidos muestran un mensaje y conservan la última imagen válida.
 - `coloring/filters.js` detecta bordes en los canales de color, suaviza, conecta contornos y ajusta el grosor. `coloring/coloring.js` maneja carga, vista previa y exportación; `coloring/search.js` contiene búsqueda, galería, caché y cancelación; `coloring/coloring.css` incluye impresión, móvil y tema oscuro. Todo funciona también abriendo `index.html` directamente.
 - `BROWSER_CHANNEL=chrome node tests/coloring-search.test.cjs` comprueba búsqueda y selección con respuestas controladas, errores, cancelación, atribución y exportación sin depender del servicio real (requiere Playwright).
 - `BROWSER_CHANNEL=chrome node tests/coloring-paste.test.cjs` comprueba Google en otra pestaña, pegado de imágenes, permisos, enlaces, navegación y cancelación de lecturas pendientes (requiere Playwright).
@@ -72,36 +85,36 @@ Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira
 - Pulsa **Despegar** y escribe cualquiera de las letras de los meteoritos para disparar desde el cohete. También puedes usar el teclado en pantalla. Se aceptan mayúsculas, minúsculas y Ñ; mantener una tecla no repite disparos ni daños. Los atajos y las teclas que no son letras se ignoran.
 - Empiezas con **6 vidas**. Una letra que no aparece en los meteoritos o un meteorito que alcanza el cohete resta una vida. Las grietas, las alas dañadas y el humo muestran cómo se va destruyendo la nave. Al agotarlas, puedes reparar y reiniciar con seis vidas.
 - Destruye **20 meteoritos** para ganar. Empiezas con dos y aparecen hasta tres a la vez, con letras diferentes. Tardan entre 14 y 21 segundos en acercarse; la barrita bajo cada uno muestra el tiempo restante.
-- **Pausar**, Escape, salir al menú y cambiar de ventana o pestaña detienen el juego. Al regresar, pulsa **Continuar misión**. Recargar reinicia la partida; no se guardan datos adicionales.
+- **Pausar**, Escape, salir al menú y cambiar de ventana o pestaña detienen el juego. Al regresar de una pausa, pulsa **Continuar misión**. Abrir la actividad desde el menú o recargar reinicia la partida; no se guardan datos adicionales.
 - Comparte el control de sonido. Los efectos y dibujos se generan localmente, sin descargas. Con movimiento reducido, los meteoritos se quedan quietos y sus barras muestran cuánto falta para el impacto.
 - `space/space.js` controla la partida y `space/space.css` su aspecto. `BROWSER_CHANNEL=chrome node tests/space.test.cjs` comprueba aciertos, errores, seis vidas, choques, pausa, victoria, reinicio, navegación y pantallas pequeñas (requiere Playwright).
 
 ### Plasticonejo · Busca, toca y estampa
 
-- Elige **Fácil (20 letras)**, **Mediano (32 letras)** o **Difícil (48 letras)** y busca con el teclado, el ratón o la pantalla táctil. Empieza en Mediano. Puedes cambiar de dificultad sin perder las huellitas de la palabra actual ni tu colección; solo se reorganizan las letras. La dificultad se mantiene al salir al menú y vuelve a Mediano al recargar. Incluyen todas las letras de la palabra y otras para hacer más entretenida la búsqueda. Cada acierto estampa una letra en la plastilina del centro; puedes encontrarlas en cualquier orden. Las repetidas se estampan una por una, sin perder el avance al equivocarse. No hay reloj ni vidas.
+- Elige **Fácil (20 letras)**, **Mediano (32 letras)** o **Difícil (48 letras)** y busca con el teclado, el ratón o la pantalla táctil. Empieza en Mediano. Puedes cambiar de dificultad sin perder las huellitas de la palabra actual ni tu colección; solo se reorganizan las letras. La dificultad vuelve a Mediano al abrir la actividad desde el menú o recargar. Incluyen todas las letras de la palabra y otras para hacer más entretenida la búsqueda. Cada acierto estampa una letra en la plastilina del centro; puedes encontrarlas en cualquier orden. Las repetidas se estampan una por una, sin perder el avance al equivocarse. No hay reloj ni vidas.
 - La lista inicial es **rosas, dibujos, juguetes, papa, mama, silla, computadora, pepe, lego y flores**. Se recorre en ese orden; **Siguiente palabra** aparece al completar cada una. Todas quedan en una colección durante la sesión. **Volver a jugar** empieza una colección nueva al terminar.
 - Un conejito de plastilina acompaña la palabra. Al completarla levanta las patitas, da tres saltitos y se queda sonriendo. El festejo se detiene al salir, perder el foco o cambiar de pestaña; con movimiento reducido, celebra con su sonrisa y estrellas sin saltar.
 - **Ver el molde** muestra las siluetas de las letras. Desmárcalo para descubrirlas sin ver la palabra. **Dame una pista** señala una letra pendiente con una estrella, sin resolverla. Elige plastilina lila, durazno o menta sin perder el avance.
 - **Cambiar la lista de palabras** admite hasta 30 palabras distintas, de 2 a 12 letras, separadas por comas, punto y coma o renglones. Permite tildes y Ñ. Guardar reinicia la colección; solo la lista se conserva en este navegador mediante `fabi-clay-words-v1`. No se envían datos. Si no se puede guardar, permite jugar e informa de la limitación.
 - Acepta vocales sin tilde para estampar su forma acentuada; N y Ñ son diferentes. Mantener una tecla no estampa repetidamente. Los campos de edición y los atajos del navegador no responden como letras del juego.
-- Conserva la partida al salir y volver al menú, y deja de recibir letras fuera de la actividad. Comparte el sonido con los otros juegos y respeta movimiento reducido. Los dibujos y efectos se crean localmente con CSS.
+- Abrir la actividad desde el menú inicia una partida nueva; la página anterior deja de recibir letras al salir. Comparte el sonido con los otros juegos y respeta movimiento reducido. Los dibujos y efectos se crean localmente con CSS.
 - `clay/clay.js` controla las palabras y entradas; `clay/clay.css` define la masa y los sellos. `BROWSER_CHANNEL=chrome node tests/clay.test.cjs` verifica una colección completa, letras repetidas, errores, pistas, personalización, guardado, tildes/Ñ, navegación, tacto y diseño a 320/390 px (requiere Playwright).
 
 ### Mi pop it · Pop, pop, ¡pop!
 
 - Presiona las 36 burbujas con ratón, pantalla táctil o teclado; desliza el dedo o arrastra el ratón para presionar varias. Cada burbuja cuenta una sola vez hasta darle la vuelta.
 - Elige **Arcoíris**, **Océano** o **Caramelo** sin perder el avance. **Darle la vuelta** restaura todas las burbujas en cualquier momento. Al completar el tablero aparece una invitación a jugar de nuevo, sin reloj ni penalizaciones.
-- Con Tab llegas al tablero; las flechas recorren las burbujas y Enter/Espacio las presionan. La preferencia de sonido es compartida y el pop se genera localmente, sin descargar audio. Conserva el tablero al salir y volver; recargar lo reinicia.
+- Con Tab llegas al tablero; las flechas recorren las burbujas y Enter/Espacio las presionan. La preferencia de sonido es compartida y el pop se genera localmente, sin descargar audio. Abrir la actividad desde el menú o recargar reinicia el tablero.
 - `popit/popit.js` controla las burbujas, entradas y audio; `popit/popit.css` define el juguete, paletas y diseño adaptable. Prueba con `BROWSER_CHANNEL=chrome node tests/popit.test.cjs` si Playwright está disponible: clics, arrastre, teclado, deslizamiento táctil, reinicio, navegación, colores y anchos de 390/320 px.
 
 ### Ahorcado · La palabra secreta
 
 - Escoge una categoría arriba del dibujo: **Todas**, **Animales**, **Naturaleza**, **Comida**, **En casa**, **Música** o **Compañeritos de Fabi**. Hay 24 palabras y nueve nombres: Mariano, Isabela, Jade, Cami, Sarah, Farah, Fabian, Sofi Macias y Sofi Mongalo. Cada reto incluye una pista. Se barajan sin repetirse hasta recorrer la categoría y se evita repetir el último al empezar otra vuelta.
-- Al cambiar de categoría empieza un reto con seis intentos y una letra de regalo disponible. **Otra palabra** sigue en la categoría elegida. El espacio entre nombre y apellido ya está puesto: no hace falta adivinarlo, no cuenta como letra ni consume la ayuda. Al salir y volver se conserva la selección hasta recargar.
+- Al cambiar de categoría empieza un reto con seis intentos y una letra de regalo disponible. **Otra palabra** sigue en la categoría elegida. El espacio entre nombre y apellido ya está puesto: no hace falta adivinarlo, no cuenta como letra ni consume la ayuda. La selección dura mientras permanece abierta la página; abrirla desde el menú o recargar la reinicia.
 - Escribe una letra o pulsa los botones en pantalla. Cada fallo añade una parte al dibujo; tienes seis intentos. Una letra repetida no resta intentos y todas sus apariciones se revelan juntas. Se aceptan mayúsculas, minúsculas y vocales con tilde; Ñ y N son letras diferentes. ÁRBOL y LÁPIZ muestran su ortografía con tilde.
 - **Regálame una letra** descubre una letra pendiente una vez por palabra, sin gastar intentos. **Otra palabra** permite cambiar en cualquier momento. Al acertar o agotar los intentos, se revela la palabra completa y puedes jugar otra vez.
 - Al completar una palabra suena un festejo de niños y aparecen emojis de celebración. El audio está incluido localmente bajo CC0 (fuente y licencia en `hangman/AUDIO-LICENSE.txt`). El festejo termina al silenciar, cambiar de palabra, salir o perder el foco; con movimiento reducido, los emojis aparecen sin animación.
-- Funciona con teclado, ratón y pantalla táctil, sin reloj. Al volver al menú conserva la palabra y deja de recibir letras; recargar inicia de nuevo. Comparte la preferencia de sonido, sin guardar progreso adicional.
+- Funciona con teclado, ratón y pantalla táctil, sin reloj. Al volver al menú deja de recibir letras; abrir la actividad otra vez o recargar inicia de nuevo. Comparte la preferencia de sonido, sin guardar progreso adicional.
 
 ### Mi primer piano · para Fabi y Soni
 
@@ -115,7 +128,7 @@ Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira
 
 - Pulsa **Empezar** para acompañar cuatro respiraciones: las alas se abren durante tres segundos con **Toma aire…** y se cierran durante cuatro segundos con **Suelta el aire…**, sin retener la respiración. Los mensajes invitan a seguir un ritmo cómodo y parar cuando se quiera.
 - Cuatro puntos muestran el avance. Al terminar, la mariposa descansa y suena una sola campanita si el sonido está activado. **Otra vez** inicia una nueva pausa.
-- **Pausar**, Escape, cambiar de pestaña o de ventana y volver al selector congelan la animación y el avance. **Continuar** retoma desde ese punto; **Volver a empezar** deja la actividad lista sin iniciarla. Recargar reinicia la actividad.
+- **Pausar**, Escape y cambiar de pestaña o de ventana congelan la animación y el avance. **Continuar** retoma desde ese punto; **Volver a empezar** deja la actividad lista sin iniciarla. Abrir la actividad desde el menú o recargar la reinicia.
 - Funciona con ratón, teclado o pantalla táctil. Con movimiento reducido, la mariposa permanece quieta y los textos siguen guiando cada fase. Los lectores de pantalla reciben las instrucciones al cambiar de fase.
 - El dibujo SVG, la animación y los sonidos se generan localmente, sin recursos externos ni datos guardados adicionales.
 
@@ -124,7 +137,7 @@ Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira
 - Selecciona una duración de 1, 3, 5 o 10 minutos, o escribe de 1 a 120 minutos completos. Se puede usar con ratón, teclado o pantalla táctil.
 - El área de color disminuye en proporción al tiempo restante: verde mientras queda más de la mitad, amarillo entre la mitad y el 20%, y coral durante el último 20%. El tamaño de la porción y los mensajes **Mucho**, **La mitad** y **Poquito** permiten entenderlo sin depender del color ni de los números.
 - **Empezar**, **Pausar**, **Continuar** y **Volver a empezar** controlan el reloj. Escape también pausa. Para cambiar la duración durante la cuenta, primero vuelve a empezar.
-- Cambiar de pestaña o de ventana no lo pausa: calcula lo que queda con la hora real, aunque el navegador ralentice sus actualizaciones. Al volver actualiza la vista. Salir al selector o usar el logo lo pausa y conserva lo que queda al entrar de nuevo.
+- Cambiar de pestaña o de ventana no lo pausa: calcula lo que queda con la hora real, aunque el navegador ralentice sus actualizaciones. Al volver actualiza la vista. Salir al menú detiene el reloj. Abrir de nuevo la actividad desde el menú inicia un reloj nuevo.
 - Al llegar a cero aparece **Nuestro ratito terminó** y suena una campanita suave si el sonido está activado. No hay alarmas repetidas, parpadeos ni penalizaciones. **Otra vez** inicia la misma duración.
 - El reloj no se guarda al recargar. Comparte el botón de sonido con los juegos; no altera sus retos ni su progreso. Los lectores de pantalla anuncian los cambios de etapa y la pausa, sin anunciar cada segundo.
 
@@ -159,7 +172,10 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 
 ## Organización
 
-- `index.html`: pantallas, controles, diálogos accesibles y dibujos SVG locales.
+- `index.html`: menú con enlaces a las diez actividades.
+- Cada carpeta de página contiene su `index.html` independiente; los controles y diálogos de Globos están en `globos-de-letras/index.html`.
+- `activity-page.js`: preferencias compartidas e inicio/salida del juego de la página actual.
+- `canonical-url.js` y `navigation.js`: direcciones consistentes para Analytics y enlaces compatibles con archivos locales.
 - `styles.css`: cielo, globos, diseño adaptable, foco visible y movimiento reducido.
 - `script.js`: datos `LEVELS` al principio, lógica de partidas, teclado, audio y guardado. Añade palabras o sílabas en `LEVELS[2].items` y `LEVELS[3].items`; usa A–Z y Ñ en mayúsculas, sin espacios ni tildes. Los retos se barajan por grupos y evitan repeticiones consecutivas.
 - `soni/keyboard.js`: distribución física, conjunto `Set` de teclas sostenidas, colores, keydown/keyup y limpieza por pérdida de foco.

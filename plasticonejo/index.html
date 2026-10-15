@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Plasticonejo · El mundo de Fabi</title>
+  <script src="../canonical-url.js?v=1"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSSKXYFM89"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DSSKXYFM89');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a9cfe6">
+  <script src="../theme.js?v=2"></script>
+  <meta name="description" content="Encuentra letras y estampa palabras en plastilina.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+  <meta property="og:title" content="Plasticonejo · El mundo de Fabi">
+  <meta property="og:description" content="Encuentra letras y estampa palabras en plastilina.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="../clay/clay.css?v=5">
+  <link rel="stylesheet" href="../theme.css?v=2">
+  <script src="../navigation.js?v=2" defer></script>
+  <script src="../clay/clay.js?v=4" defer></script>
+  <script src="../activity-page.js?v=1" defer></script>
+</head>
+<body data-activity="clay" class="showing-clay">
+  <svg class="svg-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5 1.2-7-5-5 7-1Z"/></symbol>
+      <symbol id="cloud" viewBox="0 0 240 100"><path d="M35 89C-5 89-6 37 34 34 42-8 109-8 124 30c28-22 71-4 73 26 48-2 51 33 14 33Z" fill="currentColor"/></symbol>
+      <symbol id="balloon-art" viewBox="0 0 220 310"><path d="M110 221c-22 39 25 46 0 87" fill="none" stroke="#849da5" stroke-width="2"/><path d="m110 206-9 18h18Z" fill="currentColor"/><ellipse cx="110" cy="108" rx="87" ry="103" fill="currentColor"/><path d="M51 76c3-20 13-34 28-41" fill="none" stroke="white" stroke-opacity=".52" stroke-width="11" stroke-linecap="round"/></symbol>
+    </defs>
+  </svg>
+  <div class="scenery" aria-hidden="true">
+    <div class="night-stars"></div>
+    <div class="night-moon"></div>
+    <svg class="cloud cloud-one"><use href="#cloud"/></svg><svg class="cloud cloud-two"><use href="#cloud"/></svg><svg class="cloud cloud-three"><use href="#cloud"/></svg>
+    <span class="sky-spark spark-one">✦</span><span class="sky-spark spark-two">✧</span><span class="sky-spark spark-three">✦</span>
+    <div class="hill hill-back"></div><div class="hill hill-front"></div>
+  </div>
+  <header class="site-header">
+    <a class="brand" href="../" data-site-link aria-label="El mundo de Fabi, elegir actividad">
+      <img class="brand-mark" src="../assets/fabi-world.svg?v=2" width="64" height="64" alt="">
+      <span class="brand-name">El mundo de <b>Fabi</b></span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle" class="quiet-button" type="button" aria-label="Modo oscuro" aria-pressed="false"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Modo oscuro</span></button>
+      <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
+    </div>
+  </header>
+  <main>
+<section id="clay" class="screen clay-screen" aria-labelledby="clay-title">
+      <div class="clay-toolbar"><a id="clay-home" class="quiet-button" href="../" data-site-link>← Elegir actividad</a><span class="clay-badge">✿ MI TALLER DE PALABRAS</span></div>
+      <h1 id="clay-title" tabindex="-1"><span>Plasticonejo</span></h1>
+      <p class="clay-intro" id="clay-instructions">Encuentra las letras y deja su huella. ¡Con el teclado o tocándolas!</p>
+      <div class="clay-difficulties" role="group" aria-label="Dificultad del juego">
+        <button type="button" data-clay-difficulty="easy" aria-pressed="false"><strong>Fácil</strong><span>20 letras</span></button>
+        <button type="button" data-clay-difficulty="medium" aria-pressed="true"><strong>Mediano</strong><span>32 letras</span></button>
+        <button type="button" data-clay-difficulty="hard" aria-pressed="false"><strong>Difícil</strong><span>48 letras</span></button>
+      </div>
+      <div class="clay-workbench">
+        <div class="clay-bench-heading"><span>BUSCA · TOCA · ESTAMPA</span><span id="clay-round"></span></div>
+        <div id="clay-letters-top" class="clay-scatter" role="group" aria-label="Letras regadas arriba" aria-describedby="clay-instructions"></div>
+        <div class="clay-center">
+          <div id="clay-dough" class="clay-dough" data-color="lilac">
+            <svg class="clay-surface" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <defs>
+                <path id="clay-handmade-shape" d="M34 82C43 56 79 40 125 39C168 39 170 19 228 24C274 29 291 17 337 18C383 19 401 32 452 23C508 12 537 23 579 27C626 32 655 14 703 27C742 38 772 27 813 42C845 54 875 42 905 61C927 75 938 75 948 95C958 115 945 127 962 149C980 173 962 190 945 207C931 221 942 236 914 251C883 267 853 257 825 270C794 285 757 270 716 279C672 289 638 273 592 280C547 287 520 275 481 283C438 292 412 274 368 280C325 286 306 268 265 275C217 283 198 260 156 262C113 264 103 245 75 239C43 232 54 215 37 199C15 178 34 158 25 138C16 117 23 101 34 82Z"/>
+                <linearGradient id="clay-soft-light" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff" stop-opacity=".3"/><stop offset=".28" stop-color="#fff" stop-opacity=".08"/><stop offset=".65" stop-color="#422635" stop-opacity="0"/><stop offset="1" stop-color="#422635" stop-opacity=".16"/></linearGradient>
+                <radialGradient id="clay-thumb-dent"><stop stop-color="#473040" stop-opacity=".13"/><stop offset=".7" stop-color="#473040" stop-opacity=".04"/><stop offset="1" stop-color="#473040" stop-opacity="0"/></radialGradient>
+                <clipPath id="clay-surface-clip"><use href="#clay-handmade-shape"/></clipPath>
+                <filter id="clay-grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+              </defs>
+              <use href="#clay-handmade-shape" fill="var(--edge)" transform="translate(0 6)"/>
+              <use href="#clay-handmade-shape" fill="var(--dough)"/>
+              <use href="#clay-handmade-shape" fill="url(#clay-soft-light)"/>
+              <g clip-path="url(#clay-surface-clip)">
+                <ellipse cx="122" cy="82" rx="74" ry="38" fill="url(#clay-thumb-dent)" transform="rotate(-15 122 82)"/>
+                <ellipse cx="843" cy="222" rx="96" ry="34" fill="url(#clay-thumb-dent)" transform="rotate(-12 843 222)"/>
+                <ellipse cx="770" cy="59" rx="65" ry="22" fill="url(#clay-thumb-dent)"/>
+                <path d="M70 92Q87 62 132 63M192 44Q215 37 247 43M856 68Q893 64 914 89M78 210Q96 232 128 228M755 258Q805 248 827 254" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="5" stroke-linecap="round"/>
+                <path d="M62 101Q77 77 104 75M72 106Q86 85 109 82M847 234Q880 233 896 217M851 242Q883 239 904 223M269 258Q284 253 300 258" fill="none" stroke="var(--press)" stroke-opacity=".12" stroke-width="2.5" stroke-linecap="round"/>
+                <rect width="1000" height="300" filter="url(#clay-grain)" opacity=".12" style="mix-blend-mode:soft-light"/>
+              </g>
+            </svg>
+            <p id="clay-cue" class="clay-cue">TU PALABRA DE PLASTILINA</p>
+            <div id="clay-word" class="clay-word" role="img" aria-label="Palabra por descubrir"></div>
+            <p id="clay-progress" class="clay-progress"></p>
+          </div>
+          <div id="clay-bunny" class="clay-bunny" role="img" aria-label="Un conejito de plastilina te acompaña">
+            <svg viewBox="0 0 180 220" aria-hidden="true" focusable="false">
+              <defs>
+                <radialGradient id="bunny-clay" cx=".35" cy=".25" r=".8"><stop stop-color="#fff4df"/><stop offset=".58" stop-color="#eddbc0"/><stop offset="1" stop-color="#c2a586"/></radialGradient>
+                <radialGradient id="bunny-pink" cx=".3" cy=".25" r=".8"><stop stop-color="#f5b9ad"/><stop offset="1" stop-color="#d58b83"/></radialGradient>
+                <filter id="bunny-soft-shadow" x="-30%" y="-20%" width="160%" height="150%"><feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#795b50" flood-opacity=".2"/></filter>
+              </defs>
+              <ellipse class="clay-bunny-shadow" cx="91" cy="203" rx="51" ry="9" fill="#765e4a" opacity=".16"/>
+              <g class="clay-bunny-body" filter="url(#bunny-soft-shadow)">
+                <path d="M126 164C143 151 158 161 154 175C152 186 137 188 128 180Z" fill="url(#bunny-clay)"/>
+                <path d="M59 143C49 154 45 180 58 192C71 204 116 204 129 190C141 176 130 151 120 141Z" fill="url(#bunny-clay)"/>
+                <path d="M73 158C68 164 66 183 78 188C90 193 107 189 111 181C117 162 101 149 88 152Z" fill="#fff1da" opacity=".65"/>
+                <g class="clay-bunny-ear clay-bunny-ear-left"><path d="M62 96C51 77 37 35 47 20C60 2 78 39 80 60L82 97Z" fill="url(#bunny-clay)"/><path d="M63 78C55 58 48 33 54 28C60 26 70 52 72 77Z" fill="url(#bunny-pink)"/></g>
+                <g class="clay-bunny-ear clay-bunny-ear-right"><path d="M98 92C96 62 112 12 126 17C143 20 137 53 125 79L118 100Z" fill="url(#bunny-clay)"/><path d="M108 78C109 59 119 29 125 28C132 29 124 59 117 79Z" fill="url(#bunny-pink)"/></g>
+                <path d="M49 96C55 81 73 79 89 82C107 76 127 87 133 100C146 120 135 144 115 150C97 157 69 153 53 143C38 133 39 111 49 96Z" fill="url(#bunny-clay)"/>
+                <path d="M53 103Q55 94 65 92M113 91Q123 94 127 103" fill="none" stroke="#fff8e9" stroke-opacity=".6" stroke-width="3" stroke-linecap="round"/>
+                <ellipse cx="59" cy="125" rx="10" ry="7" fill="#e6a294" opacity=".7"/><ellipse cx="121" cy="125" rx="10" ry="7" fill="#e6a294" opacity=".7"/>
+                <g class="clay-bunny-eyes"><ellipse cx="70" cy="112" rx="4.2" ry="5.3" fill="#513f43"/><ellipse cx="109" cy="112" rx="4.4" ry="5.2" fill="#513f43"/><circle cx="71" cy="110" r="1.4" fill="#fff"/><circle cx="110" cy="110" r="1.4" fill="#fff"/></g>
+                <path class="clay-bunny-happy-eyes" d="M64 113Q70 104 76 113M103 113Q109 104 115 113" fill="none" stroke="#513f43" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M84 122Q90 118 96 122Q97 125 90 129Q82 125 84 122Z" fill="url(#bunny-pink)"/>
+                <path d="M90 129V132M78 132Q83 140 90 132Q97 140 102 132" fill="none" stroke="#715154" stroke-width="2.2" stroke-linecap="round"/>
+                <g class="clay-bunny-paw clay-bunny-paw-left"><path d="M56 148C47 142 35 151 36 165C37 177 48 180 55 169C60 161 62 152 56 148Z" fill="url(#bunny-clay)"/><path d="M42 165L43 170M47 164L48 169" stroke="#b1957a" stroke-opacity=".55" stroke-width="1.5" stroke-linecap="round"/></g>
+                <g class="clay-bunny-paw clay-bunny-paw-right"><path d="M125 148C133 141 145 150 145 163C143 178 133 180 126 169C121 160 119 153 125 148Z" fill="url(#bunny-clay)"/><path d="M134 164L133 169M140 165L139 170" stroke="#b1957a" stroke-opacity=".55" stroke-width="1.5" stroke-linecap="round"/></g>
+                <path d="M67 185C50 180 39 191 45 199C50 207 72 207 79 199C83 193 77 188 67 185Z" fill="url(#bunny-clay)"/><path d="M111 185C126 181 139 192 134 200C129 208 107 208 101 200C96 193 102 187 111 185Z" fill="url(#bunny-clay)"/>
+                <path d="M53 195L54 200M60 195L61 201M119 196L118 201M126 195L125 200" stroke="#b1957a" stroke-opacity=".55" stroke-width="1.7" stroke-linecap="round"/>
+              </g>
+              <g class="clay-bunny-sparkles" fill="#d8a642"><path d="M24 65L27 73L35 76L27 79L24 87L21 79L13 76L21 73Z"/><path d="M155 84L158 92L167 95L158 98L155 106L152 98L144 95L152 92Z"/><circle cx="37" cy="116" r="3" fill="#b397cb"/><circle cx="145" cy="52" r="4" fill="#df9a8d"/></g>
+            </svg>
+            <span id="clay-bunny-message" class="clay-bunny-message" aria-hidden="true">¡Vamos, tú puedes!</span>
+          </div>
+        </div>
+        <div id="clay-letters-bottom" class="clay-scatter" role="group" aria-label="Letras regadas abajo" aria-describedby="clay-instructions"></div>
+        <div class="clay-bench-footer"><div class="clay-colors" role="group" aria-label="Color de la plastilina"><span>Tu color</span><button data-clay-color="lilac" aria-label="Lila" aria-pressed="true"></button><button data-clay-color="peach" aria-label="Durazno" aria-pressed="false"></button><button data-clay-color="mint" aria-label="Menta" aria-pressed="false"></button></div><span>⌨ Teclado &nbsp; · &nbsp; ☝ Ratón o dedo</span></div>
+      </div>
+      <p id="clay-status" class="clay-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div class="clay-actions"><button id="clay-hint" class="quiet-button">✦ Dame una pista</button><button id="clay-next" class="primary-button" hidden>Siguiente palabra →</button><label class="clay-guide"><input id="clay-guide" type="checkbox" checked> Ver el molde</label></div>
+      <div class="clay-collection"><h2>Mis palabras <span id="clay-total">0</span></h2><p id="clay-empty">Cada palabra terminada se queda aquí. ✿</p><div id="clay-gallery" aria-label="Palabras terminadas"></div></div>
+      <details class="clay-settings"><summary>✎ Cambiar la lista de palabras</summary><form id="clay-form"><label for="clay-list">Escribe hasta 30 palabras, separadas por comas o por renglones.</label><textarea id="clay-list" rows="3" maxlength="500" spellcheck="false" aria-describedby="clay-list-help clay-list-error"></textarea><p id="clay-list-help">De 2 a 12 letras por palabra. Puedes usar Ñ y tildes. Al guardar empieza una colección nueva.</p><p id="clay-list-error" role="status"></p><button class="quiet-button" type="submit">Guardar y jugar</button></form></details>
+      <p class="clay-note">Sin reloj, sin prisas. Una huellita a la vez.</p>
+    </section>
+  </main>
+  <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
+</body>
+</html>

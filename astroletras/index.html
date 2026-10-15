@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Astroletras · El mundo de Fabi</title>
+  <script src="../canonical-url.js?v=1"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSSKXYFM89"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DSSKXYFM89');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a9cfe6">
+  <script src="../theme.js?v=2"></script>
+  <meta name="description" content="Viaja al espacio y atrapa letras entre meteoritos.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+  <meta property="og:title" content="Astroletras · El mundo de Fabi">
+  <meta property="og:description" content="Viaja al espacio y atrapa letras entre meteoritos.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="../space/space.css?v=2">
+  <link rel="stylesheet" href="../theme.css?v=2">
+  <script src="../space/space.js?v=1" defer></script>
+  <script src="../navigation.js?v=2" defer></script>
+  <script src="../activity-page.js?v=1" defer></script>
+</head>
+<body data-activity="space" class="showing-space">
+  <svg class="svg-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5 1.2-7-5-5 7-1Z"/></symbol>
+      <symbol id="cloud" viewBox="0 0 240 100"><path d="M35 89C-5 89-6 37 34 34 42-8 109-8 124 30c28-22 71-4 73 26 48-2 51 33 14 33Z" fill="currentColor"/></symbol>
+      <symbol id="balloon-art" viewBox="0 0 220 310"><path d="M110 221c-22 39 25 46 0 87" fill="none" stroke="#849da5" stroke-width="2"/><path d="m110 206-9 18h18Z" fill="currentColor"/><ellipse cx="110" cy="108" rx="87" ry="103" fill="currentColor"/><path d="M51 76c3-20 13-34 28-41" fill="none" stroke="white" stroke-opacity=".52" stroke-width="11" stroke-linecap="round"/></symbol>
+    </defs>
+  </svg>
+  <div class="scenery" aria-hidden="true">
+    <div class="night-stars"></div>
+    <div class="night-moon"></div>
+    <svg class="cloud cloud-one"><use href="#cloud"/></svg><svg class="cloud cloud-two"><use href="#cloud"/></svg><svg class="cloud cloud-three"><use href="#cloud"/></svg>
+    <span class="sky-spark spark-one">✦</span><span class="sky-spark spark-two">✧</span><span class="sky-spark spark-three">✦</span>
+    <div class="hill hill-back"></div><div class="hill hill-front"></div>
+  </div>
+  <header class="site-header">
+    <a class="brand" href="../" data-site-link aria-label="El mundo de Fabi, elegir actividad">
+      <img class="brand-mark" src="../assets/fabi-world.svg?v=2" width="64" height="64" alt="">
+      <span class="brand-name">El mundo de <b>Fabi</b></span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle" class="quiet-button" type="button" aria-label="Modo oscuro" aria-pressed="false"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Modo oscuro</span></button>
+      <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
+    </div>
+  </header>
+  <main>
+<section id="space" class="screen space-screen" aria-labelledby="space-title">
+      <div class="space-toolbar"><a id="space-home" class="quiet-button" href="../" data-site-link>← Elegir actividad</a><span class="space-badge">FABI · ACADEMIA ESPACIAL</span></div>
+      <div class="space-heading"><div><p class="eyebrow">PEQUEÑO ASTRONAUTA, GRAN AVENTURA</p><h1 id="space-title" tabindex="-1">Astro<span>letras</span></h1><p id="space-instructions">Mira el meteorito. Presiona su letra. <b>¡Y dispara!</b></p></div><span class="space-heading-badge" aria-hidden="true">✦</span></div>
+      <div class="space-console">
+        <div class="space-hud">
+          <div id="space-health" role="img" aria-label="6 de 6 vidas"><small>VIDAS DEL COHETE</small><div class="space-health-line"><span id="space-hearts" class="space-hearts" aria-hidden="true">♥♥♥♥♥♥</span><strong id="space-lives" aria-hidden="true">6 / 6</strong></div></div>
+          <button id="space-pause" class="quiet-button" disabled>Ⅱ Pausar</button>
+          <div class="space-goal"><small>METEORITOS</small><strong id="space-score">0 / 20</strong><progress id="space-progress" max="20" value="0" aria-label="Meteoritos destruidos"></progress></div>
+        </div>
+        <div id="space-arena" class="space-arena" data-phase="ready" aria-describedby="space-instructions">
+          <div class="space-stars" aria-hidden="true"></div><div class="space-planet" aria-hidden="true"></div><div class="space-orbit" aria-hidden="true"></div>
+          <div id="space-meteors" class="space-meteors"></div>
+          <div id="space-ship" class="space-ship" data-damage="0" role="img" aria-label="Cohete con astronauta. 6 de 6 vidas.">
+            <svg viewBox="0 0 180 210" aria-hidden="true">
+              <defs><linearGradient id="space-hull-fill" x2="1" y2=".5"><stop stop-color="#f6f8ff"/><stop offset="1" stop-color="#a3b4d9"/></linearGradient><linearGradient id="space-glass" x2=".6" y2="1"><stop stop-color="#446c90"/><stop offset="1" stop-color="#1a304d"/></linearGradient></defs>
+              <g class="space-flame"><path d="M71 167Q62 190 90 207Q117 188 109 167" fill="#ffb45f"/><path d="M80 168Q75 183 90 195Q103 181 101 168" fill="#fff1ae"/></g>
+              <path class="space-wing-left" d="M65 110Q32 120 34 164L66 153" fill="#a2a6f9" stroke="#555f9b" stroke-width="3"/>
+              <path class="space-wing-right" d="M115 110Q148 120 146 164L114 153" fill="#a2a6f9" stroke="#555f9b" stroke-width="3"/>
+              <path class="space-hull" d="M90 12C56 38 49 94 59 159Q90 177 121 159C132 93 123 38 90 12Z" fill="url(#space-hull-fill)" stroke="#667b9f" stroke-width="3"/>
+              <path d="M90 12Q72 26 64 48Q90 57 116 48Q108 26 90 12" fill="#aaaaf6"/>
+              <circle cx="90" cy="94" r="30" fill="#7594b6" stroke="#edf5ff" stroke-width="5"/>
+              <circle cx="90" cy="94" r="25" fill="url(#space-glass)"/>
+              <path d="M72 115Q71 98 89 99Q109 99 109 115" fill="#f0f4ff"/>
+              <circle cx="90" cy="89" r="18" fill="#fff"/><rect x="76" y="80" width="28" height="22" rx="10" fill="#f0c89f"/>
+              <circle cx="84" cy="88" r="2" fill="#29394f"/><circle cx="96" cy="88" r="2" fill="#29394f"/><path d="M85 94Q90 99 95 94" stroke="#855445" fill="none" stroke-width="2" stroke-linecap="round"/>
+              <path d="M70 78Q75 69 85 68" stroke="#ffffff77" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M75 115L83 121M104 115L98 121" stroke="#d2dbee" stroke-width="5"/>
+              <path d="M74 120Q90 112 106 120" stroke="#273f5e" stroke-width="4" fill="none"/>
+              <path d="M79 142H101" stroke="#7f8cab" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="90" cy="152" r="4" fill="#747cc5"/>
+              <path class="space-crack space-crack-one" d="M61 132L73 139L66 148L77 156" stroke="#354560" stroke-width="3" fill="none"/>
+              <path class="space-crack space-crack-two" d="M110 50L101 62L110 68M119 128L106 139L114 148" stroke="#354560" stroke-width="3" fill="none"/>
+              <g class="space-smoke" fill="#939ab0"><circle cx="126" cy="148" r="9"/><circle cx="138" cy="135" r="12"/><circle cx="144" cy="115" r="15"/></g>
+            </svg>
+          </div>
+          <div id="space-effects" class="space-effects" aria-hidden="true"></div>
+          <span class="space-flight-label" aria-hidden="true">✧ COHETE FABI-01</span>
+          <div id="space-overlay" class="space-overlay"><div class="space-overlay-card"><span class="space-overlay-icon" aria-hidden="true">🪐</span><p id="space-overlay-kicker" class="eyebrow"></p><h2 id="space-overlay-title"></h2><p id="space-overlay-text"></p><button id="space-start" class="space-primary">🚀 Despegar</button></div></div>
+        </div>
+        <p id="space-status" class="space-status" role="status" aria-live="polite" aria-atomic="true">Tu tripulación está lista. ¡Vamos a despegar!</p>
+      </div>
+      <div id="space-keyboard" class="space-keyboard" role="group" aria-label="Teclado para disparar" aria-describedby="space-instructions"></div>
+      <p class="space-rules">⌨ Usa tu teclado o toca las letras de abajo.<br>Letra incorrecta o choque: pierdes 1 vida. Destruye 20 meteoritos para ganar.<br>Esc para pausar. La barrita bajo cada meteorito muestra cuánto falta para que llegue.</p>
+    </section>
+  </main>
+  <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
+</body>
+</html>

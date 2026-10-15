@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>A colorear · El mundo de Fabi</title>
+  <script src="../canonical-url.js?v=1"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSSKXYFM89"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DSSKXYFM89');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a9cfe6">
+  <script src="../theme.js?v=2"></script>
+  <meta name="description" content="Convierte tus imágenes en dibujos para imprimir y colorear.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+  <meta property="og:title" content="A colorear · El mundo de Fabi">
+  <meta property="og:description" content="Convierte tus imágenes en dibujos para imprimir y colorear.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="../theme.css?v=2">
+  <link rel="stylesheet" href="../coloring/coloring.css?v=4">
+  <script src="../coloring/filters.js?v=1" defer></script>
+  <script src="../coloring/search.js?v=5" defer></script>
+  <script src="../coloring/coloring.js?v=5" defer></script>
+  <script src="../navigation.js?v=2" defer></script>
+  <script src="../activity-page.js?v=1" defer></script>
+</head>
+<body data-activity="coloring" class="showing-coloring">
+  <svg class="svg-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5 1.2-7-5-5 7-1Z"/></symbol>
+      <symbol id="cloud" viewBox="0 0 240 100"><path d="M35 89C-5 89-6 37 34 34 42-8 109-8 124 30c28-22 71-4 73 26 48-2 51 33 14 33Z" fill="currentColor"/></symbol>
+      <symbol id="balloon-art" viewBox="0 0 220 310"><path d="M110 221c-22 39 25 46 0 87" fill="none" stroke="#849da5" stroke-width="2"/><path d="m110 206-9 18h18Z" fill="currentColor"/><ellipse cx="110" cy="108" rx="87" ry="103" fill="currentColor"/><path d="M51 76c3-20 13-34 28-41" fill="none" stroke="white" stroke-opacity=".52" stroke-width="11" stroke-linecap="round"/></symbol>
+    </defs>
+  </svg>
+  <div class="scenery" aria-hidden="true">
+    <div class="night-stars"></div>
+    <div class="night-moon"></div>
+    <svg class="cloud cloud-one"><use href="#cloud"/></svg><svg class="cloud cloud-two"><use href="#cloud"/></svg><svg class="cloud cloud-three"><use href="#cloud"/></svg>
+    <span class="sky-spark spark-one">✦</span><span class="sky-spark spark-two">✧</span><span class="sky-spark spark-three">✦</span>
+    <div class="hill hill-back"></div><div class="hill hill-front"></div>
+  </div>
+  <header class="site-header">
+    <a class="brand" href="../" data-site-link aria-label="El mundo de Fabi, elegir actividad">
+      <img class="brand-mark" src="../assets/fabi-world.svg?v=2" width="64" height="64" alt="">
+      <span class="brand-name">El mundo de <b>Fabi</b></span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle" class="quiet-button" type="button" aria-label="Modo oscuro" aria-pressed="false"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Modo oscuro</span></button>
+      <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
+    </div>
+  </header>
+  <main>
+<section id="coloring" class="screen coloring-screen" aria-labelledby="coloring-title">
+      <div class="coloring-toolbar"><a id="coloring-home" class="quiet-button" href="../" data-site-link>← Elegir actividad</a><span class="coloring-badge">✿ UN TALLER DE NUEVOS COLORES</span></div>
+      <p class="eyebrow">TÚ PONES EL DIBUJO. DESPUÉS, LOS COLORES.</p>
+      <h1 id="coloring-title" tabindex="-1">Listo para <span>colorear</span></h1>
+      <p class="coloring-intro">Elige una imagen y conviértela en una hoja de contornos.</p>
+      <div class="coloring-search-panel" aria-labelledby="coloring-google-title">
+        <div class="coloring-search-heading"><h2 id="coloring-google-title">¿Qué quieres colorear?</h2><span>BUSCA · COPIA · PEGA</span></div>
+        <form id="coloring-google-form" class="coloring-search-form" role="search" aria-label="Buscar en Google Imágenes">
+          <div class="coloring-search-field"><label for="coloring-google-query">Busca una imagen en Google</label><input id="coloring-google-query" type="search" maxlength="80" placeholder="Pokémon, flores, dinosaurios…" required autocomplete="off" aria-describedby="coloring-google-help"></div>
+          <a id="coloring-google-search" class="primary-button coloring-google-link" href="https://www.google.com/search?udm=2&amp;safe=active&amp;hl=es" target="_blank" rel="noopener noreferrer" aria-describedby="coloring-google-help">Buscar en Google <span aria-hidden="true">↗</span></a>
+        </form>
+        <p id="coloring-google-help" class="coloring-google-help">Se abre en otra pestaña. Elige <b>«Copiar imagen»</b> en el menú de la imagen, vuelve aquí y pulsa <b>«Pegar imagen»</b>.</p>
+        <p id="coloring-google-status" class="coloring-search-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      </div>
+      <p class="coloring-upload-divider">Pega tu imagen o elige una de tu dispositivo</p>
+      <div id="coloring-dropzone" class="coloring-upload">
+        <span class="coloring-upload-icon" aria-hidden="true">✎</span>
+        <div class="coloring-upload-copy"><strong>Todo empieza con tu dibujo</strong><p id="coloring-file-help">JPG, PNG o WebP · Hasta 20 MB.<br>Arrastra un archivo o pega una imagen copiada.<br><span id="coloring-paste-help">Para pegar, pulsa Ctrl+V o ⌘+V fuera del buscador.</span></p></div>
+        <div class="coloring-upload-actions"><button id="coloring-paste" class="primary-button" type="button" aria-describedby="coloring-paste-help">Pegar imagen</button><button id="coloring-pick" class="quiet-button" type="button">Elegir imagen <span aria-hidden="true">↑</span></button><button id="coloring-example" class="quiet-button" type="button">Probar con un ejemplo</button></div>
+        <input id="coloring-file" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Elegir una imagen para colorear" aria-describedby="coloring-file-help" hidden>
+      </div>
+      <details id="coloring-openverse" class="coloring-openverse">
+        <summary>Buscar también en Openverse <small>Opcional</small></summary>
+        <div class="coloring-search-panel" aria-label="Buscador de Openverse">
+          <form id="coloring-search-form" class="coloring-search-form" role="search" aria-label="Buscar imágenes en Openverse">
+            <div class="coloring-search-field"><label for="coloring-search-query">Busca en Openverse</label><input id="coloring-search-query" type="search" maxlength="80" placeholder="Gato, flores, dinosaurio…" required autocomplete="off" aria-describedby="coloring-search-help"></div>
+            <div class="coloring-search-filter"><label for="coloring-search-kind">Tipo de imagen</label><select id="coloring-search-kind"><option value="illustration">Dibujos</option><option value="all">Dibujos y fotos</option></select></div>
+            <button id="coloring-search-submit" class="primary-button" type="submit">Buscar <span aria-hidden="true">⌕</span></button>
+          </form>
+          <div class="coloring-search-suggestions" role="group" aria-label="Ideas para buscar"><span>Prueba con</span><button type="button" data-coloring-query="gato">Gatos</button><button type="button" data-coloring-query="mariposa">Mariposas</button><button type="button" data-coloring-query="flores">Flores</button><button type="button" data-coloring-query="dinosaurio">Dinosaurios</button></div>
+          <p id="coloring-search-help" class="coloring-search-help">Imágenes de dominio público y CC0 en <a href="https://openverse.org/" target="_blank" rel="noopener noreferrer">Openverse</a>. La búsqueda necesita internet.</p>
+          <p id="coloring-search-status" class="coloring-search-status" role="status" aria-live="polite" aria-atomic="true">Escribe una idea o toca una sugerencia para empezar.</p>
+          <div id="coloring-search-results" class="coloring-search-results" aria-label="Imágenes encontradas" aria-busy="false"></div>
+          <button id="coloring-search-more" class="quiet-button" type="button" hidden>Ver más imágenes</button>
+        </div>
+      </details>
+      <p id="coloring-status" class="coloring-status" role="status" aria-live="polite" aria-atomic="true">Tu imagen se queda en este dispositivo. No se sube a internet.</p>
+      <p id="coloring-credit" class="coloring-credit" hidden></p>
+      <div class="coloring-workspace">
+        <div class="coloring-previews" id="coloring-previews" aria-busy="false">
+          <figure class="coloring-preview coloring-original"><figcaption><span><b>01</b> Tu imagen</span><small id="coloring-filename">El punto de partida</small></figcaption><div class="coloring-paper"><canvas id="coloring-source" hidden role="img" aria-label="Imagen original"></canvas><div id="coloring-source-empty" class="coloring-empty"><span aria-hidden="true">🌷</span><p>Un dibujo, una foto,<br>algo que te guste mucho.</p></div></div></figure>
+          <figure class="coloring-preview coloring-result"><figcaption><span><b>02</b> Para colorear</span><small id="coloring-size">Una nueva posibilidad</small></figcaption><div class="coloring-paper"><canvas id="coloring-output" hidden role="img" aria-label="Contornos negros sobre fondo blanco para colorear"></canvas><div id="coloring-output-empty" class="coloring-empty"><span class="coloring-empty-line" aria-hidden="true">✿</span><p>Aquí aparecerá tu hoja,<br>lista para tus lápices.</p></div></div></figure>
+        </div>
+        <fieldset id="coloring-controls" class="coloring-controls" disabled>
+          <legend>Dale tu toque</legend>
+          <div class="coloring-adjustments">
+            <div class="coloring-control"><label for="coloring-detail">Cantidad de detalles <output id="coloring-detail-value" for="coloring-detail">55</output></label><input id="coloring-detail" type="range" min="0" max="100" value="55"><div class="coloring-range-labels"><span>Más sencillo</span><span>Más detalles</span></div></div>
+            <div class="coloring-control"><label for="coloring-smoothing">Limpiar el dibujo</label><select id="coloring-smoothing"><option value="0">Conservar detalles</option><option value="1" selected>Limpieza suave</option><option value="2">Limpieza media</option><option value="3">Más sencillo</option></select></div>
+            <div class="coloring-control"><label for="coloring-thickness">Grosor del trazo</label><select id="coloring-thickness"><option value="1">Fino</option><option value="2" selected>Medio</option><option value="3">Grueso</option></select></div>
+          </div>
+          <button id="coloring-reset" class="coloring-reset" type="button">↺ Restablecer ajustes</button>
+        </fieldset>
+      </div>
+      <div class="coloring-export"><button id="coloring-download" class="primary-button" type="button" disabled>Descargar PNG <span aria-hidden="true">↓</span></button><button id="coloring-print" class="quiet-button" type="button" disabled>Imprimir mi dibujo</button><button id="coloring-clear" class="quiet-button" type="button" disabled>Quitar imagen</button></div>
+      <p class="coloring-tip"><b>Un pequeño consejo:</b> los dibujos con fondo claro y colores definidos dan mejores resultados. En fotos, prueba más limpieza y menos detalles.</p>
+      <p class="coloring-privacy">Puedes buscar aquí con Openverse o abrir Google en otra pestaña. Las imágenes pegadas y tus archivos se convierten en tu dispositivo y no se suben. Al recargar se borra la imagen de la herramienta.</p>
+    </section>
+  </main>
+  <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
+</body>
+</html>
