@@ -23,7 +23,8 @@
     popit: window.PopitGame,
     clay: window.ClayGame,
     space: window.SpaceGame,
-    coloring: window.ColoringTool
+    coloring: window.ColoringTool,
+    numbers: window.NumbersGame
   }[activity];
 
   function enableAudio() {

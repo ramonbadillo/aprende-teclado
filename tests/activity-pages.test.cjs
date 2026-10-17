@@ -14,7 +14,8 @@ const routes = {
   popit: ['mi-pop-it', 'Mi pop it', ['popit'], 'popit/popit.js'],
   clay: ['plasticonejo', 'Plasticonejo', ['clay'], 'clay/clay.js'],
   space: ['astroletras', 'Astroletras', ['space'], 'space/space.js'],
-  coloring: ['a-colorear', 'A colorear', ['coloring'], 'coloring/coloring.js']
+  coloring: ['a-colorear', 'A colorear', ['coloring'], 'coloring/coloring.js'],
+  numbers: ['mi-tablero-de-numeros', 'Mi tablero de números', ['numbers'], 'numbers/numbers.js']
 };
 const menu = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 for (const [id, [route, title, screens, script]] of Object.entries(routes)) {
@@ -42,7 +43,7 @@ for (const [id, [route, title, screens, script]] of Object.entries(routes)) {
 
 test('homepage contains only the menu and no activity controller', () => {
   assert.equal((menu.match(/<section /g) || []).length, 1);
-  assert.equal((menu.match(/<a id="choose-/g) || []).length, 10);
+  assert.equal((menu.match(/<a id="choose-/g) || []).length, Object.keys(routes).length);
   for (const [, , , script] of Object.values(routes)) assert(!menu.includes(`src="./${script}`));
 });
 

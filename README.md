@@ -1,6 +1,6 @@
 # El mundo de Fabi
 
-Diez actividades en español, cada una en su propia página, con un menú inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. **A colorear** convierte una imagen local en contornos negros para descargar o imprimir y colorear. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas ni backend. Las actividades y la conversión de imágenes funcionan localmente; el buscador opcional de A colorear consulta Openverse por internet.
+Once actividades en español, cada una en su propia página, con un menú inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. **Mi tablero de números** permite formar números con tarjetas, sumar, restar y cambiar unidades, decenas y centenas. **A colorear** convierte una imagen local en contornos negros para descargar o imprimir y colorear. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas ni backend. Las actividades y la conversión de imágenes funcionan localmente; el buscador opcional de A colorear consulta Openverse por internet.
 
 ## Identidad visual
 
@@ -12,7 +12,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube el contenido del sitio a la raíz del repositorio, incluidas las diez carpetas de páginas de actividades indicadas abajo, las carpetas de recursos y los archivos compartidos `activity-page.js`, `canonical-url.js`, `navigation.js`, `theme.js`, `styles.css` y `theme.css`.
+1. Sube el contenido del sitio a la raíz del repositorio, incluidas las once carpetas de páginas de actividades indicadas abajo, las carpetas de recursos y los archivos compartidos `activity-page.js`, `canonical-url.js`, `navigation.js`, `theme.js`, `styles.css` y `theme.css`.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -38,8 +38,9 @@ La portada es únicamente el menú. Cada tarjeta es un enlace normal a un docume
 | Plasticonejo | `/plasticonejo/` |
 | Astroletras | `/astroletras/` |
 | A colorear | `/a-colorear/` |
+| Mi tablero de números | `/mi-tablero-de-numeros/` |
 
-Las doce páginas (menú, diez actividades y agradecimiento) incluyen la etiqueta `G-DSSKXYFM89` una sola vez. Analytics registra la visita normal de cada documento con su ruta y título. Se retiró el evento `activity_open`: ya no hace falta una dimensión personalizada para comparar actividades ni se envían visitas virtuales al pausar, reiniciar o cambiar de nivel dentro de un juego.
+Las trece páginas (menú, once actividades y agradecimiento) incluyen la etiqueta `G-DSSKXYFM89` una sola vez. Analytics registra la visita normal de cada documento con su ruta y título. Se retiró el evento `activity_open`: ya no hace falta una dimensión personalizada para comparar actividades ni se envían visitas virtuales al pausar, reiniciar o cambiar de nivel dentro de un juego.
 
 Después de publicar, abre **Informes → Interacción → Páginas y pantallas** en Analytics. Usa **Título de página** o **Ruta de página**, y ordena por **Vistas** o **Usuarios activos** para identificar las actividades más visitadas. El tiempo de interacción indica cuánto tiempo permanece la página en primer plano, no necesariamente tiempo jugando. Los datos nuevos comienzan al publicar; los usos anteriores no se redistribuyen entre las nuevas rutas. Si ese informe no aparece en el menú de tu propiedad, un editor puede añadirlo desde la biblioteca de informes.
 
@@ -57,7 +58,7 @@ Se retiraron los datos del evento, el mapa y la confirmación por WhatsApp, junt
 
 ## Cómo jugar
 
-El botón de luna junto al sonido activa el **modo oscuro**: un cielo con estrellas de brillo suave, una luna y colores nocturnos en el menú y las diez actividades. El botón de sol vuelve al modo claro. El modo claro es el predeterminado, con un cielo azul suave y tarjetas pastel para reducir las superficies blancas; después se recuerda la elección en este navegador con `fabi-theme-v1`. Funciona también si el navegador no permite guardar. Las estrellas permanecen quietas cuando se solicita movimiento reducido. `theme.js` aplica la preferencia antes de mostrar la página y `theme.css` contiene los colores y el cielo nocturno.
+El botón de luna junto al sonido activa el **modo oscuro**: un cielo con estrellas de brillo suave, una luna y colores nocturnos en el menú y las once actividades. El botón de sol vuelve al modo claro. El modo claro es el predeterminado, con un cielo azul suave y tarjetas pastel para reducir las superficies blancas; después se recuerda la elección en este navegador con `fabi-theme-v1`. Funciona también si el navegador no permite guardar. Las estrellas permanecen quietas cuando se solicita movimiento reducido. `theme.js` aplica la preferencia antes de mostrar la página y `theme.css` contiene los colores y el cielo nocturno.
 
 Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira con la mariposa**, **Mi primer piano** o **Ahorcado** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Globos de letras, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Globos de letras.
 
@@ -172,7 +173,7 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 
 ## Organización
 
-- `index.html`: menú con enlaces a las diez actividades.
+- `index.html`: menú con enlaces a las once actividades.
 - Cada carpeta de página contiene su `index.html` independiente; los controles y diálogos de Globos están en `globos-de-letras/index.html`.
 - `activity-page.js`: preferencias compartidas e inicio/salida del juego de la página actual.
 - `canonical-url.js` y `navigation.js`: direcciones consistentes para Analytics y enlaces compatibles con archivos locales.
@@ -226,3 +227,16 @@ Verificado con pruebas automatizadas en Microsoft Edge: los tres niveles, final 
 5. Cambia opciones, silencia, recarga y revisa los ajustes. Comprueba el borrado con Cancelar y después con confirmación.
 6. Prueba el alfabeto completo en español y en inglés (sin Ñ), navegación con Tab, una ventana estrecha, zoom y movimiento reducido. El teclado físico sigue siendo necesario en móviles.
 7. Bloquea el almacenamiento: debe ser posible jugar, aunque el progreso no sobreviva a la recarga.
+
+
+## Mi tablero de números
+
+- Abre **Mi tablero de números** desde el menú. Al entrar, cambiar entre Sumar y Restar o pulsar **Otra operación**, se genera una operación al azar. La dificultad elegida determina las cantidades; no se repite inmediatamente la misma operación, los operandos y resultados aleatorios siempre son mayores que cero y las sumas no superan 999. **Empezar de nuevo** conserva la operación actual.
+- Hay tres dificultades para cada tipo de operación: **Fácil** (2–20), **Medio** (21–99) y **Difícil** (100–999). El intervalo aplica al resultado de las sumas y al primer número de las restas. Se inicia en Fácil; cambiar de dificultad crea otra operación y recuerda la elección de sumas y restas por separado durante la visita. Las operaciones escritas de la tarea pueden usar todo el intervalo 0–999.
+- **Escribir la operación de mi tarea** acepta enteros de 0 a 999; las sumas deben dar como máximo 999 y las restas no pueden dar negativos.
+- Arrastra tarjetas de **100, 10 o 1** desde la bandeja a su columna. Las tarjetas se mueven únicamente arrastrándolas con mouse o con el dedo. Devuelve tarjetas a la bandeja para corregir.
+- En las sumas, forma los dos números en filas separadas y pulsa **Contar el resultado** para pasar directamente a la respuesta. En las restas, forma el primer número y arrastra las tarjetas a **Quitar tarjetas** hasta completar la cantidad que se resta. Puedes devolver tarjetas retiradas a su columna.
+- El tablero junta y cambia las tarjetas automáticamente, conservando su valor. En las restas prepara las decenas y unidades necesarias para quitar tarjetas, incluso cuando hay que desarmar una centena; no hay un paso manual de cambios.
+- **Colocar un ejemplo** representa los operandos; **Deshacer** recupera hasta cien pasos y **Empezar de nuevo** vacía la operación actual. El resultado se revela al responder correctamente. Sin reloj ni vidas.
+- Comparte sonido y modo oscuro con las demás actividades. El ejercicio vive en memoria y se reinicia al recargar. La página incluye una sola etiqueta de Analytics `G-DSSKXYFM89`, con título y ruta propios.
+- `node --test tests/activity-pages.test.cjs` comprueba la integración; `node tests/numbers.test.cjs` prueba sumas con cambios, restas con préstamos, arrastre con mouse y táctil, ausencia de colocación por toque o teclado, validación y tamaños de pantalla usando Playwright y Chrome.

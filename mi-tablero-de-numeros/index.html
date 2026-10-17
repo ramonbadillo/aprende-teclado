@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi tablero de números · El mundo de Fabi</title>
+  <script src="../canonical-url.js?v=1"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSSKXYFM89"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DSSKXYFM89');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a9cfe6">
+  <script src="../theme.js?v=2"></script>
+  <meta name="description" content="Practica sumas y restas con tarjetas de centenas, decenas y unidades.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+  <meta property="og:title" content="Mi tablero de números · El mundo de Fabi">
+  <meta property="og:description" content="Practica sumas y restas con tarjetas de centenas, decenas y unidades.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="../numbers/numbers.css?v=4">
+  <link rel="stylesheet" href="../theme.css?v=2">
+  <script src="../navigation.js?v=2" defer></script>
+  <script src="../numbers/numbers.js?v=6" defer></script>
+  <script src="../activity-page.js?v=2" defer></script>
+</head>
+<body data-activity="numbers" class="showing-numbers">
+  <svg class="svg-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5 1.2-7-5-5 7-1Z"/></symbol>
+      <symbol id="cloud" viewBox="0 0 240 100"><path d="M35 89C-5 89-6 37 34 34 42-8 109-8 124 30c28-22 71-4 73 26 48-2 51 33 14 33Z" fill="currentColor"/></symbol>
+      <symbol id="balloon-art" viewBox="0 0 220 310"><path d="M110 221c-22 39 25 46 0 87" fill="none" stroke="#849da5" stroke-width="2"/><path d="m110 206-9 18h18Z" fill="currentColor"/><ellipse cx="110" cy="108" rx="87" ry="103" fill="currentColor"/><path d="M51 76c3-20 13-34 28-41" fill="none" stroke="white" stroke-opacity=".52" stroke-width="11" stroke-linecap="round"/></symbol>
+    </defs>
+  </svg>
+  <div class="scenery" aria-hidden="true">
+    <div class="night-stars"></div>
+    <div class="night-moon"></div>
+    <svg class="cloud cloud-one"><use href="#cloud"/></svg><svg class="cloud cloud-two"><use href="#cloud"/></svg><svg class="cloud cloud-three"><use href="#cloud"/></svg>
+    <span class="sky-spark spark-one">✦</span><span class="sky-spark spark-two">✧</span><span class="sky-spark spark-three">✦</span>
+    <div class="hill hill-back"></div><div class="hill hill-front"></div>
+  </div>
+  <header class="site-header">
+    <a class="brand" href="../" data-site-link aria-label="El mundo de Fabi, elegir actividad">
+      <img class="brand-mark" src="../assets/fabi-world.svg?v=2" width="64" height="64" alt="">
+      <span class="brand-name">El mundo de <b>Fabi</b></span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle" class="quiet-button" type="button" aria-label="Modo oscuro" aria-pressed="false"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Modo oscuro</span></button>
+      <button id="sound" class="quiet-button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
+    </div>
+  </header>
+  <main>
+    <section id="numbers" class="screen numbers-screen" aria-labelledby="numbers-title">
+      <div class="numbers-toolbar"><a class="quiet-button" href="../" data-site-link>← Elegir actividad</a><span class="eyebrow">PASITO A PASITO, SIN PRISAS</span></div>
+      <h1 id="numbers-title">Mi tablero <span>de números</span></h1>
+      <p class="numbers-intro">Tarjetitas para tocar, contar y descubrir.</p>
+      <div class="numbers-modes" role="group" aria-label="Tipo de operación"><button data-mode="add" aria-pressed="true">＋ Sumar</button><button data-mode="subtract" aria-pressed="false">− Restar</button></div>
+      <div class="numbers-difficulties" role="group" aria-label="Dificultad" aria-describedby="numbers-difficulty-note">
+        <button type="button" data-difficulty="easy" aria-pressed="true"><strong>Fácil</strong><small>Hasta 20</small></button>
+        <button type="button" data-difficulty="medium" aria-pressed="false"><strong>Medio</strong><small>Hasta 99</small></button>
+        <button type="button" data-difficulty="hard" aria-pressed="false"><strong>Difícil</strong><small>Hasta 999</small></button>
+      </div>
+      <p id="numbers-difficulty-note" class="numbers-difficulty-note"></p>
+      <details class="numbers-settings"><summary>✎ Escribir la operación de mi tarea</summary>
+        <form id="numbers-operation"><label>Primer número<input id="numbers-a" type="number" min="0" max="999" step="1" value="15" required></label><span id="numbers-sign">+</span><label>Segundo número<input id="numbers-b" type="number" min="0" max="999" step="1" value="25" required></label><button class="quiet-button" type="submit">Usar operación</button></form>
+        <p>Del 0 al 999. En las sumas, el resultado debe caber en tres columnas. En las restas, el primer número debe ser mayor o igual.</p><p id="numbers-error" role="alert"></p>
+      </details>
+      <div class="numbers-challenge"><span>NUESTRO RETO</span><div id="numbers-problem">15 + 25 = ?</div></div>
+      <ol class="numbers-steps" aria-label="Pasos"><li id="numbers-step-1" aria-current="step">1. Forma</li><li id="numbers-step-2">2. Quita</li><li id="numbers-step-3">3. Cuenta</li></ol>
+      <p id="numbers-instruction" class="numbers-instruction"></p>
+      <div class="numbers-board" aria-label="Tablero de centenas, decenas y unidades">
+        <div class="numbers-head"><div>Centenas<small>100</small></div><div>Decenas<small>10</small></div><div>Unidades<small>1</small></div></div>
+        <div id="numbers-rows"></div>
+      </div>
+      <div id="numbers-bank" class="numbers-bank" data-drop="bank" role="group" aria-label="Mis tarjetas. Devuelve aquí una tarjeta para corregir.">
+        <div><strong>Mis tarjetas</strong><small>Arrastra al tablero</small></div>
+        <button class="number-card" data-value="100" data-source="bank" aria-label="Arrastrar tarjeta de 100" tabindex="-1">100</button><button class="number-card" data-value="10" data-source="bank" aria-label="Arrastrar tarjeta de 10" tabindex="-1">10</button><button class="number-card" data-value="1" data-source="bank" aria-label="Arrastrar tarjeta de 1" tabindex="-1">1</button>
+        <span class="numbers-bank-note">Para corregir, devuelve aquí una tarjeta.</span>
+      </div>
+      <div id="numbers-removed" class="numbers-removed" data-drop="removed" role="group" aria-label="Quitar tarjetas" hidden><strong>↓ Quitar tarjetas</strong><p id="numbers-removed-count"></p><div id="numbers-removed-cards"></div></div>
+      <p id="numbers-status" class="numbers-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div class="numbers-actions"><button id="numbers-example" class="quiet-button">Colocar un ejemplo</button><button id="numbers-continue" class="primary-button">Contar el resultado →</button><button id="numbers-undo" class="quiet-button" disabled>↶ Deshacer</button></div>
+      <form id="numbers-answer-form" class="numbers-answer" hidden><label for="numbers-answer">¿Cuánto hay en el tablero?</label><div><input id="numbers-answer" type="number" min="0" max="999" step="1" inputmode="numeric" required autocomplete="off"><button class="primary-button">Comprobar</button></div></form>
+      <div class="numbers-bottom"><button id="numbers-reset" class="quiet-button">Empezar de nuevo</button><button id="numbers-next" class="quiet-button">Otra operación →</button></div>
+    </section>
+  </main>
+  <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
+</body>
+</html>
