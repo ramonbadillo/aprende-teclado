@@ -5,6 +5,7 @@ const vm = require('node:vm');
 const test = require('node:test');
 const root = path.resolve(__dirname, '..');
 const routes = {
+  basketball: ['a-encestar', '¡A encestar!', ['basketball'], 'basketball/basketball.js'],
   fabi: ['globos-de-letras', 'Globos de letras', ['home', 'game', 'finish'], 'script.js'],
   soni: ['teclado-magico', 'Teclado mágico', ['soni'], 'soni/game.js'],
   timer: ['tiempo-con-calma', 'Tiempo con calma', ['timer'], 'timer/timer.js'],
@@ -47,6 +48,13 @@ test('homepage contains only the menu and no activity controller', () => {
   for (const [, , , script] of Object.values(routes)) assert(!menu.includes(`src="./${script}`));
 });
 
+test('basketball is the first activity and loads its own court styles', () => {
+  assert.equal([...menu.matchAll(/<a id="choose-([^"]+)"/g)][0][1], 'basketball');
+  const html = fs.readFileSync(path.join(root, 'a-encestar/index.html'), 'utf8');
+  assert.match(html, /<body\b[^>]*\bdata-activity="basketball"(?:\s|>)/);
+  assert.match(html, /href="\.\.\/basketball\/basketball\.css\?v=\d+"/);
+});
+
 test('canonical page path preserves the hosting prefix, query and fragment', () => {
   const source = fs.readFileSync(path.join(root, 'canonical-url.js'), 'utf8');
   for (const input of [
@@ -69,22 +77,24 @@ test('local-file links work without a server and do not duplicate index.html', (
   assert.deepEqual(links.map(link => link.href), ['file:///tmp/site/index.html', 'file:///tmp/site/mi-pop-it/index.html', 'file:///tmp/site/index.html']);
 });
 
-test('shared controller starts only the requested game, keeps saved progress and handles history restoration', () => {
-  const handlers = {}, clicks = {}, calls = [];
-  let saved = { options: { sound: false, layout: 'en', playerName: 'Local' }, progress: { games: 7 } };
-  const game = { enter: options => calls.push(['enter', options.sound]), leave: () => calls.push(['leave']), setSound: value => calls.push(['sound', value]) };
-  const sound = { setAttribute() {}, addEventListener: (name, fn) => { clicks[name] = fn; } };
-  vm.runInNewContext(fs.readFileSync(path.join(root, 'activity-page.js'), 'utf8'), {
-    document: { body: { dataset: { activity: 'piano' } }, getElementById: id => id === 'sound' ? sound : {} },
-    localStorage: { getItem: () => JSON.stringify(saved), setItem: (_, value) => { saved = JSON.parse(value); } },
-    window: { PianoGame: game, addEventListener: (name, fn) => { handlers[name] = fn; } }
+for (const [activity, controller] of [['piano', 'PianoGame'], ['basketball', 'BasketballGame']]) {
+  test(`shared controller starts only ${activity}, keeps saved progress and handles history restoration`, () => {
+    const handlers = {}, clicks = {}, calls = [];
+    let saved = { options: { sound: false, layout: 'en', playerName: 'Local' }, progress: { games: 7 } };
+    const game = { enter: options => calls.push(['enter', options.sound]), leave: () => calls.push(['leave']), setSound: value => calls.push(['sound', value]) };
+    const sound = { setAttribute() {}, addEventListener: (name, fn) => { clicks[name] = fn; } };
+    vm.runInNewContext(fs.readFileSync(path.join(root, 'activity-page.js'), 'utf8'), {
+      document: { body: { dataset: { activity } }, getElementById: id => id === 'sound' ? sound : {} },
+      localStorage: { getItem: () => JSON.stringify(saved), setItem: (_, value) => { saved = JSON.parse(value); } },
+      window: { [controller]: game, addEventListener: (name, fn) => { handlers[name] = fn; } }
+    });
+    assert.deepEqual(calls, [['sound', false], ['enter', false]]);
+    clicks.click();
+    assert.equal(saved.options.sound, true);
+    assert.equal(saved.options.playerName, 'Local');
+    assert.equal(saved.progress.games, 7);
+    handlers.pagehide();
+    handlers.pageshow({ persisted: true });
+    assert.deepEqual(calls.slice(-3), [['leave'], ['sound', true], ['enter', true]]);
   });
-  assert.deepEqual(calls, [['sound', false], ['enter', false]]);
-  clicks.click();
-  assert.equal(saved.options.sound, true);
-  assert.equal(saved.options.playerName, 'Local');
-  assert.equal(saved.progress.games, 7);
-  handlers.pagehide();
-  handlers.pageshow({ persisted: true });
-  assert.deepEqual(calls.slice(-3), [['leave'], ['sound', true], ['enter', true]]);
-});
+}

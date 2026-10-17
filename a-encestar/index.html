@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡A encestar! · El mundo de Fabi</title>
+  <script src="../canonical-url.js?v=1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSSKXYFM89"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DSSKXYFM89');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a9cfe6">
+  <script src="../theme.js?v=2"></script>
+  <meta name="description" content="Espera el momento y lanza el balón. Un juego de básquet para practicar tu puntería, a tu ritmo.">
+  <meta property="og:title" content="¡A encestar! · El mundo de Fabi">
+  <meta property="og:description" content="Un monito, un balón y cinco canastas. ¡Juega con tu puntería!">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="../theme.css?v=2">
+  <link rel="stylesheet" href="../basketball/basketball.css?v=1">
+  <script src="../basketball/basketball.js?v=1" defer></script>
+  <script src="../navigation.js?v=2" defer></script>
+  <script src="../activity-page.js?v=3" defer></script>
+</head>
+<body data-activity="basketball" class="showing-basketball">
+  <div class="scenery" aria-hidden="true"><div class="night-stars"></div><div class="night-moon"></div></div>
+  <header class="site-header">
+    <a class="brand" href="../" data-site-link aria-label="El mundo de Fabi, elegir actividad"><img class="brand-mark" src="../assets/fabi-world.svg?v=2" width="64" height="64" alt=""><span class="brand-name">El mundo de <b>Fabi</b></span></a>
+    <div class="header-actions">
+      <button id="theme-toggle" class="quiet-button" type="button" aria-label="Modo oscuro" aria-pressed="false"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Modo oscuro</span></button>
+      <button id="sound" class="quiet-button" type="button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
+    </div>
+  </header>
+  <main>
+    <section id="basketball" class="screen basketball-screen" aria-labelledby="basketball-title">
+      <div class="basketball-toolbar"><a id="basketball-home" class="quiet-button" href="../" data-site-link>← Elegir actividad</a><span class="basketball-club">FABI · CLUB DE BÁSQUET</span></div>
+      <div class="basketball-heading"><div><p class="eyebrow">UN PEQUEÑO TIRO, UNA GRAN SONRISA</p><h1 id="basketball-title">¡A <span>encestar!</span></h1><p id="basketball-instructions">Espera a estar debajo de la canasta y <strong>¡lanza el balón!</strong></p></div><div class="basketball-stamp" aria-hidden="true"><span>★</span>JUEGA<br>A TU RITMO</div></div>
+      <div class="basketball-layout">
+        <div class="basketball-game">
+          <div class="basketball-scoreboard"><div><span class="basketball-live-dot" aria-hidden="true"></span><span>LA CANCHITA</span></div><div class="basketball-score-group"><span>CANASTAS <strong id="basketball-score">0 / 5</strong></span><span>TIROS <strong id="basketball-attempts">0</strong></span></div></div>
+          <div id="basketball-court" class="basketball-court" data-phase="ready" aria-label="Cancha de básquet con la canasta arriba y el jugador abajo" aria-describedby="basketball-instructions">
+            <svg id="basketball-scene" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="basketball-sky" x2="0" y2="1"><stop stop-color="#cce9e6"/><stop offset="1" stop-color="#e6f0d8"/></linearGradient>
+                <linearGradient id="basketball-floor" x2="0" y2="1"><stop stop-color="#e9b576"/><stop offset="1" stop-color="#cf8854"/></linearGradient>
+                <pattern id="basketball-fence" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M0 0L36 36M36 0L0 36" stroke="#558c7f" stroke-width="1" opacity=".17"/></pattern>
+                <g id="basketball-ball-art"><circle r="15" fill="#ed7b38" stroke="#8e4327" stroke-width="2"/><path d="M-15 0H15M0-15V15M-10-11Q8 0-10 11M10-11Q-8 0 10 11" fill="none" stroke="#91482c" stroke-width="1.6"/><path d="M-9-8L-5-11" stroke="#ffc480" stroke-width="3" stroke-linecap="round"/></g>
+              </defs>
+              <path fill="url(#basketball-sky)" d="M0 0H1000V560H0Z"/>
+              <ellipse id="basketball-sun" cx="838" cy="85" rx="37" ry="37" fill="#fff0b8"/>
+              <g fill="#f6fbef" opacity=".9"><path d="M91 80Q70 49 103 46Q117 12 149 44Q181 37 188 66Q211 69 205 80Z"/><path d="M702 135Q682 113 708 104Q716 80 746 97Q773 89 788 118Q811 120 809 135Z"/></g>
+              <g fill="#96bd9d"><path d="M0 303Q80 236 161 302Q238 251 311 307Q386 261 464 304Q581 249 662 300Q770 237 846 304Q939 244 1000 290V380H0Z"/></g>
+              <g fill="#648f79"><path d="M0 338Q84 282 139 328Q203 285 277 333L310 376H0Z"/><path d="M764 356Q787 289 848 322Q939 269 1000 323V391H740Z"/></g>
+              <path d="M0 295H1000V411H0Z" fill="url(#basketball-fence)"/>
+              <path d="M0 300H1000M0 405H1000M45 300V411M955 300V411" fill="none" stroke="#7caa94" stroke-width="4"/>
+              <path d="M0 410H1000V560H0Z" fill="url(#basketball-floor)"/>
+              <path d="M0 426H1000M80 560L210 429H790L920 560M355 429L300 515H700L645 429M300 515Q500 570 700 515" fill="none" stroke="#fff0cb" stroke-width="3" opacity=".75"/>
+              <path d="M0 465H1000M0 506H1000M160 410L70 560M367 410L340 560M633 410L660 560M840 410L930 560" stroke="#aa6f42" stroke-width="1" opacity=".15"/>
+              <g opacity=".7" fill="none" stroke="#f6efd7" stroke-width="3"><path d="M105 186v22m-11-11h22M865 222v17m-8-8h16"/></g>
+              <path id="basketball-guide" d="M500 216V473" stroke="#427f65" stroke-width="2" stroke-dasharray="5 10" opacity=".27"/>
+              <ellipse id="basketball-target" cx="500" cy="516" rx="46" ry="12" fill="#fdf4ca" opacity=".7"/>
+              <g transform="translate(500 160)"><g id="basketball-hoop-art">
+                <path d="M0-160V-80" stroke="#52766d" stroke-width="12"/><rect x="-96" y="-125" width="192" height="115" rx="13" fill="#436d60" opacity=".15" transform="translate(0 7)"/>
+                <rect x="-96" y="-125" width="192" height="115" rx="13" fill="#fff9e7" stroke="#356f60" stroke-width="5"/>
+                <rect x="-82" y="-111" width="164" height="87" rx="5" fill="#d7ebe0" stroke="#afcec0" stroke-width="2"/>
+                <path d="M-34-17V-66H34V-17" fill="none" stroke="#dc7040" stroke-width="5"/>
+                <path d="M-53 0L-35 56Q0 67 35 56L53 0M-34 1L-17 59M-14 1L0 61M14 1L0 61M34 1L17 59M-45 21Q0 33 45 21M-40 39Q0 49 40 39" fill="none" stroke="#fffcf0" stroke-width="3" stroke-linecap="round"/>
+                <ellipse cx="0" cy="0" rx="56" ry="9" fill="#6d443044" stroke="#b64f2e" stroke-width="6"/>
+                <path d="M-56 0Q0 17 56 0" fill="none" stroke="#f28b4b" stroke-width="5" stroke-linecap="round"/>
+              </g></g>
+              <g id="basketball-player" transform="translate(170 0)"><g id="basketball-player-art">
+                <ellipse cx="0" cy="523" rx="42" ry="9" fill="#764f3333"/>
+                <g id="basketball-body">
+                  <path id="basketball-left-leg" d="M-14 482L-20 510" stroke="#b87951" stroke-width="13" stroke-linecap="round"/><path id="basketball-right-leg" d="M14 482L20 510" stroke="#b87951" stroke-width="13" stroke-linecap="round"/>
+                  <path id="basketball-left-shoe" d="M-28 508H-11V520H-34Q-40 512-28 508" fill="#fff9e9" stroke="#35635a" stroke-width="2"/><path id="basketball-right-shoe" d="M11 508H28Q40 512 34 520H11Z" fill="#fff9e9" stroke="#35635a" stroke-width="2"/>
+                  <path d="M-23 469L-22 490H-3L0 480L3 490H22L23 469" fill="#2c7261"/><path d="M-20 442Q-32 438-36 420L-22 395M20 442Q32 438 36 420L22 395" fill="none" stroke="#bd8058" stroke-width="12" stroke-linecap="round"/>
+                  <path d="M-14 433L-25 443L-23 474Q0 483 23 474L25 443L14 433" fill="#fff7df" stroke="#356b59" stroke-width="2"/>
+                  <path d="M-12 434Q0 451 12 434" fill="none" stroke="#e58c43" stroke-width="5"/><path d="M-22 447V469M22 447V469" stroke="#e58c43" stroke-width="5"/>
+                  <text x="0" y="470" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="900" fill="#39735e">7</text>
+                  <rect x="-8" y="421" width="16" height="17" rx="7" fill="#b87951"/>
+                  <circle cx="-23" cy="411" r="6" fill="#c68c62"/><circle cx="23" cy="411" r="6" fill="#c68c62"/>
+                  <rect x="-24" y="382" width="48" height="48" rx="22" fill="#d69a70"/>
+                  <path d="M-25 405Q-34 374-13 376Q-1 362 11 376Q34 374 25 404L18 389Q8 395-1 387Q-11 396-21 391Z" fill="#49362b"/>
+                  <circle cx="-9" cy="408" r="2.8" fill="#49362b"/><circle cx="9" cy="408" r="2.8" fill="#49362b"/><path d="M-6 418Q0 424 6 418" fill="none" stroke="#7e4535" stroke-width="2.5" stroke-linecap="round"/>
+                  <ellipse cx="-16" cy="416" rx="4" ry="2" fill="#e69377"/><ellipse cx="16" cy="416" rx="4" ry="2" fill="#e69377"/>
+                </g>
+              </g></g>
+              <g id="basketball-ball" transform="translate(170 372)"><g id="basketball-ball-scale"><use href="#basketball-ball-art"/></g></g>
+            </svg>
+            <span class="basketball-court-label" aria-hidden="true">UN TIRO A LA VEZ. ♡</span>
+            <div id="basketball-feedback" class="basketball-feedback" hidden aria-hidden="true"></div>
+            <div id="basketball-overlay" class="basketball-overlay"><div class="basketball-overlay-card"><span id="basketball-overlay-icon" class="basketball-overlay-icon" aria-hidden="true">🏀</span><p class="eyebrow" id="basketball-overlay-kicker">TU CANCHA, TU MOMENTO</p><h2 id="basketball-overlay-title">¿Listo para jugar?</h2><p id="basketball-overlay-text">El monito camina solito.<br>Tú eliges cuándo lanzar.</p><button id="basketball-start" class="basketball-primary" type="button">¡Vamos a jugar! <span aria-hidden="true">→</span></button></div></div>
+          </div>
+          <div class="basketball-controls"><button id="basketball-shoot" class="basketball-primary basketball-shoot" type="button" disabled><span aria-hidden="true">↑</span> ¡Lanzar! <kbd>Espacio</kbd></button><button id="basketball-pause" class="quiet-button" type="button" disabled>Ⅱ Pausar</button></div>
+          <p id="basketball-status" class="basketball-status" role="status" aria-live="polite" aria-atomic="true">Cinco canastas y una gran celebración. ¡Tú puedes!</p>
+        </div>
+        <aside class="basketball-sidebar" aria-label="Tu reto y cómo jugar">
+          <div class="basketball-goal"><span class="basketball-mini-label">EL RETO DE HOY</span><h2>Choca esas <em>cinco.</em></h2><p>Consigue 5 canastas.<br>¡Cada intento cuenta!</p><div id="basketball-medals" class="basketball-medals" aria-label="0 de 5 canastas"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><span class="basketball-no-rush">Sin reloj. Sin perder vidas.</span></div>
+          <fieldset class="basketball-speed"><legend>¿A qué ritmo jugamos?</legend><div><button type="button" data-speed="slow" aria-pressed="true">Paseo</button><button type="button" data-speed="fast" aria-pressed="false">Rápido</button></div></fieldset>
+          <div class="basketball-how"><span class="basketball-mini-label">EL TRUCO ESTÁ EN EL MOMENTO</span><ol><li><span>1</span> Mira cómo camina el monito.</li><li><span>2</span> Espera a estar bajo el aro.</li><li><span>3</span> Presiona <b>Espacio</b> o <b>¡Lanzar!</b></li></ol><p>La marca se pone verde cuando estás en posición.</p></div>
+          <button id="basketball-reset" class="basketball-reset" type="button">↻ Empezar de nuevo</button>
+        </aside>
+      </div>
+      <p class="basketball-bottom-note">Hecho para intentar, sonreír y volver a intentar. <span>Esc para pausar.</span></p>
+    </section>
+  </main>
+  <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # El mundo de Fabi
 
-Once actividades en español, cada una en su propia página, con un menú inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. **Mi tablero de números** permite formar números con tarjetas, sumar, restar y cambiar unidades, decenas y centenas. **A colorear** convierte una imagen local en contornos negros para descargar o imprimir y colorear. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas ni backend. Las actividades y la conversión de imágenes funcionan localmente; el buscador opcional de A colorear consulta Openverse por internet.
+Doce actividades en español, cada una en su propia página, con un menú inicial: **Globos de letras — Aprende el teclado** conserva los retos originales de letras, sílabas y palabras; **Teclado mágico — Explora colores y sonidos** convierte cualquier pulsación en colores, partículas y sonidos suaves, sin objetivos ni puntuación; **Tiempo con calma** muestra cuánto tiempo queda con un reloj de color que se va vaciando; **Respira con la mariposa** acompaña una pausa con alas que se abren y cierran suavemente; **Mi primer piano** convierte el teclado en un instrumento con acordes y una melodía guiada; **Ahorcado — La palabra secreta** invita a descubrir palabras con pistas y seis intentos. **Mi pop it** ofrece 36 burbujas de colores para presionar y volver a llenar. **Plasticonejo** invita a encontrar letras regadas y estampar palabras en una masa de colores. **Astroletras** lleva a un astronauta entre meteoritos con letras: dispara con el teclado y cuida seis vidas. **Mi tablero de números** permite formar números con tarjetas, sumar, restar y cambiar unidades, decenas y centenas. **A colorear** convierte una imagen local en contornos negros para descargar o imprimir y colorear. **¡A encestar!** invita a lanzar una pelota a la canasta de arriba mientras el monito camina de lado a lado. HTML, CSS y JavaScript puros: sin dependencias para jugar, compilación, cuentas ni backend. Las actividades y la conversión de imágenes funcionan localmente; el buscador opcional de A colorear consulta Openverse por internet.
 
 ## Identidad visual
 
@@ -12,7 +12,7 @@ Abre `index.html` en un navegador moderno (Chrome, Edge, Firefox o Safari). No n
 
 ## Publicar en GitHub Pages
 
-1. Sube el contenido del sitio a la raíz del repositorio, incluidas las once carpetas de páginas de actividades indicadas abajo, las carpetas de recursos y los archivos compartidos `activity-page.js`, `canonical-url.js`, `navigation.js`, `theme.js`, `styles.css` y `theme.css`.
+1. Sube el contenido del sitio a la raíz del repositorio, incluidas las doce carpetas de páginas de actividades indicadas abajo, las carpetas de recursos y los archivos compartidos `activity-page.js`, `canonical-url.js`, `navigation.js`, `theme.js`, `styles.css` y `theme.css`.
 2. En GitHub, entra a **Settings → Pages**.
 3. En **Build and deployment**, elige **Deploy from a branch**.
 4. Selecciona la rama que contiene estos archivos (por ejemplo, `main`) y la carpeta **/ (root)**. Guarda.
@@ -28,6 +28,7 @@ La portada es únicamente el menú. Cada tarjeta es un enlace normal a un docume
 
 | Actividad | Dirección |
 | --- | --- |
+| ¡A encestar! | `/a-encestar/` |
 | Globos de letras | `/globos-de-letras/` |
 | Teclado mágico | `/teclado-magico/` |
 | Tiempo con calma | `/tiempo-con-calma/` |
@@ -40,7 +41,7 @@ La portada es únicamente el menú. Cada tarjeta es un enlace normal a un docume
 | A colorear | `/a-colorear/` |
 | Mi tablero de números | `/mi-tablero-de-numeros/` |
 
-Las trece páginas (menú, once actividades y agradecimiento) incluyen la etiqueta `G-DSSKXYFM89` una sola vez. Analytics registra la visita normal de cada documento con su ruta y título. Se retiró el evento `activity_open`: ya no hace falta una dimensión personalizada para comparar actividades ni se envían visitas virtuales al pausar, reiniciar o cambiar de nivel dentro de un juego.
+Las catorce páginas (menú, doce actividades y agradecimiento) incluyen la etiqueta `G-DSSKXYFM89` una sola vez. Analytics registra la visita normal de cada documento con su ruta y título. Se retiró el evento `activity_open`: ya no hace falta una dimensión personalizada para comparar actividades ni se envían visitas virtuales al pausar, reiniciar o cambiar de nivel dentro de un juego.
 
 Después de publicar, abre **Informes → Interacción → Páginas y pantallas** en Analytics. Usa **Título de página** o **Ruta de página**, y ordena por **Vistas** o **Usuarios activos** para identificar las actividades más visitadas. El tiempo de interacción indica cuánto tiempo permanece la página en primer plano, no necesariamente tiempo jugando. Los datos nuevos comienzan al publicar; los usos anteriores no se redistribuyen entre las nuevas rutas. Si ese informe no aparece en el menú de tu propiedad, un editor puede añadirlo desde la biblioteca de informes.
 
@@ -58,9 +59,18 @@ Se retiraron los datos del evento, el mapa y la confirmación por WhatsApp, junt
 
 ## Cómo jugar
 
-El botón de luna junto al sonido activa el **modo oscuro**: un cielo con estrellas de brillo suave, una luna y colores nocturnos en el menú y las once actividades. El botón de sol vuelve al modo claro. El modo claro es el predeterminado, con un cielo azul suave y tarjetas pastel para reducir las superficies blancas; después se recuerda la elección en este navegador con `fabi-theme-v1`. Funciona también si el navegador no permite guardar. Las estrellas permanecen quietas cuando se solicita movimiento reducido. `theme.js` aplica la preferencia antes de mostrar la página y `theme.css` contiene los colores y el cielo nocturno.
+El botón de luna junto al sonido activa el **modo oscuro**: un cielo con estrellas de brillo suave, una luna y colores nocturnos en el menú y las doce actividades. El botón de sol vuelve al modo claro. El modo claro es el predeterminado, con un cielo azul suave y tarjetas pastel para reducir las superficies blancas; después se recuerda la elección en este navegador con `fabi-theme-v1`. Funciona también si el navegador no permite guardar. Las estrellas permanecen quietas cuando se solicita movimiento reducido. `theme.js` aplica la preferencia antes de mostrar la página y `theme.css` contiene los colores y el cielo nocturno.
 
-Elige **Globos de letras**, **Teclado mágico**, **Tiempo con calma**, **Respira con la mariposa**, **Mi primer piano** o **Ahorcado** al abrir la página. Los botones para elegir otra actividad y el logo permiten volver al selector. En Globos de letras, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Globos de letras.
+Elige una de las doce actividades al abrir la página; **¡A encestar!** aparece primero en el menú. Los botones para elegir otra actividad y el logo permiten volver al selector. En Globos de letras, **Inicio**, **Descansar** y **Volver al inicio** mantienen su comportamiento original y regresan a la configuración de Globos de letras.
+
+### ¡A encestar! · Puntería de campeón
+
+- Pulsa **¡Vamos a jugar!** y el monito se moverá automáticamente de un lado a otro en la parte de abajo. La canasta está arriba: espera a que pase por debajo, sobre la marca verde, y pulsa **Espacio** o el botón **¡Lanzar!** para tirar hacia arriba. Funciona con teclado, ratón y pantalla táctil.
+- Consigue **cinco canastas** para completar la ronda. Puedes volver a intentarlo después de cada tiro: no hay reloj, vidas ni penalizaciones.
+- Elige **Paseo** para practicar con un movimiento tranquilo o **Rápido** para un reto de puntería mayor.
+- **Pausar**, Escape y cambiar de pestaña o ventana detienen el movimiento y el balón. **Continuar jugando** retoma desde ese punto; **Empezar de nuevo** vuelve a preparar una ronda con cero canastas.
+- Comparte las preferencias de sonido y modo oscuro con las otras actividades. Al salir deja de animarse y de recibir pulsaciones; abrirla de nuevo o recargar comienza una ronda nueva.
+- `basketball/basketball.js` controla el movimiento, los tiros y las canastas; las ilustraciones vectoriales viven en la página y `basketball/basketball.css` adapta la interfaz a pantallas pequeñas. `node --test tests/activity-pages.test.cjs` comprueba la integración. `BROWSER_CHANNEL=chrome node tests/basketball.test.cjs` verifica tiros, aciertos, pausas, velocidades, teclado, pantalla táctil y vistas de 320 y 390 px (requiere Playwright).
 
 ### A colorear · Tu dibujo, nuevos colores
 
@@ -173,9 +183,10 @@ El guardado corresponde a este navegador y origen, no se sincroniza entre dispos
 
 ## Organización
 
-- `index.html`: menú con enlaces a las once actividades.
+- `index.html`: menú con enlaces a las doce actividades.
 - Cada carpeta de página contiene su `index.html` independiente; los controles y diálogos de Globos están en `globos-de-letras/index.html`.
 - `activity-page.js`: preferencias compartidas e inicio/salida del juego de la página actual.
+- `a-encestar/index.html`: página independiente de ¡A encestar!; `basketball/basketball.js` y `basketball/basketball.css`: movimiento horizontal, tiros hacia la canasta, rondas de cinco aciertos y presentación de la cancha.
 - `canonical-url.js` y `navigation.js`: direcciones consistentes para Analytics y enlaces compatibles con archivos locales.
 - `styles.css`: cielo, globos, diseño adaptable, foco visible y movimiento reducido.
 - `script.js`: datos `LEVELS` al principio, lógica de partidas, teclado, audio y guardado. Añade palabras o sílabas en `LEVELS[2].items` y `LEVELS[3].items`; usa A–Z y Ñ en mayúsculas, sin espacios ni tildes. Los retos se barajan por grupos y evitan repeticiones consecutivas.

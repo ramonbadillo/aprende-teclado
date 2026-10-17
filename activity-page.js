@@ -24,7 +24,8 @@
     clay: window.ClayGame,
     space: window.SpaceGame,
     coloring: window.ColoringTool,
-    numbers: window.NumbersGame
+    numbers: window.NumbersGame,
+    basketball: window.BasketballGame
   }[activity];
 
   function enableAudio() {
@@ -75,7 +76,7 @@
     else game?.enter({
       sound: options.sound,
       onStart: enableAudio,
-      onFinish: () => chime(activity === 'timer'),
+      onFinish: () => chime(activity === 'timer' || activity === 'basketball'),
       onCorrect: () => { enableAudio(); chime(); },
       onStamp: () => { enableAudio(); chime(); }
     });
