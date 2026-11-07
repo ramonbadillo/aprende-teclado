@@ -2,9 +2,14 @@
   'use strict';
 
   const characters = [
-    { id: 'luna', name: 'Luna', hair: 'waves' },
-    { id: 'sol', name: 'Sol', hair: 'puffs' },
-    { id: 'iris', name: 'Iris', hair: 'bob' },
+    { id: 'iris', name: 'Fabi', previousName: 'Iris', gender: 'girl', hair: 'bob', outfit: 'classic' },
+    { id: 'sol', name: 'Jade', previousName: 'Sol', gender: 'girl', hair: 'puffs', outfit: 'classic' },
+    { id: 'luna', name: 'Sofi', previousName: 'Luna', gender: 'girl', hair: 'waves', outfit: 'classic' },
+    { id: 'emma', name: 'Emma', gender: 'girl', hair: 'braid', outfit: 'classic', face: 'heart' },
+    { id: 'leo', name: 'Leo', gender: 'boy', hair: 'quiff', outfit: 'bomber', face: 'oval' },
+    { id: 'nico', name: 'Nico', gender: 'boy', hair: 'curls', outfit: 'hoodie', face: 'round' },
+    { id: 'dani', name: 'Dani', gender: 'boy', hair: 'pixie', outfit: 'stripes', face: 'square' },
+    { id: 'mateo', name: 'Mateo', gender: 'boy', hair: 'parted', outfit: 'dungarees', face: 'diamond' },
   ];
 
   const palettes = {
@@ -23,19 +28,135 @@
       hairLight: '#738299', hair: '#454760', hairShade: '#353449', ink: '#373649',
       iris: '#606a77', lip: '#d99489', dress: '#df814f', dressInk: '#a75543', collar: '#fff1d5',
     },
+    emma: {
+      skinLight: '#ffd6b6', skin: '#e2ab88', skinShade: '#c0886c', skinInk: '#946652',
+      hairLight: '#eaa772', hair: '#ad623e', hairShade: '#7d4732', ink: '#613b31',
+      iris: '#74845b', lip: '#c78078', dress: '#6f9e9f', dressInk: '#4e727c', collar: '#fff0c6',
+    },
+    leo: {
+      skinLight: '#f5c69f', skin: '#dea579', skinShade: '#bb805e', skinInk: '#8e614b',
+      hairLight: '#c29466', hair: '#8c5b38', hairShade: '#62412f', ink: '#51392f',
+      iris: '#81884e', lip: '#c98d78', dress: '#8c92b6', dressInk: '#616588', collar: '#ffebc8',
+    },
+    nico: {
+      skinLight: '#bf8a6b', skin: '#9f6c53', skinShade: '#81513e', skinInk: '#663e32',
+      hairLight: '#80615d', hair: '#4e3a3c', hairShade: '#372b31', ink: '#342a2c',
+      iris: '#89633b', lip: '#a96f65', dress: '#bb855b', dressInk: '#966952', collar: '#fff0cd',
+    },
+    dani: {
+      skinLight: '#ffe1c4', skin: '#edbc9b', skinShade: '#ce957d', skinInk: '#9d705e',
+      hairLight: '#e5b184', hair: '#b37248', hairShade: '#855236', ink: '#674534',
+      iris: '#648b97', lip: '#d59683', dress: '#81a694', dressInk: '#5c7f74', collar: '#fcebd3',
+    },
+    mateo: {
+      skinLight: '#efd0a9', skin: '#d3a680', skinShade: '#af805f', skinInk: '#8c644b',
+      hairLight: '#737681', hair: '#43444b', hairShade: '#31323a', ink: '#323039',
+      iris: '#725442', lip: '#be8974', dress: '#8f98ae', dressInk: '#616a83', collar: '#fff0cc',
+    },
   };
+
+  const hairColors = {
+    black:    { label: 'Negro',    hair: '#31323c', hairLight: '#646475', hairShade: '#22232b', ink: '#23212a' },
+    chestnut: { label: 'Castaño',  hair: '#794938', hairLight: '#b78462', hairShade: '#52352f', ink: '#4a332e' },
+    copper:   { label: 'Cobrizo',  hair: '#b86039', hairLight: '#ea9a62', hairShade: '#914530', ink: '#783d30' },
+    gold:     { label: 'Rubio',    hair: '#d8a34f', hairLight: '#ffe39a', hairShade: '#a77737', ink: '#85603c' },
+    silver:   { label: 'Plateado', hair: '#b6b7c7', hairLight: '#efedf7', hairShade: '#8a8b9f', ink: '#717184' },
+    rose:     { label: 'Rosa',     hair: '#cf789c', hairLight: '#fbb7cc', hairShade: '#ac557b', ink: '#8e496a' },
+    lavender: { label: 'Lavanda',  hair: '#a589c4', hairLight: '#dfc1ee', hairShade: '#80669f', ink: '#6d5787' },
+    teal:     { label: 'Turquesa', hair: '#5aa5a5', hairLight: '#a2d8d0', hairShade: '#408181', ink: '#366666' },
+  };
+
+  const eyeColors = {
+    espresso: { label: 'Café',     iris: '#614133' },
+    hazel:    { label: 'Avellana', iris: '#967047' },
+    amber:    { label: 'Ámbar',    iris: '#bf8b3e' },
+    olive:    { label: 'Oliva',    iris: '#879150' },
+    jade:     { label: 'Jade',     iris: '#538d70' },
+    aqua:     { label: 'Agua',     iris: '#67aaa7' },
+    blue:     { label: 'Azul',     iris: '#648dc0' },
+    slate:    { label: 'Gris',     iris: '#85919e' },
+  };
+
+  const skinTones = {
+    porcelain: { label: 'Porcelana', skin: '#f6d5c8', skinLight: '#ffebe0', skinShade: '#dba99a', skinInk: '#a37369' },
+    ivory:     { label: 'Marfil',    skin: '#efd2ab', skinLight: '#fff0d4', skinShade: '#d0a47a', skinInk: '#a57d60' },
+    peach:     { label: 'Durazno',   skin: '#e9b196', skinLight: '#ffdac4', skinShade: '#c28c74', skinInk: '#9b6c5b' },
+    honey:     { label: 'Miel',      skin: '#d8a373', skinLight: '#f3cda3', skinShade: '#b77c54', skinInk: '#8b6249' },
+    bronze:    { label: 'Bronce',    skin: '#c28b64', skinLight: '#dfa983', skinShade: '#a46d51', skinInk: '#81513f' },
+    umber:     { label: 'Canela',    skin: '#a77357', skinLight: '#c79370', skinShade: '#895842', skinInk: '#714738' },
+    cocoa:     { label: 'Cacao',     skin: '#895d4d', skinLight: '#ad7d65', skinShade: '#714838', skinInk: '#5f3a31' },
+    ebony:     { label: 'Ébano',     skin: '#69483e', skinLight: '#8a6253', skinShade: '#51352f', skinInk: '#442c29' },
+  };
+
+  const originalFace = {
+    label: 'Original', chin: 260,
+    path: 'M81 143C81 95 113 65 160 64C211 63 240 96 240 143L237 174C235 212 218 233 190 249Q176 258 160 260Q141 258 125 249C98 235 83 211 82 180Z',
+  };
+
+  // The temples meet the same hairline and ears. The cheeks, jaw and chin form
+  // each silhouette, leaving space for all the fixed eye and cheek decorations.
+  const faceShapes = {
+    round: {
+      label: 'Redonda', chin: 252,
+      path: 'M80 145C78 97 112 65 160 64C209 64 242 96 241 145C241 169 245 191 236 211C223 237 190 252 160 252C128 252 98 238 84 213C74 193 79 167 80 145Z',
+    },
+    oval: {
+      label: 'Ovalada', chin: 266,
+      path: 'M83 146C83 97 117 63 160 63C204 63 237 96 237 146C237 178 231 205 216 227C201 250 178 266 160 266C142 266 119 250 104 227C90 206 82 177 83 146Z',
+    },
+    heart: {
+      label: 'Corazón', chin: 264,
+      path: 'M77 145C74 96 110 60 160 68C209 60 246 97 244 145C244 174 237 197 224 216Q205 234 185 246C173 253 167 264 160 264C153 264 147 253 135 246Q114 235 96 216C83 197 77 172 77 145Z',
+    },
+    diamond: {
+      label: 'Diamante', chin: 261,
+      path: 'M85 145C86 100 120 65 160 62C201 65 234 99 235 145C236 161 245 179 242 193C239 208 220 222 205 235C190 246 172 261 160 261C148 261 130 246 115 235C98 221 81 208 78 193C75 179 84 160 85 145Z',
+    },
+    square: {
+      label: 'Cuadrada', chin: 255,
+      path: 'M79 144C78 95 112 65 160 64C209 64 242 95 241 144C240 169 241 194 236 222Q232 240 217 246C202 253 181 255 160 255C139 255 119 254 103 246Q88 240 84 222C78 198 81 169 79 144Z',
+    },
+    long: {
+      label: 'Alargada', chin: 273,
+      path: 'M86 144C87 93 118 61 160 61C202 61 233 93 234 144C235 175 228 203 221 223C211 250 185 273 160 273C134 273 108 250 99 223C91 200 85 176 86 144Z',
+    },
+    pear: {
+      label: 'Pera', chin: 259,
+      path: 'M86 145C89 97 118 66 160 66C202 66 231 97 234 145C234 173 244 193 241 213C238 239 209 259 160 259C111 259 82 239 79 213C76 193 86 173 86 145Z',
+    },
+    rectangle: {
+      label: 'Rectangular', chin: 268,
+      path: 'M83 144C81 98 111 64 160 63C209 64 239 98 237 144L234 206Q234 232 226 244C214 261 182 268 160 268C137 268 106 261 94 244Q86 231 86 206Z',
+    },
+  };
+
+  function choices(options, swatch) {
+    return Object.entries(options).map(([id, option]) =>
+      swatch ? [option.label, id, option[swatch]] : [option.label, id]);
+  }
+
+  const appearanceChoices = {
+    hairColor: choices(hairColors, 'hair'),
+    faceShape: choices(faceShapes),
+    eyeColor: choices(eyeColors, 'iris'),
+    skinTone: choices(skinTones, 'skin'),
+  };
+
+  function choice(options, id) {
+    return Object.hasOwn(options, id) ? options[id] : undefined;
+  }
 
   function validColor(color) {
     return typeof color === 'string' && /^#(?:[a-f\d]{3}|[a-f\d]{6})$/i.test(color) ? color : null;
   }
 
-  function definitions(id, p, cheeks) {
+  function definitions(id, p, cheeks, hairPalette) {
     return `<defs>
       <radialGradient id="${id}-skin" cx="42%" cy="37%" r="72%">
         <stop stop-color="${p.skinLight}"/><stop offset=".68" stop-color="${p.skin}"/><stop offset="1" stop-color="${p.skinShade}"/>
       </radialGradient>
       <linearGradient id="${id}-hair" x1="0" y1="0" x2=".92" y2=".7">
-        <stop stop-color="${p.hairLight}"/><stop offset=".43" stop-color="${p.hair}"/><stop offset="1" stop-color="${p.hairShade}"/>
+        <stop stop-color="${hairPalette.hairLight}"/><stop offset=".43" stop-color="${hairPalette.hair}"/><stop offset="1" stop-color="${hairPalette.hairShade}"/>
       </linearGradient>
       <radialGradient id="${id}-blush">
         <stop stop-color="${cheeks}" stop-opacity=".95"/><stop offset=".54" stop-color="${cheeks}" stop-opacity=".68"/>
@@ -82,9 +203,10 @@
     </g>`;
   }
 
-  function sunHair(id, p) {
+  function sunHair(id, p, face) {
+    const nape = face === originalFace ? 'L224 223L96 223Z' : 'Q228 196 212 207Q162 222 108 207Q89 192 80 175Z';
     const back = `${puff(78, 98, -16, id, p)}${puff(243, 96, 19, id, p)}
-      <path d="M80 175C54 138 64 76 106 54C131 39 180 35 208 51C251 72 263 129 242 175L224 223L96 223Z" fill="url(#${id}-hair)" stroke="${p.ink}" stroke-width="3"/>`;
+      <path d="M80 175C54 138 64 76 106 54C131 39 180 35 208 51C251 72 263 129 242 175${nape}" fill="url(#${id}-hair)" stroke="${p.ink}" stroke-width="3"/>`;
     const front = `<path d="M77 160Q61 139 73 104C77 78 97 54 125 44Q164 27 201 44C237 59 255 91 249 128Q247 142 240 153Q237 134 230 133Q216 133 216 120Q199 123 194 111Q176 117 168 103Q153 118 139 110Q127 128 112 121Q105 134 94 131Q85 138 77 160Z" fill="url(#${id}-hair)" stroke="${p.ink}" stroke-width="2.7"/>
       <path d="M76 116C77 69 117 41 159 41C203 39 238 65 248 109C234 74 200 51 160 51C120 51 86 74 76 116Z" fill="#f4bf55" stroke="#946444" stroke-width="2"/>
       <path d="M93 85Q116 53 154 48" fill="none" stroke="#ffe8a1" stroke-width="2.7"/>
@@ -191,6 +313,34 @@
     return { back, front };
   }
 
+  function quiffHair(id, p) {
+    const back = `<path d="M78 171C64 149 64 106 79 86C99 61 131 42 163 43Q218 43 245 100Q257 138 240 172L234 178L85 179Z" fill="url(#${id}-hair)" stroke="${p.ink}" stroke-width="2.7"/>`;
+    const front = `<g fill="url(#${id}-hair)" stroke="${p.ink}" stroke-width="2.7">
+      <path d="M76 158C65 140 62 110 77 88Q86 74 102 66C93 63 89 57 89 52Q107 63 128 55C152 42 166 26 191 32Q205 33 210 42Q216 31 214 25C238 40 237 59 228 72C249 84 254 114 246 143L240 158L234 151L233 123Q218 108 214 87C195 108 167 107 143 100Q120 109 97 106Q84 126 83 149Z"/>
+      <g fill="none" stroke="${p.hairLight}" stroke-width="2.7"><path d="M91 92Q117 78 143 72Q170 64 188 46M123 91Q162 95 192 69M199 54Q205 48 206 43M233 98Q240 109 240 121"/></g>
+    </g>`;
+    return { back, front };
+  }
+
+  function curlyCropHair(id, p) {
+    const back = `<path d="M76 172Q62 159 64 141Q53 131 60 117Q54 102 65 92Q64 77 78 70L239 67Q254 78 249 92Q260 101 254 115Q262 128 254 141Q257 161 240 171Z" fill="${p.hairShade}" stroke="${p.ink}" stroke-width="2.6"/>`;
+    const front = `<path d="M77 156Q64 155 65 143Q52 139 55 126Q45 115 54 104Q47 91 58 82Q55 68 69 61Q70 46 85 46Q91 32 106 37Q116 24 129 31Q142 19 154 27Q169 16 181 27Q197 20 205 32Q220 27 227 40Q243 37 247 52Q262 56 258 70Q270 80 262 92Q270 103 260 116Q265 128 253 135Q251 149 240 150Q239 140 231 135Q222 133 223 121Q210 127 203 116Q192 124 185 112Q172 120 163 108Q152 120 140 112Q127 124 117 116Q105 125 97 119Q90 130 82 129Z" fill="url(#${id}-hair)" stroke="${p.ink}" stroke-width="2.7"/>
+      <g fill="none" stroke="${p.hairLight}" stroke-width="2.7">
+        <path d="M64 108Q59 96 69 92Q67 80 80 78M80 63Q82 51 96 54Q102 42 114 46M126 42Q135 34 144 40M158 42Q168 33 179 42M192 47Q202 40 211 53M222 57Q236 55 239 69M244 85Q254 88 250 99"/>
+        <path d="M82 105Q80 94 92 92M107 76Q109 66 120 69M135 91Q139 80 150 84M161 64Q165 56 176 62M181 99Q191 91 198 100M211 85Q220 81 225 90"/>
+      </g>`;
+    return { back, front };
+  }
+
+  function partedHair(id, p) {
+    const back = `<path d="M77 178Q66 167 67 149Q62 142 60 144Q63 133 60 125C52 79 95 40 152 40Q216 30 244 78C257 100 255 132 252 143Q251 154 257 161Q249 164 242 159L236 177Z" fill="url(#${id}-hair)" stroke="${p.ink}" stroke-width="2.7"/>`;
+    const front = `<g stroke="${p.ink}" stroke-width="2.7" fill="url(#${id}-hair)">
+      <path d="M150 44C120 36 90 52 74 76Q54 109 66 141Q69 151 78 160Q78 142 95 132Q91 141 88 145Q120 139 138 119Q147 110 153 90Q161 113 181 126Q193 133 208 134Q199 126 199 117Q216 132 231 137Q239 143 239 155C253 139 255 116 250 100C241 66 209 40 181 39Q165 36 150 44Z"/>
+      <g fill="none" stroke="${p.hairLight}" stroke-width="2.5"><path d="M151 53Q144 66 151 82M143 59Q116 65 97 92M142 78Q124 110 98 123M165 58Q199 65 218 94M165 75Q178 101 201 113M228 90Q236 106 237 117"/></g>
+    </g>`;
+    return { back, front };
+  }
+
   function flower(x, y, size, petals, center) {
     return `<g transform="translate(${x} ${y}) scale(${size})">
       <path d="M-3-3C-14-15-5-21-1-11C3-24 14-17 8-8C24-12 23 1 12 2C23 11 14 19 6 11C5 26-7 21-5 11C-17 18-22 7-11 3C-24-3-16-12-7-7Z" fill="${petals}" stroke="#aa785a" stroke-width="1.7"/>
@@ -198,9 +348,10 @@
     </g>`;
   }
 
-  function shoulders(id, p) {
+  function shoulders(id, p, chin) {
+    const shadowOffset = (chin - originalFace.chin) * headPlacement.scale;
     return `<path d="M145 122Q149 134 147 141Q145 146 132 149L119 152Q112 155 110 164L106 179L119 185Q128 190 132 209L133 239Q157 252 187 239L190 206Q194 188 203 185L215 177L209 159Q205 153 196 151L184 148Q174 145 172 141L172 122Z" fill="url(#${id}-skin)" stroke="${p.skinInk}" stroke-width="1.45"/>
-      <path d="M147 131Q159 139 172 129L172 136Q159 144 148 137Z" fill="${p.skinShade}" opacity=".6"/>`;
+      <path d="M147 131Q159 139 172 129L172 136Q159 144 148 137Z" transform="translate(0 ${shadowOffset})" fill="${p.skinShade}" opacity=".6"/>`;
   }
 
   function arms(id, p) {
@@ -213,7 +364,16 @@
     </g>`;
   }
 
-  function legsAndShoes(id, p, shoe) {
+  function sneakers(color) {
+    return `<g fill="${color}" stroke="#585867" stroke-width="1.7">
+      <path d="M117 499Q126 504 137 499L140 515Q141 521 135 524L101 525Q92 525 94 518Q96 512 106 509Z"/>
+      <path d="M186 500Q197 505 206 498L216 509Q226 510 229 518Q231 525 222 525H192Q185 524 184 518Z"/>
+      <g fill="#f8e8cf"><path d="M94 517Q117 521 140 516L139 522Q125 527 98 525Q93 524 94 517Z"/><path d="M185 516Q205 521 229 518Q231 525 224 526L190 525Q185 524 185 516Z"/></g>
+      <path d="m113 505 9 3m-14 1 9 3m89-8-8 4m13-1-8 4" fill="none" stroke="#fff2df" stroke-width="2.2"/>
+    </g>`;
+  }
+
+  function legsAndShoes(id, p, shoe, casual) {
     return `<ellipse cx="160" cy="526" rx="66" ry="4.5" fill="#997d88" opacity=".16"/>
       <g fill="url(#${id}-skin)" stroke="${p.skinInk}" stroke-width="1.55">
         <path d="M131 290L157 293C156 321 156 345 153 369Q152 379 152 391C153 406 149 424 145 441Q141 456 139 472L136 507Q130 514 119 509L123 471Q123 450 124 434Q125 419 127 404Q129 392 127 382Q124 354 123 328Z"/>
@@ -223,12 +383,12 @@
         <path d="M121 479Q129 483 138 479L136 509L118 511Z"/>
         <path d="M184 479Q193 483 204 478L207 509L187 512Z"/>
       </g>
-      <g fill="${shoe}" stroke="#694958" stroke-width="1.7">
+      ${casual ? sneakers(shoe) : `<g fill="${shoe}" stroke="#694958" stroke-width="1.7">
         <path d="M119 501Q125 507 135 502Q138 512 137 519Q134 524 123 524L103 524Q96 523 97 518Q98 514 105 511Q113 509 119 501Z"/>
         <path d="M186 503Q196 509 205 500Q209 506 217 510Q225 514 225 520Q224 524 217 524H197Q187 524 185 519Z"/>
         <path d="M111 509Q117 510 120 514M212 509Q207 511 205 514" stroke="#f9d9bd" stroke-width="2.3" fill="none"/>
         <path d="M100 521Q114 523 134 520M190 521Q207 523 222 520" fill="none" stroke="#846770" stroke-width="1.2"/>
-      </g>`;
+      </g>`}`;
   }
 
   function classicDress(id, p) {
@@ -357,7 +517,80 @@
       </g>`;
   }
 
+  function trousers(fabric, seam) {
+    return `<g stroke="${seam}" stroke-width="1.7" fill="${fabric}">
+      <path d="M125 239Q161 245 193 239L198 280C198 313 195 355 198 388Q207 440 209 498Q198 505 183 501Q175 449 166 405Q157 348 158 317Q153 368 151 404L139 500Q126 506 115 499C118 469 119 427 122 391Q125 358 120 316Q117 277 125 239Z"/>
+      <path d="M117 488Q130 493 141 486M181 488Q195 491 207 485M129 260Q130 276 121 284M187 260Q186 275 197 279M157 255V279Q165 279 165 263M134 382Q138 385 142 384M176 388Q184 384 190 386" fill="none" stroke-width="1.25"/>
+    </g>`;
+  }
+
+  function shorts(fabric, seam) {
+    return `<g fill="${fabric}" stroke="${seam}" stroke-width="1.75">
+      <path d="M124 242Q160 248 194 242Q198 268 199 293L202 344Q181 350 166 346L158 301L154 347Q137 352 115 346Q118 288 119 265Z"/>
+      <path d="M117 339Q138 345 154 339M166 339Q184 343 201 337M129 261Q127 276 119 280M187 261Q189 274 198 277M159 258V281Q165 279 165 264" fill="none" stroke-width="1.2"/>
+    </g>`;
+  }
+
+  const teeShape = 'M139 147Q158 160 181 146L197 150Q210 152 216 164L224 181L205 191L199 180L197 207L195 257Q160 264 125 257L123 209L121 179L114 189L95 181L104 162Q111 152 122 150Z';
+
+  function bomberOutfit() {
+    return `${trousers('#bf9b77', '#8f715f')}
+      <g stroke="#607e78" stroke-width="1.75">
+        <path d="M134 150L142 147Q162 160 180 147L189 151L185 257Q160 262 135 257Z" fill="#f4e7c7"/>
+        <path d="M139 147L122 150Q108 151 103 164L95 197L88 224L81 252L95 257Q103 234 110 220L120 195L122 258Q135 264 145 260L151 164Z" fill="#769f91"/>
+        <path d="M181 146L200 151Q212 153 219 170L230 201Q238 213 235 221L227 255L215 253Q218 232 219 219L207 200L200 189L198 257Q185 264 175 260L169 164Z" fill="#769f91"/>
+        <g fill="#d9c391"><path d="M81 249L96 253L94 261L79 257ZM215 249L228 251L227 259L214 257ZM121 251Q136 258 145 252L145 261Q130 263 122 259ZM175 252Q184 255 198 249V258Q184 264 175 260Z"/>
+        <path d="M139 145Q147 152 154 155L150 166Q140 157 135 149ZM181 145Q176 154 167 157L170 165Q182 158 186 150Z"/></g>
+        <path d="m126 230 10-8m48-1 11 8" fill="none" stroke-width="2.5"/>
+      </g>
+      <circle cx="190" cy="178" r="7.3" fill="#e7bd72" stroke="#a8825a" stroke-width="1.2"/><path d="m190 173 1.3 3 3 .6-2.2 2 .6 3-2.7-1.4-2.7 1.4.6-3-2.2-2 3-.6Z" fill="#fff2cc"/>`;
+  }
+
+  function hoodieOutfit() {
+    return `${shorts('#638987', '#4d6a72')}
+      <g stroke="#a77c48" stroke-width="1.7">
+        <path d="M136 149Q140 139 148 140Q160 144 172 140Q183 140 188 150L199 153Q213 154 219 172L231 202Q237 212 234 223L227 252L214 251L218 218L200 190L198 258Q162 265 121 258L121 192L111 218L96 254L81 250L92 210L104 166Q110 154 120 152Z" fill="#e5b765"/>
+        <path d="M137 147Q148 141 160 148Q172 141 181 146L191 151Q177 158 160 171Q144 160 132 153Z" fill="#efc983"/>
+        <path d="M141 147Q152 153 160 162Q168 154 178 147Q160 153 141 147Z" fill="#bc9155"/>
+        <path d="M143 219H177L189 236Q185 243 177 244H142Q135 244 130 237Z" fill="#d7a75d"/>
+        <path d="M121 250Q160 256 198 249V258Q157 265 122 258ZM82 247L97 251L94 259L79 255ZM214 247L228 249L227 257L213 255Z" fill="#d4a55b"/>
+      </g>
+      <path d="M152 163L152 180M169 163L168 181" stroke="#fff0ca" stroke-width="2.6"/>
+      <path d="M143 197Q151 180 160 192L166 187L179 201H140Z" fill="#859c85"/><path d="m151 190 3-2 4 3-3 2Z" fill="#fff0c7"/>`;
+  }
+
+  function stripedOutfit() {
+    return `${trousers('#7897ab', '#577384')}
+      <path d="${teeShape}" fill="#f9eacb" stroke="#9e886e" stroke-width="1.7"/>
+      <g fill="#74a6a0">
+        <path d="M108 157Q119 153 133 153Q159 166 182 153L201 153Q210 156 214 164Q159 180 104 166Z"/>
+        <path d="M99 175Q156 193 220 174L223 181Q163 199 96 182ZM123 199Q162 209 197 199L197 207Q160 217 123 207ZM124 223Q162 232 196 222L196 231Q158 240 124 231ZM125 247Q161 255 195 247V254Q161 262 125 255Z"/>
+      </g>
+      <path d="M137 148Q158 164 182 147" fill="none" stroke="#668e8c" stroke-width="3"/>
+      <path d="M173 186L189 185V197Q187 203 181 205Q175 204 173 199Z" fill="#719da0" stroke="#577b7f" stroke-width="1.2"/>
+      <g fill="#aac0c9" stroke="#577384" stroke-width="1.45"><path d="M114 487Q127 491 141 486L140 500Q128 505 114 500ZM181 486Q194 491 208 485L210 499Q194 504 182 501Z"/></g>`;
+  }
+
+  function overallsOutfit() {
+    return `${trousers('#697f99', '#505f78')}
+      <path d="${teeShape}" fill="#cb8c77" stroke="#956c61" stroke-width="1.7"/>
+      <path d="M137 147Q157 164 182 146M99 177L115 183M207 184L220 178" stroke="#edb499" stroke-width="2.4" fill="none"/>
+      <g fill="#71879e" stroke="#52667c" stroke-width="1.7">
+        <path d="M125 150L135 148L143 181H177L186 148L195 150L186 190L188 218Q190 231 198 234L196 265Q160 273 121 266L122 235Q134 227 134 214V188Z"/>
+        <path d="M145 195H176V211Q171 219 161 222Q148 219 145 212Z" fill="#849bb0"/>
+        <g fill="#efc781" stroke="#9a7856" stroke-width="1.15"><circle cx="140" cy="183" r="3"/><circle cx="181" cy="183" r="3"/><circle cx="126" cy="243" r="2"/><circle cx="193" cy="243" r="2"/></g>
+      </g>
+      <g stroke="#e7c99c" fill="none" stroke-width="1.15" stroke-dasharray="2 2"><path d="M129 154L136 179M190 154L183 180M148 200H173M124 259Q161 267 193 258M126 284L124 380M190 284L193 378"/></g>`;
+  }
+
+  const outfits = {
+    bomber: { draw: bomberOutfit, shoe: '#72948a' },
+    hoodie: { draw: hoodieOutfit, shoe: '#8d9586' },
+    stripes: { draw: stripedOutfit, shoe: '#be8672' },
+    dungarees: { draw: overallsOutfit, shoe: '#978273' },
+  };
   const dresses = {
+    classic: classicDress,
     violet: floralDress, mint: sailorDress, peach: partyDress, daisy: daisyDress,
     overall: overallDress, ballet: balletDress, denim: denimDress,
   };
@@ -367,7 +600,7 @@
   };
   const headPlacement = { x: 88, y: 17, scale: .45 };
 
-  function eye(p, shadow, mirrored) {
+  function eye(p, shadow, mirrored, simpleLid) {
     const outline = 'M101 165C108 150 126 149 140 164C139 170 131 179 119 178Q107 178 101 165Z';
     return `<g${mirrored ? ' transform="translate(320 0) scale(-1 1)"' : ''}>
       <path d="M97 144C108 132 124 132 138 140Q142 144 137 145C121 141 111 140 101 147Q96 149 97 144Z" fill="${p.hairShade}"/>
@@ -378,8 +611,10 @@
       <ellipse cx="121" cy="164" rx="6.8" ry="8.3" fill="${p.ink}"/>
       <circle cx="${mirrored ? 125 : 117}" cy="159.8" r="3.5" fill="#fffaf4"/>
       <circle cx="${mirrored ? 116 : 126}" cy="170" r="1.5" fill="#fff2cb"/>
-      <path d="M94 159Q98 163 101 163C110 149 128 148 140 164C130 153 114 153 105 164L101 168Q98 166 94 159Z" fill="${p.ink}"/>
-      <path d="M102 162Q98 161 96 156M106 157Q102 154 101 151" fill="none" stroke="${p.ink}" stroke-width="2.3"/>
+      ${simpleLid
+        ? `<path d="M100 164C109 149 129 149 140 164" stroke="${p.ink}" fill="none" stroke-width="2.4"/>`
+        : `<path d="M94 159Q98 163 101 163C110 149 128 148 140 164C130 153 114 153 105 164L101 168Q98 166 94 159Z" fill="${p.ink}"/>
+           <path d="M102 162Q98 161 96 156M106 157Q102 154 101 151" fill="none" stroke="${p.ink}" stroke-width="2.3"/>`}
     </g>`;
   }
 
@@ -424,6 +659,7 @@
   const hairstyles = {
     waves: moonHair, puffs: sunHair, bob: bobHair, braid: braidHair,
     ponytail: ponytailHair, buns: bunsHair, straight: straightHair, pixie: pixieHair,
+    quiff: quiffHair, curls: curlyCropHair, parted: partedHair,
   };
 
   function accessoryArt(accessory) {
@@ -535,17 +771,44 @@
       <path d="M155 226Q161 227 166 225" fill="none" stroke="#ffe2d8" stroke-width="1.8" opacity=".76"/>`;
   }
 
+  function relaxedSmile(characterId, color, p, painted) {
+    const open = characterId === 'nico' || characterId === 'dani';
+    return `<path d="M135 214Q146 214 157 215Q162 216 167 214Q176 213 185 211Q175 227 159 227Q145 226 135 214Z" fill="${color}" fill-opacity="${painted ? 1 : .7}" stroke="${p.skinInk}" stroke-width="1.3"/>
+      ${open ? `<path d="M137 215Q162 221 183 212Q174 222 160 223Q148 222 137 215Z" fill="#fff3dd" stroke="${p.skinInk}" stroke-width="1.15"/>`
+        : `<path d="M135 214Q159 225 185 211" fill="none" stroke="${p.skinInk}" stroke-width="1.8"/>`}`;
+  }
+
+  function renderFacePreview(characterId, look, faceShape) {
+    const character = characters.find(({ id }) => id === characterId) || characters[0];
+    const skin = choice(skinTones, look?.skinTone) || palettes[character.id];
+    const face = choice(faceShapes, faceShape) || choice(faceShapes, character.face) || originalFace;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="56 49 208 238" role="img" aria-label="Cara: ${face.label}" stroke-linejoin="round" stroke-linecap="round">
+      <path d="${face.path}" fill="${skin.skin}" stroke="${skin.skinInk}" stroke-width="4"/>
+      <g fill="none" stroke="${skin.skinInk}" stroke-width="3.2"><path d="M109 153Q119 148 130 151M190 151Q201 148 211 153M160 177L157 190Q160 192 163 190M143 211Q159 225 178 209"/></g>
+      <g fill="${palettes[character.id].ink}"><ellipse cx="121" cy="167" rx="4.5" ry="6"/><ellipse cx="199" cy="167" rx="4.5" ry="6"/></g>
+    </svg>`;
+  }
+
   function renderPortrait(characterId, look = {}, prefix = 'portrait', displayName, fullOutfit = false) {
     const character = characters.find(({ id }) => id === characterId) || characters[0];
-    const p = palettes[character.id];
     const id = String(prefix).replace(/[^\w-]/g, '-') + '-' + character.id;
     const style = look || {};
+    const base = palettes[character.id];
+    const p = { ...base, ...choice(skinTones, style.skinTone), iris: choice(eyeColors, style.eyeColor)?.iris || base.iris };
+    const hairPalette = choice(hairColors, style.hairColor) || base;
+    const face = choice(faceShapes, style.faceShape) || choice(faceShapes, character.face) || originalFace;
+    const earDetail = `<path d="M72 169Q79 166 82 181M248 169Q241 166 238 181" fill="none" stroke="${p.skinInk}" stroke-width="1.8"/>`;
+    const faceClip = face === originalFace ? '' : ` clip-path="url(#${id}-face)"`;
     const shadow = validColor(style.eyes);
     const lips = validColor(style.lips) || p.lip;
     const cheeks = validColor(style.cheeks);
     const haircut = Object.hasOwn(hairstyles, style.hair) ? style.hair : character.hair;
-    const hair = hairstyles[haircut](id, p);
-    const dress = Object.hasOwn(dresses, style.dress) ? style.dress : null;
+    const hair = hairstyles[haircut](id, hairPalette, face);
+    const garment = Object.hasOwn(dresses, style.dress) || Object.hasOwn(outfits, style.dress) ? style.dress : character.outfit;
+    const casualOutfit = choice(outfits, garment);
+    const clothes = casualOutfit ? casualOutfit.draw() : dresses[garment](id, p);
+    const shoe = casualOutfit?.shoe || shoeColors[garment] || p.dress;
+    const simpleLid = character.gender === 'boy';
     // Cosmetics use the close-up coordinate system. Zooming the entire figure
     // by the inverse head transform gives both views exactly the same anatomy.
     const { x, y, scale } = headPlacement;
@@ -553,34 +816,36 @@
     const zoom = fullOutfit ? '' : ` transform="scale(${1 / scale}) translate(${-x} ${-y})"`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 ${fullOutfit ? 550 : 336}" role="img" aria-labelledby="${id}-title" stroke-linecap="round" stroke-linejoin="round">
       <title id="${id}-title">Retrato de ${xmlText(displayName || character.name)}</title>
-      ${definitions(id, p, cheeks || '#e48082')}
+      ${definitions(id, p, cheeks || '#e48082', hairPalette)}
+      ${faceClip ? `<defs><clipPath id="${id}-face"><path d="${face.path}"/></clipPath></defs>` : ''}
       <g${zoom}>
       <g transform="${headTransform}">${hair.back}</g>
-      ${fullOutfit ? legsAndShoes(id, p, shoeColors[dress] || p.dress) : ''}
+      ${fullOutfit ? legsAndShoes(id, p, shoe, !!casualOutfit) : ''}
       ${arms(id, p)}
-      ${shoulders(id, p)}
-      ${dress ? dresses[dress]() : classicDress(id, p)}
+      ${shoulders(id, p, face.chin)}
+      <g data-garment="${garment}">${clothes}</g>
       <g transform="${headTransform}">
       <g fill="url(#${id}-skin)" stroke="${p.skinInk}" stroke-width="2.2">
         <path d="M86 161C65 147 60 169 71 186Q77 194 89 191ZM234 161C255 147 260 169 249 186Q243 194 231 191Z"/>
-        <path d="M81 143C81 95 113 65 160 64C211 63 240 96 240 143L237 174C235 212 218 233 190 249Q176 258 160 260Q141 258 125 249C98 235 83 211 82 180Z"/>
+        ${faceClip ? earDetail : ''}
+        <path d="${face.path}"/>
       </g>
-      <path d="M72 169Q79 166 82 181M248 169Q241 166 238 181" fill="none" stroke="${p.skinInk}" stroke-width="1.8"/>
-      <g fill="url(#${id}-blush)" opacity="${cheeks ? '.95' : '.34'}">
+      ${faceClip ? '' : earDetail}
+      <g${faceClip} fill="url(#${id}-blush)" opacity="${cheeks ? '.95' : '.34'}">
         <ellipse cx="109" cy="190" rx="26" ry="14" transform="rotate(9 109 190)"/>
         <ellipse cx="211" cy="190" rx="26" ry="14" transform="rotate(-9 211 190)"/>
       </g>
-      ${eye(p, shadow, false)}${eye(p, shadow, true)}
+      ${eye(p, shadow, false, simpleLid)}${eye(p, shadow, true, simpleLid)}
       <path d="M157 180Q158 188 154 192Q150 196 156 198M162 198Q165 198 167 196" fill="none" stroke="${p.skinInk}" stroke-width="2" opacity=".85"/>
       <path d="M155 187Q156 184 157 182" stroke="#fff5dc" opacity=".7" stroke-width="2.1" fill="none"/>
       <g fill="${p.skinInk}" opacity=".58"><circle cx="111" cy="188" r="1.35"/><circle cx="118" cy="191" r="1.15"/><circle cx="123" cy="187" r="1.35"/><circle cx="131" cy="190" r=".9"/><circle cx="189" cy="187" r="1.1"/><circle cx="195" cy="190" r="1.4"/><circle cx="202" cy="187" r="1.3"/></g>
-      ${smile(character.id, lips, p, id)}
-      ${cheekStamp(style.stamp)}
+      ${simpleLid ? relaxedSmile(character.id, lips, p, validColor(style.lips)) : smile(character.id, lips, p, id)}
+      <g${faceClip}>${cheekStamp(style.stamp)}</g>
       ${hair.front}
       ${accessoryArt(style.accessory)}
       </g></g>
     </svg>`;
   }
 
-  window.MakeupArt = { characters, renderPortrait, renderStampPreview };
+  window.MakeupArt = { characters, appearanceChoices, renderPortrait, renderStampPreview, renderFacePreview };
 })();

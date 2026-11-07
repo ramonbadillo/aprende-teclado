@@ -1,7 +1,12 @@
 (() => {
   'use strict';
 
-  const { characters, renderPortrait, renderStampPreview } = window.MakeupArt;
+  const { characters: templates, appearanceChoices, renderPortrait, renderFacePreview, renderStampPreview } = window.MakeupArt;
+  const originalGirls = ['iris', 'sol', 'luna'].map(id => templates.find(base => base.id === id));
+  const characters = originalGirls.map(base => ({ ...base, templateId: base.id }));
+  const starterBoys = templates.filter(base => base.gender === 'boy');
+  const maxDolls = 8;
+  const { choices: backdropChoices, renderBackdrop } = window.MakeupBackdrops;
   const products = {
     lips: {
       name: 'Labios', title: 'Color de labios',
@@ -45,6 +50,20 @@
         ['Margaritas', 'daisy'], ['Jardinera', 'overall'], ['Ballet', 'ballet'], ['Mezclilla', 'denim'],
       ],
     },
+    cut: {
+      key: 'hair', name: 'Cortes', title: 'Elige un corte de pelo',
+      choices: [
+        ['Original', ''], ['Copete', 'quiff'], ['Rizos', 'curls'], ['Raya de lado', 'parted'],
+        ['Corto', 'pixie'], ['Melena corta', 'bob'], ['Ondas', 'waves'], ['Lacio', 'straight'],
+      ],
+    },
+    outfit: {
+      key: 'dress', name: 'Conjuntos', title: 'Elige un conjunto',
+      choices: [
+        ['Original', ''], ['Bomber', 'bomber'], ['Sudadera', 'hoodie'], ['Camiseta a rayas', 'stripes'],
+        ['Peto', 'dungarees'], ['Vestido clásico', 'classic'], ['Jardinera', 'overall'], ['Mezclilla', 'denim'],
+      ],
+    },
     accessory: {
       name: 'Accesorios', title: 'Elige un accesorio',
       choices: [
@@ -52,8 +71,19 @@
         ['Tiara de flores', 'tiara'], ['Pasador', 'clip'], ['Antifaz', 'mask'], ['Diadema', 'headband'],
       ],
     },
+    hairColor: { name: 'Pelo', title: 'Color de pelo', choices: appearanceChoices.hairColor },
+    faceShape: { name: 'Cara', title: 'Forma de la cara', choices: appearanceChoices.faceShape },
+    eyeColor: { name: 'Color de ojos', title: 'Color de ojos', choices: appearanceChoices.eyeColor },
+    skinTone: { name: 'Piel', title: 'Tono de piel', choices: appearanceChoices.skinTone },
   };
-  const sections = { makeup: ['lips', 'eyes', 'cheeks', 'stamp'], style: ['hair', 'dress', 'accessory'] };
+  const sections = {
+    makeup: ['lips', 'eyes', 'cheeks', 'stamp'],
+    appearance: ['hairColor', 'faceShape', 'eyeColor', 'skinTone'],
+    style: ['hair', 'cut', 'dress', 'outfit', 'accessory'],
+  };
+  const availableChoices = Object.fromEntries(Object.keys(products).filter(key => !products[key].key).map(key =>
+    [key, Object.values(products).filter(p => p === products[key] || p.key === key).flatMap(p => p.choices)]));
+  const lookKey = (key = tool) => products[key].key || key;
   const accessoryFrames = {
     glasses: '69 130 182 80',
     earrings: '207 157 67 77',
@@ -67,19 +97,66 @@
   const $ = id => document.getElementById(id);
   const dolls = $('dolls'), tools = $('tools'), palette = $('palette'), dialog = $('photo-dialog');
   const storagePrefix = 'fabi-estudio-v1:';
+  const rosterKey = storagePrefix + 'created-dolls';
+  const createDialog = $('new-doll-dialog');
+  let chosenTemplate = templates[0].id;
+  let editingModelId = null;
+  let rosterInMemory = false;
+  const backdropKey = storagePrefix + 'backdrop';
+  let selectedBackdrop = backdropChoices[0][0];
   const profiles = new Map();
-  const histories = new Map(characters.map(({ id }) => [id, []]));
-  const lastTool = { makeup: 'lips', style: 'hair' };
+  const histories = new Map();
+  const lastTool = { makeup: 'lips', appearance: 'hairColor', style: 'hair' };
   let doll = characters[0];
   let section = 'makeup';
   let tool = lastTool[section];
   let sounds = null;
   let saving = false;
+  let collectionFiles;
+  let startup;
 
   function cleanName(value) {
     if (typeof value !== 'string') return '';
     const text = value.replace(/[\u0000-\u001f\u007f-\u009f\ud800-\udfff]/gu, '').trim().replace(/\s+/gu, ' ');
     return Array.from(text).slice(0, 24).join('');
+  }
+
+  function readCreatedDolls() {
+    if (rosterInMemory) return characters.slice(originalGirls.length);
+    let record;
+    try {
+      record = JSON.parse(localStorage.getItem(rosterKey));
+    } catch { /* Start with the regular group if storage is unavailable. */ }
+    const savedGroup = record?.version === 2 && Array.isArray(record.dolls);
+    const entries = savedGroup ? record.dolls : Array.isArray(record) ? record : [];
+    const capacity = maxDolls - originalGirls.length;
+    const result = [];
+    for (const entry of entries) {
+      const base = templates.find(template => template.id === entry?.templateId);
+      if (!base || typeof entry.id !== 'string' || !/^friend-[a-z0-9-]{1,64}$/.test(entry.id)) continue;
+      if (result.some(existing => existing.id === entry.id)) continue;
+      const name = cleanName(entry.name) || 'Personaje ' + (originalGirls.length + result.length + 1);
+      result.push({ id: entry.id, templateId: base.id, name, hair: base.hair });
+      if (result.length === capacity) break;
+    }
+    // Old groups keep all their characters; the new friends take only empty places.
+    if (!savedGroup) for (const boy of starterBoys) {
+      if (result.length === capacity) break;
+      const id = 'friend-' + boy.id;
+      if (!result.some(entry => entry.id === id || entry.templateId === boy.id)) {
+        result.push({ id, templateId: boy.id, name: boy.name, hair: boy.hair });
+      }
+    }
+    return result;
+  }
+
+  function saveCreatedDolls(extra, selectedId = doll.id) {
+    try {
+      const dolls = extra.map(({ id, templateId, name }) => ({ id, templateId, name }));
+      localStorage.setItem(rosterKey, JSON.stringify({ version: 2, dolls }));
+      rosterInMemory = false;
+    } catch { rosterInMemory = true; }
+    refreshDolls(extra, selectedId);
   }
 
   function loadProfile(character) {
@@ -88,14 +165,17 @@
       record = JSON.parse(localStorage.getItem(storagePrefix + character.id));
     } catch { /* El estuche también funciona sin almacenamiento. */ }
     const look = {};
-    for (const [key, product] of Object.entries(products)) {
+    for (const [key, choices] of Object.entries(availableChoices)) {
       const value = record?.look?.[key];
-      look[key] = value && product.choices.some(choice => choice[1] === value) ? value : null;
+      look[key] = value && choices.some(choice => choice[1] === value) ? value : null;
     }
-    return { name: cleanName(record?.name) || character.name, look };
+    const savedName = cleanName(record?.name);
+    // Older profiles stored the default name even if only the outfit was edited.
+    const wasDefault = record?.nameVersion !== 2 && (
+      savedName === character.previousName || savedName.toLowerCase() === character.name.toLowerCase()
+    );
+    return { name: savedName && !wasDefault ? savedName : character.name, look };
   }
-
-  for (const character of characters) profiles.set(character.id, loadProfile(character));
 
   function writeChange(key, value) {
     const profile = profiles.get(doll.id);
@@ -105,7 +185,7 @@
       const saved = loadProfile(doll);
       if (key === 'name') saved.name = value;
       else saved.look[key] = value;
-      localStorage.setItem(storagePrefix + doll.id, JSON.stringify(saved));
+      localStorage.setItem(storagePrefix + doll.id, JSON.stringify({ ...saved, nameVersion: 2 }));
     } catch { /* La partida sigue en memoria si el navegador no permite guardar. */ }
   }
 
@@ -118,7 +198,7 @@
     return el;
   }
 
-  for (const character of characters) {
+  function addDollButton(character) {
     const el = button(character.name, 'doll', 'doll', character.id);
     const art = document.createElement('span');
     art.className = 'doll-art';
@@ -136,7 +216,32 @@
     el.setAttribute('aria-label', name);
     el.title = name;
     el.querySelector('.doll-name').textContent = name;
-    el.querySelector('.doll-art').innerHTML = renderPortrait(character.id, look, 'thumb', name);
+    el.querySelector('.doll-art').innerHTML = renderPortrait(character.templateId, look, 'thumb-' + character.id, name);
+  }
+
+  function refreshDolls(extra, selectedId = doll.id) {
+    characters.splice(originalGirls.length, characters.length - originalGirls.length, ...extra);
+    const ids = new Set(characters.map(character => character.id));
+    for (const id of profiles.keys()) {
+      if (!ids.has(id)) {
+        profiles.delete(id);
+        histories.delete(id);
+      }
+    }
+    dolls.replaceChildren();
+    for (const character of characters) {
+      if (!profiles.has(character.id)) {
+        profiles.set(character.id, loadProfile(character));
+        histories.set(character.id, []);
+      }
+      addDollButton(character);
+    }
+    const expanded = characters.length > originalGirls.length;
+    $('doll-count').textContent = characters.length + ' de ' + maxDolls;
+    $('add-doll').disabled = characters.length >= maxDolls;
+    $('finish-label').textContent = expanded ? 'Ver retrato del grupo' : 'Ver retrato de las tres';
+    $('photo-title').textContent = expanded ? 'El retrato del grupo' : 'El retrato de las tres';
+    selectDoll(characters.find(character => character.id === selectedId) || characters[0]);
   }
 
   function updatePressed(group, key, value) {
@@ -144,8 +249,22 @@
   }
 
   function selectedValue() {
-    const value = profiles.get(doll.id).look[tool];
+    const value = profiles.get(doll.id).look[lookKey()];
+    if (tool === 'cut' && value === doll.hair) return '';
+    if (tool === 'outfit' && value === templates.find(base => base.id === doll.templateId).outfit) return '';
     return value || (tool === 'hair' ? doll.hair : '');
+  }
+
+  function paletteChoices() {
+    const choices = products[tool].choices;
+    // Original already draws this character's haircut or clothes. Use its
+    // second slot for a different look so all eight previews are distinct.
+    if (tool === 'cut') return choices.map(option => option[1] === doll.hair ? ['Trenza', 'braid'] : option);
+    if (tool === 'outfit') {
+      const base = templates.find(character => character.id === doll.templateId);
+      return choices.map(option => option[1] === base.outfit ? ['Marinero', 'mint'] : option);
+    }
+    return choices;
   }
 
   function updateSelection() {
@@ -167,13 +286,14 @@
 
   function stylePreview(sample, value) {
     const { name, look } = profiles.get(doll.id);
-    const candidate = { ...look, [tool]: value || null };
+    const key = lookKey();
+    const candidate = { ...look, [key]: value || null };
     sample.className = 'style-preview';
-    sample.innerHTML = renderPortrait(doll.id, candidate, 'option-' + (value || 'base'), name, tool === 'dress');
+    sample.innerHTML = renderPortrait(doll.templateId, candidate, 'option-' + (value || 'base'), name, key === 'dress');
     const svg = sample.firstElementChild;
     // The dress uses the full-length drawing; hair and accessories use the close-up.
     let frame = '0 0 320 336';
-    if (tool === 'dress') frame = '69 137 181 246';
+    if (key === 'dress') frame = tool === 'outfit' ? '55 134 210 395' : '69 137 181 246';
     if (tool === 'accessory') frame = accessoryFrames[value];
     svg.setAttribute('viewBox', frame);
   }
@@ -181,22 +301,32 @@
   function drawPalette() {
     const product = products[tool];
     const styling = section === 'style';
+    const shape = tool === 'faceShape';
     $('palette-title').textContent = product.title;
     const clear = $('clear-choice');
     clear.hidden = styling && tool !== 'accessory';
-    clear.textContent = tool === 'accessory' ? 'Sin accesorio' : 'Quitar';
-    clear.setAttribute('aria-label', tool === 'accessory' ? 'Sin accesorio' : 'Quitar ' + product.title.toLowerCase());
-    palette.replaceChildren(...product.choices.map(([name, value]) => {
-      const el = button(name, styling ? 'style-option' : 'swatch', 'value', value);
+    if (section === 'appearance') {
+      clear.textContent = shape ? 'Forma original' : 'Color original';
+      clear.setAttribute('aria-label', 'Restaurar ' + product.title.toLowerCase() + ' original');
+    } else {
+      clear.textContent = tool === 'accessory' ? 'Sin accesorio' : 'Quitar';
+      clear.setAttribute('aria-label', tool === 'accessory' ? 'Sin accesorio' : 'Quitar ' + product.title.toLowerCase());
+    }
+    palette.dataset.tool = tool;
+    palette.replaceChildren(...paletteChoices().map(([name, value, swatch]) => {
+      const el = button(name, styling || shape ? 'style-option' : 'swatch', 'value', value);
       const sample = document.createElement('span');
       sample.setAttribute('aria-hidden', 'true');
       if (styling) {
         stylePreview(sample, value);
+      } else if (shape) {
+        sample.className = 'style-preview face-preview';
+        sample.innerHTML = renderFacePreview(doll.templateId, profiles.get(doll.id).look, value);
       } else if (tool === 'stamp') {
         sample.className = 'stamp-mark';
         sample.innerHTML = renderStampPreview(value);
       } else {
-        sample.style.setProperty('--swatch', value);
+        sample.style.setProperty('--swatch', swatch || value);
       }
       const caption = document.createElement('small');
       caption.textContent = name;
@@ -211,18 +341,21 @@
     const { name, look } = profiles.get(doll.id);
     const full = section === 'style';
     $('portrait').dataset.view = full ? 'outfit' : 'face';
-    $('portrait').innerHTML = renderPortrait(doll.id, look, 'mirror', name, full);
+    $('portrait').innerHTML = renderPortrait(doll.templateId, look, 'mirror', name, full);
     $('portrait').firstElementChild.setAttribute('preserveAspectRatio', 'xMidYMax meet');
     const features = Object.entries(look).filter(([, value]) => value).map(([key, value]) => {
       const product = products[key];
-      const [label] = product.choices.find(choice => choice[1] === value);
-      return product.name + ': ' + label;
+      const family = product.choices.some(choice => choice[1] === value) ? product
+        : Object.values(products).find(p => p.key === key && p.choices.some(choice => choice[1] === value));
+      const [label] = family.choices.find(choice => choice[1] === value);
+      return family.name + ': ' + label;
     });
     $('portrait').setAttribute('aria-label', ['Retrato de ' + name, ...features].join('. '));
     $('mirror-name').textContent = name;
     $('undo').disabled = !histories.get(doll.id).length;
     updatePressed(dolls, 'doll', doll.id);
     updateSelection();
+    collectionFiles?.updateCode();
   }
 
   function flashTool() {
@@ -234,15 +367,136 @@
     flash.classList.add('paint');
   }
 
-  dolls.addEventListener('click', event => {
-    const el = event.target.closest('[data-doll]');
-    if (!el || doll.id === el.dataset.doll) return;
-    doll = characters.find(character => character.id === el.dataset.doll);
+  function selectDoll(character) {
+    doll = character;
     const { name } = profiles.get(doll.id);
     $('doll-name').value = name;
+    $('remove-doll').hidden = doll.id === doll.templateId;
+    $('change-model').hidden = doll.id === doll.templateId;
     drawPalette();
     drawPortrait();
     $('studio-status').textContent = 'Ahora juegas con ' + name + '.';
+  }
+
+  dolls.addEventListener('click', event => {
+    const el = event.target.closest('[data-doll]');
+    if (!el || doll.id === el.dataset.doll) return;
+    selectDoll(characters.find(character => character.id === el.dataset.doll));
+  });
+
+  function openModelPicker(editing) {
+    editingModelId = editing ? doll.id : null;
+    const unused = templates.find(base => !characters.some(character => character.templateId === base.id));
+    chosenTemplate = editing ? doll.templateId : (unused || templates[0]).id;
+    const choices = $('new-doll-templates');
+    if (!choices.childElementCount) {
+      for (const base of templates) {
+        const el = button(base.name, 'template-choice', 'template', base.id);
+        const art = document.createElement('span');
+        art.className = 'template-art';
+        art.setAttribute('aria-hidden', 'true');
+        art.innerHTML = renderPortrait(base.id, {}, 'create', base.name);
+        const label = document.createElement('span');
+        label.className = 'template-name';
+        label.textContent = base.name;
+        el.append(art, label);
+        choices.append(el);
+      }
+    }
+    updatePressed(choices, 'template', chosenTemplate);
+    $('new-doll-name').value = '';
+    $('new-doll-name').placeholder = 'Personaje ' + (characters.length + 1);
+    $('new-doll-name-field').hidden = editing;
+    $('new-doll-title').textContent = editing ? 'Cambiar modelo de ' + profiles.get(doll.id).name : 'Crear personaje';
+    $('new-doll-submit').textContent = editing ? 'Guardar modelo' : 'Crear';
+    createDialog.showModal();
+  }
+  $('add-doll').addEventListener('click', () => openModelPicker(false));
+  $('change-model').addEventListener('click', () => openModelPicker(true));
+
+  $('new-doll-templates').addEventListener('click', event => {
+    const el = event.target.closest('[data-template]');
+    if (!el) return;
+    chosenTemplate = el.dataset.template;
+    updatePressed($('new-doll-templates'), 'template', chosenTemplate);
+  });
+  $('cancel-new-doll').addEventListener('click', () => createDialog.close());
+
+  // Two open tabs can edit the group. Check its latest membership before writing.
+  async function editCollection(action) {
+    let entered = false;
+    try {
+      if (navigator.locks) return await navigator.locks.request(rosterKey, () => {
+        entered = true;
+        return action();
+      });
+    } catch (error) {
+      // Some browsers deny locks for local files or restricted storage.
+      if (entered || !['SecurityError', 'NotAllowedError'].includes(error.name)) throw error;
+    }
+    return action();
+  }
+
+  $('new-doll-form').addEventListener('submit', event => {
+    event.preventDefault();
+    editCollection(() => {
+      if (!createDialog.open) return;
+      const extra = readCreatedDolls();
+      createDialog.close();
+      const base = templates.find(template => template.id === chosenTemplate);
+      if (editingModelId) {
+        const existing = extra.find(character => character.id === editingModelId);
+        if (!existing) { refreshDolls(extra); return; }
+        existing.templateId = base.id;
+        existing.hair = base.hair;
+        saveCreatedDolls(extra, existing.id);
+        $('change-model').focus();
+        $('studio-status').textContent = 'Modelo guardado para ' + profiles.get(existing.id).name + '.';
+        return;
+      }
+      if (originalGirls.length + extra.length >= maxDolls) {
+        refreshDolls(extra);
+        $('studio-status').textContent = 'El grupo ya tiene ocho personajes.';
+        return;
+      }
+      const name = cleanName($('new-doll-name').value) || 'Personaje ' + (originalGirls.length + extra.length + 1);
+      const unique = Array.from(crypto.getRandomValues(new Uint32Array(3)), n => n.toString(36)).join('-');
+      const character = { id: 'friend-' + unique, templateId: base.id, name, hair: base.hair };
+      saveCreatedDolls([...extra, character], character.id);
+      dolls.querySelector('[aria-pressed="true"]').focus();
+      $('studio-status').textContent = name + ' se unió al grupo.';
+    });
+  });
+
+  $('remove-doll').addEventListener('click', () => {
+    const id = doll.id;
+    if (id === doll.templateId) return;
+    const { name } = profiles.get(id);
+    if (!window.confirm('¿Quitar a ' + name + ' del grupo? Se borrará este personaje y su diseño.')) return;
+    editCollection(() => {
+      saveCreatedDolls(readCreatedDolls().filter(character => character.id !== id));
+      try { localStorage.removeItem(storagePrefix + id); } catch { /* Sigue en memoria. */ }
+      $('add-doll').focus();
+      $('studio-status').textContent = name + ' salió del grupo.';
+    });
+  });
+
+  window.addEventListener('storage', event => {
+    if (!event.key?.startsWith(storagePrefix) || $('studio-layout').inert) return;
+    const previousId = doll.id;
+    const input = $('doll-name').value;
+    const draftName = input !== profiles.get(doll.id)?.name ? input : null;
+    if (event.key === backdropKey) {
+      selectedBackdrop = backdropChoices.find(([id]) => id === event.newValue)?.[0] || backdropChoices[0][0];
+    } else if (event.key !== rosterKey) {
+      const character = characters.find(entry => storagePrefix + entry.id === event.key);
+      if (!character) return;
+      profiles.set(character.id, loadProfile(character));
+      histories.set(character.id, []);
+    }
+    refreshDolls(readCreatedDolls());
+    if (draftName !== null && doll.id === previousId) $('doll-name').value = draftName;
+    if (dialog.open) { drawBackdropOptions(); drawPostcard(); }
   });
 
   $('sections').addEventListener('click', event => {
@@ -267,7 +521,7 @@
     const profile = profiles.get(doll.id);
     const previous = key === 'name' ? profile.name : profile.look[key];
     if (previous === value) return false;
-    histories.get(doll.id).push({ key, previous });
+    histories.get(doll.id).push({ key, previous, tool });
     writeChange(key, value);
     drawThumbnail(doll);
     drawPortrait();
@@ -279,24 +533,27 @@
     const name = cleanName($('doll-name').value) || doll.name;
     $('doll-name').value = name;
     if (applyChange('name', name)) {
-      $('studio-status').textContent = 'Ahora tu muñeca se llama ' + name + '.';
+      $('studio-status').textContent = 'Ahora tu personaje se llama ' + name + '.';
     }
   });
 
   palette.addEventListener('click', event => {
     const el = event.target.closest('[data-value]');
     if (!el || el.dataset.value === selectedValue()) return;
+    const key = lookKey();
     const value = tool === 'hair' && el.dataset.value === doll.hair ? null : el.dataset.value || null;
-    if (!applyChange(tool, value)) return;
+    if (!applyChange(key, value)) return;
     if (value && section === 'makeup') flashTool();
     sounds?.onStamp();
     $('studio-status').textContent = el.getAttribute('aria-label') + ' en ' + profiles.get(doll.id).name + '.';
   });
 
   $('clear-choice').addEventListener('click', () => {
-    if (!applyChange(tool, null)) return;
+    if (!applyChange(lookKey(), null)) return;
     sounds?.onStamp();
-    $('studio-status').textContent = 'Se quitó la selección de ' + products[tool].name.toLowerCase() + '.';
+    $('studio-status').textContent = section === 'appearance'
+      ? 'Se restauró este rasgo de ' + profiles.get(doll.id).name + '.'
+      : 'Se quitó la selección de ' + products[tool].name.toLowerCase() + '.';
   });
 
   $('undo').addEventListener('click', () => {
@@ -306,8 +563,8 @@
     if (change.key === 'name') {
       $('doll-name').value = change.previous;
     } else {
-      tool = change.key;
-      section = sections.style.includes(tool) ? 'style' : 'makeup';
+      tool = change.tool;
+      section = Object.keys(sections).find(key => sections[key].includes(tool));
       lastTool[section] = tool;
     }
     drawThumbnail(doll);
@@ -316,35 +573,125 @@
     $('studio-status').textContent = 'Se deshizo el último cambio de ' + profiles.get(doll.id).name + '.';
   });
 
+  function postcardScenery(width, height) {
+    const art = renderBackdrop(selectedBackdrop, 'photo');
+    if (width === 720 && height === 500) return art;
+
+    return `<svg x="19" y="19" width="${width - 38}" height="${height - 105}"
+      viewBox="19 19 682 395" preserveAspectRatio="none">${art}</svg>`;
+  }
+
   function makePostcard() {
-    const { name, look } = profiles.get(doll.id);
-    const full = section === 'style' || Boolean(look.dress);
-    const art = renderPortrait(doll.id, look, 'photo', name, full);
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 400" width="720" height="800" aria-hidden="true">
-      <rect width="360" height="400" rx="12" fill="#fff6e9"/>
-      <rect x="10" y="10" width="340" height="380" rx="10" fill="none" stroke="#d7aaae" stroke-width="2"/>
-      <rect x="21" y="21" width="318" height="309" rx="8" fill="#f2cfd3"/>
-      <circle cx="180" cy="165" r="122" fill="#ffe5ce"/>
-      <path d="m49 50 3 9 9 3-9 3-3 9-3-9-9-3 9-3zm253 39 3 10 10 3-10 3-3 10-3-10-10-3 10-3zm-19 191 2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#ba8159"/>
-      <svg x="30" y="23" width="300" height="307">${art}</svg>
-      <text x="180" y="369" text-anchor="middle" font-family="Georgia,serif" font-size="30" font-style="italic" fill="#79455e"></text>
-      <path d="M28 360h25m254 0h25" stroke="#c8929e" stroke-width="1.5"/>
+    const rows = Math.ceil(characters.length / 4);
+    const columns = Math.ceil(characters.length / rows);
+    const width = columns === 4 ? 960 : 720;
+    const height = rows === 2 ? 960 : 500;
+    const step = (width - 24) / columns;
+    const originalGroup = characters.length === 3;
+    const figures = characters.map((character, index) => {
+      const row = Math.floor(index / columns);
+      const rowSize = Math.min(columns, characters.length - row * columns);
+      const center = width / 2 + (index % columns - (rowSize - 1) / 2) * step;
+      const { name, look } = profiles.get(character.id);
+      const art = renderPortrait(character.templateId || character.id, look, 'group-photo-' + character.id, name, true);
+      const labelPlate = row === 0 && rows === 2
+        ? '<rect x="20" y="399" width="216" height="69" rx="17" fill="#fff7e9" fill-opacity=".94" stroke="#bda6a1" stroke-width="1.5"/>'
+        : '';
+      return `<g data-character="${character.id}" transform="translate(${center - 128} ${row * 480})">
+        <svg x="16" y="11" width="224" height="${rows === 2 ? 382 : 407}">${art}</svg>
+        ${labelPlate}
+        <text data-caption="" x="128" y="${rows === 2 ? 442 : 455}" text-anchor="middle" font-family="Georgia,serif" font-size="${originalGroup ? 29 : 35}" font-style="italic" fill="#704457"></text>
+      </g>`;
+    }).join('');
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width * 3}" height="${height * 3}" data-rows="${rows}" aria-hidden="true">
+      <rect width="${width}" height="${height}" fill="#fff7e9"/>
+      <rect x="9" y="9" width="${width - 18}" height="${height - 18}" rx="16" fill="none" stroke="#c8989f" stroke-width="2"/>
+      <g data-scene="">${postcardScenery(width, height)}</g>
+      ${originalGroup ? '<path d="M239 441v22m242-22v22" stroke="#d7b4b2" stroke-width="1.3"/>' : ''}
+      ${figures}
     </svg>`;
   }
 
-  $('finish').addEventListener('click', () => {
-    $('postcard').innerHTML = makePostcard();
-    const caption = $('postcard').querySelector('text');
-    caption.textContent = profiles.get(doll.id).name;
-    $('postcard').setAttribute('aria-label', $('portrait').getAttribute('aria-label'));
+  function fitCaption(caption, name) {
+    caption.textContent = name.replace(/[\ufffe\uffff]/gu, '�');
+    const available = 206;
+    if (caption.getComputedTextLength() <= available) return;
+
+    const text = caption.textContent;
+    const letters = typeof Intl.Segmenter === 'function'
+      ? Array.from(new Intl.Segmenter('es', { granularity: 'grapheme' }).segment(text), part => part.segment)
+      : Array.from(text);
+    const middle = Math.ceil(letters.length / 2);
+    const spaces = letters.map((letter, index) => letter === ' ' ? index + 1 : 0).filter(Boolean);
+    const split = spaces.length ? spaces.reduce((a, b) => Math.abs(b - middle) < Math.abs(a - middle) ? b : a) : middle;
+    caption.replaceChildren();
+    caption.setAttribute('font-size', '28');
+    const baseline = Number(caption.getAttribute('y'));
+    for (const [index, line] of [letters.slice(0, split), letters.slice(split)].entries()) {
+      const span = document.createElementNS(caption.namespaceURI, 'tspan');
+      span.setAttribute('x', caption.getAttribute('x'));
+      span.setAttribute('y', baseline + (index ? 16 : -12));
+      span.textContent = line.join('');
+      caption.append(span);
+      if (span.getComputedTextLength() > available) {
+        span.setAttribute('textLength', available);
+        span.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+      }
+    }
+  }
+
+  function drawBackdropOptions() {
+    const group = $('backdrops');
+    if (!group.childElementCount) {
+      for (const [id, label] of backdropChoices) {
+        const el = button(label, 'backdrop-option', 'backdrop', id);
+        const art = document.createElement('span');
+        art.className = 'backdrop-art';
+        art.setAttribute('aria-hidden', 'true');
+        art.innerHTML = `<svg viewBox="19 19 682 395" preserveAspectRatio="xMidYMid slice">${renderBackdrop(id, 'sample-' + id)}</svg>`;
+        const caption = document.createElement('small');
+        caption.textContent = label;
+        el.append(art, caption);
+        group.append(el);
+      }
+    }
+    updatePressed(group, 'backdrop', selectedBackdrop);
+  }
+
+  function describePostcard() {
+    const names = characters.map(({ id }) => profiles.get(id).name);
+    const [, backdropName] = backdropChoices.find(([id]) => id === selectedBackdrop);
+    $('postcard').setAttribute('aria-label', 'Retrato de grupo: ' + names.join(', ') + '. Fondo: ' + backdropName + '.');
+  }
+
+  $('backdrops').addEventListener('click', event => {
+    const el = event.target.closest('button[data-backdrop]');
+    if (!el || el.dataset.backdrop === selectedBackdrop) return;
+    selectedBackdrop = el.dataset.backdrop;
+    const photo = $('postcard').firstElementChild;
+    const { width, height } = photo.viewBox.baseVal;
+    photo.querySelector('[data-scene]').innerHTML = postcardScenery(width, height);
+    updatePressed($('backdrops'), 'backdrop', selectedBackdrop);
+    describePostcard();
     $('photo-status').textContent = '';
+    try { localStorage.setItem(backdropKey, selectedBackdrop); } catch { /* Sigue en memoria. */ }
+    collectionFiles?.updateCode();
+  });
+
+  function drawPostcard() {
+    const postcard = $('postcard');
+    postcard.innerHTML = makePostcard();
+    describePostcard();
+    $('photo-status').textContent = '';
+    postcard.querySelectorAll('[data-caption]').forEach((caption, index) => fitCaption(caption, profiles.get(characters[index].id).name));
+  }
+
+  $('finish').addEventListener('click', () => {
+    drawBackdropOptions();
     sounds?.onStart();
     sounds?.onFinish();
     dialog.showModal();
-    if (caption.getComputedTextLength() > 236) {
-      caption.setAttribute('textLength', '236');
-      caption.setAttribute('lengthAdjust', 'spacingAndGlyphs');
-    }
+    drawPostcard();
   });
   for (const id of ['edit', 'close-photo']) $(id).addEventListener('click', () => dialog.close());
 
@@ -353,7 +700,7 @@
     saving = true;
     const save = $('save'), status = $('photo-status');
     const photo = $('postcard').firstElementChild;
-    const name = profiles.get(doll.id).name.replace(/[<>:"/\\|?*]/g, '-');
+    const count = photo.querySelectorAll('[data-character]').length;
     save.disabled = true;
     status.textContent = 'Preparando tu imagen…';
     const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(photo)], { type: 'image/svg+xml;charset=utf-8' }));
@@ -362,14 +709,14 @@
       img.src = url;
       await img.decode();
       const canvas = document.createElement('canvas');
-      canvas.width = 720;
-      canvas.height = 800;
-      canvas.getContext('2d').drawImage(img, 0, 0, 720, 800);
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
       const link = document.createElement('a');
       link.href = canvas.toDataURL('image/png');
-      link.download = 'Retrato de ' + name + '.png';
+      link.download = count === 3 ? 'Retrato de las tres muñecas.png' : 'Retrato de ' + count + ' personajes.png';
       link.click();
-      status.textContent = 'Tu retrato está listo para guardar.';
+      status.textContent = 'El retrato del grupo está listo para guardar.';
     } catch {
       status.textContent = 'No se pudo guardar el retrato. Inténtalo otra vez.';
     } finally {
@@ -380,16 +727,101 @@
   }
   $('save').addEventListener('click', savePostcard);
 
+  function snapshotGroup() {
+    return {
+      backdrop: selectedBackdrop,
+      characters: characters.map(({ id, templateId, name: originalName }) => {
+        const { name, look } = profiles.get(id);
+        return { id, templateId, originalName, name,
+          look: Object.fromEntries(Object.entries(look).filter(([, value]) => value != null)) };
+      }),
+    };
+  }
+
+  function hasStudioSave() {
+    try { return Object.keys(localStorage).some(key => key.startsWith(storagePrefix)); }
+    catch { return false; }
+  }
+
+  function restoreGroup(group, firstVisit = false) {
+    return editCollection(() => {
+      // A second tab may have saved a game while the published collection loaded.
+      if (firstVisit && hasStudioSave()) return;
+      const extra = group.characters.slice(originalGirls.length).map(({ id, templateId, originalName }) =>
+        ({ id, templateId, name: originalName }));
+      const changes = new Map(group.characters.map(({ id, name, look }) =>
+        [storagePrefix + id, JSON.stringify({ name, look, nameVersion: 2 })]));
+      for (const previous of readCreatedDolls()) {
+        const key = storagePrefix + previous.id;
+        if (!changes.has(key)) changes.set(key, null);
+      }
+      changes.set(backdropKey, group.backdrop);
+      changes.set(rosterKey, JSON.stringify({ version: 2, dolls: extra }));
+
+      // Keep the current collection intact if any storage write fails.
+      const written = new Map();
+      try {
+        for (const [key, value] of changes) {
+          const old = localStorage.getItem(key);
+          if (old === value) continue;
+          if (value === null) localStorage.removeItem(key);
+          else localStorage.setItem(key, value);
+          written.set(key, old);
+        }
+      } catch (error) {
+        for (const [key, old] of [...written].reverse()) {
+          if (old === null) localStorage.removeItem(key);
+          else localStorage.setItem(key, old);
+        }
+        if (!firstVisit) throw error;
+        // Browsers that block storage still open the published designs and can export them.
+        rosterInMemory = true;
+        selectedBackdrop = group.backdrop;
+        for (const { id, name, look } of group.characters) {
+          profiles.set(id, { name, look: { ...look } });
+          histories.set(id, []);
+        }
+        refreshDolls(extra.map(character => ({ ...character, hair: templates.find(base => base.id === character.templateId).hair })));
+        return;
+      }
+      rosterInMemory = false;
+      selectedBackdrop = group.backdrop;
+      profiles.clear();
+      histories.clear();
+      refreshDolls(readCreatedDolls());
+    });
+  }
+
+  collectionFiles = window.MakeupCollections.connect({
+    templates, originals: originalGirls, maxDolls, choices: availableChoices, backdrops: backdropChoices,
+    cleanName, snapshot: snapshotGroup, restore: restoreGroup,
+  });
+
   window.MakeupGame = {
-    enter(options) {
+    async enter(options) {
       sounds = options;
-      $('doll-name').value = profiles.get(doll.id).name;
+      startup ??= (async () => {
+        if (!hasStudioSave()) await restoreGroup(await collectionFiles.publishedGroup(), true);
+      })();
+      await startup;
+      if (!sounds) return;
+      if (!rosterInMemory) {
+        try {
+          const saved = localStorage.getItem(backdropKey);
+          selectedBackdrop = backdropChoices.find(([id]) => id === saved)?.[0] || backdropChoices[0][0];
+        } catch { /* Keep the in-memory selection. */ }
+      }
+      refreshDolls(readCreatedDolls());
       drawTools();
-      drawPortrait();
+      $('studio-layout').inert = false;
+      $('studio-layout').setAttribute('aria-busy', 'false');
+      collectionFiles.openShared();
     },
     leave() {
       sounds = null;
       if (dialog.open) dialog.close();
+      if (createDialog.open) createDialog.close();
+      if ($('import-group-dialog').open) $('import-group-dialog').close();
     },
   };
 })();

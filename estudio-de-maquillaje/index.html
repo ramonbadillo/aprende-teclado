@@ -13,18 +13,21 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#a9cfe6">
-  <meta name="description" content="Ponle nombre a tu muñeca, prueba maquillajes, peinados y vestidos, y guarda su retrato.">
+  <meta name="description" content="Crea tus personajes, elige sus rasgos, maquillaje y vestuario, y guarda un retrato de todo el grupo.">
   <meta property="og:title" content="Estudio de maquillaje · El mundo de Fabi">
-  <meta property="og:description" content="Elige una muñeca, combina maquillaje y vestuario, y crea su retrato.">
+  <meta property="og:description" content="Personaliza hasta ocho personajes y toma un retrato de grupo con sus nombres.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
   <script src="../theme.js?v=2"></script>
   <link rel="stylesheet" href="../styles.css?v=3">
   <link rel="stylesheet" href="../theme.css?v=3">
-  <link rel="stylesheet" href="../makeup/makeup.css?v=4">
-  <script src="../makeup/portraits.js?v=5" defer></script>
-  <script src="../makeup/makeup.js?v=5" defer></script>
+  <link rel="stylesheet" href="../makeup/makeup.css?v=9">
+  <script src="../makeup/portraits.js?v=9" defer></script>
+  <script src="../makeup/backdrops.js?v=2" defer></script>
+  <script src="../makeup/default-collection.js?v=1" defer></script>
+  <script src="../makeup/collections.js?v=2" defer></script>
+  <script src="../makeup/makeup.js?v=12" defer></script>
   <script src="../navigation.js?v=2" defer></script>
   <script src="../activity-page.js?v=4" defer></script>
 </head>
@@ -69,12 +72,30 @@
           <path d="M30 45v8" stroke="#f7c6cf" stroke-linecap="round"/>
         </g>
       </symbol>
+      <symbol id="kit-cut" viewBox="0 0 64 64">
+        <g stroke="#70556a" stroke-width="2" stroke-linejoin="round">
+          <path d="M28 38 49 6q3-4 4 0-3 17-20 35Z" fill="#c6d8d9"/>
+          <path d="M28 35 7 8q-2-4 2-2 16 10 25 29Z" fill="#e4eae9"/>
+          <path d="m28 32 17 16m-13-16L20 48" fill="none" stroke-width="4" stroke-linecap="round"/>
+          <g fill="#db9ca9"><circle cx="17" cy="49" r="8"/><circle cx="47" cy="49" r="8"/></g>
+          <g fill="#fff4e5"><circle cx="17" cy="49" r="3.4"/><circle cx="47" cy="49" r="3.4"/><circle cx="30" cy="35" r="2.5"/></g>
+        </g>
+      </symbol>
       <symbol id="kit-dress" viewBox="0 0 64 64">
         <g stroke="#976878" stroke-width="1.8" stroke-linejoin="round">
           <path d="M23 8l4 2q5 7 10 0l4-2 6 8-7 6-2 9q7 9 15 23-21 8-42 0 7-14 15-23l-2-9-7-6Z" fill="#e8a4ae"/>
           <path d="M26 30h12v4H26z" fill="#f3d283"/>
           <path d="m27 37-5 13m16-13 5 13" fill="none" stroke="#f7ced1" stroke-linecap="round"/>
           <path d="M12 52q20 7 40 0" fill="none" stroke="#fff0dc"/>
+        </g>
+      </symbol>
+      <symbol id="kit-outfit" viewBox="0 0 64 64">
+        <g stroke="#536777" stroke-width="1.8" stroke-linejoin="round">
+          <path d="M22 14q0-9 10-10 10 0 11 10l9 6 8 25-8 4-7-15 1 22q-14 4-28 0l1-22-7 15-8-4 8-25Z" fill="#9bc8c5"/>
+          <path d="M22 14q5-7 10-7 7 1 11 7l-11 9Z" fill="#c9e4da"/>
+          <path d="M25 15q7-2 14 0l-7 6Z" fill="#688b91" stroke="none"/>
+          <path d="m24 42 3-4h10l4 6v5H23Z" fill="#b7d8ce"/>
+          <path d="M19 52q13 3 26 0M28 22v9m7-9v7" fill="none" stroke-linecap="round"/>
         </g>
       </symbol>
       <symbol id="kit-accessory" viewBox="0 0 64 64">
@@ -84,6 +105,26 @@
           <path d="m16 23 11 4m-12 6 11-3m21-8-10 5m11 6-10-3" fill="none" stroke="#ce8098" stroke-linecap="round"/>
           <rect x="27" y="22" width="11" height="14" rx="4" fill="#efd48c"/>
         </g>
+      </symbol>
+      <symbol id="kit-hairColor" viewBox="0 0 64 64">
+        <path d="M18 50C10 33 24 30 23 17Q24 6 39 7C29 18 49 24 46 39Q45 52 28 56Q34 50 32 44Q28 50 18 50Z" fill="#b97457" stroke="#805040" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M32 14Q28 22 34 31T30 46M24 32Q20 37 21 42" fill="none" stroke="#edb187" stroke-width="2.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="kit-faceShape" viewBox="0 0 64 64">
+        <path d="M12 29C10 14 21 8 32 8S54 15 52 29Q51 45 39 54Q32 60 25 54Q13 45 12 29Z" fill="#f3c7a9" stroke="#a66c65" stroke-width="2.2"/>
+        <g fill="none" stroke="#a66c65" stroke-width="2.1" stroke-linecap="round"><path d="M18 30q4-4 9 0m10 0q5-4 9 0m-20 12q6 5 12-1"/></g>
+      </symbol>
+      <symbol id="kit-eyeColor" viewBox="0 0 64 64">
+        <path d="M5 32Q30 2 59 32Q33 61 5 32Z" fill="#fff3e5" stroke="#725161" stroke-width="2.4"/>
+        <circle cx="32" cy="32" r="12" fill="#78aa9e" stroke="#496f70" stroke-width="2"/><circle cx="32" cy="32" r="5.8" fill="#494051"/><circle cx="28.5" cy="27.5" r="3" fill="#fff9ea"/>
+        <path d="m10 25-3-5m11-1-2-5m11 1-1-5" fill="none" stroke="#725161" stroke-width="2.3" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="kit-skinTone" viewBox="0 0 64 64">
+        <g stroke-width="1.8">
+          <rect x="9" y="14" width="21" height="39" rx="8" transform="rotate(-23 20 46)" fill="#a06651" stroke="#815447"/>
+          <rect x="20" y="9" width="21" height="44" rx="8" transform="rotate(-3 30 45)" fill="#d9a37e" stroke="#a97561"/>
+          <rect x="29" y="8" width="22" height="45" rx="8" transform="rotate(19 40 45)" fill="#f4cfae" stroke="#b88770"/>
+        </g><circle cx="39" cy="46" r="2.4" fill="#ab806a"/>
       </symbol>
       <symbol id="spark" viewBox="0 0 24 24"><path d="M12 1q1 9 10 11-9 1-10 11Q10 14 1 12 10 10 12 1Z" fill="currentColor"/></symbol>
       <symbol id="camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m7 7 2-3h6l2 3h3q2 0 2 2v10q0 2-2 2H4q-2 0-2-2V9q0-2 2-2Z"/><circle cx="12" cy="13" r="4"/></g></symbol>
@@ -100,10 +141,10 @@
     <section id="makeup" class="screen makeup-screen" aria-labelledby="makeup-title">
       <a class="studio-back" href="../" data-site-link><span aria-hidden="true">←</span> Elegir actividad</a>
       <div class="studio-heading">
-        <div><h1 id="makeup-title">Estudio de <em>maquillaje</em></h1><p>Elige una muñeca y ponle nombre. Prueba maquillaje y vestuario para crear su retrato.</p></div>
+        <div><h1 id="makeup-title">Estudio de <em>maquillaje</em></h1><p>Elige un personaje o crea el tuyo. Prueba peinados, ropa y maquillaje para la foto de grupo.</p></div>
         <svg class="heading-sparks" viewBox="0 0 115 65" aria-hidden="true"><use href="#spark" x="7" y="12" width="35" height="35"/><use href="#spark" x="52" y="0" width="29" height="29"/><use href="#spark" x="85" y="29" width="16" height="16"/><path d="M3 53q28 11 61-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/></svg>
       </div>
-      <div class="studio-layout">
+      <div id="studio-layout" class="studio-layout" aria-busy="true" inert>
         <div class="vanity" aria-label="Espejo de maquillaje">
           <div class="vanity-stars" aria-hidden="true"><i>✦</i><i>✧</i><i>✧</i><i>✦</i><i>✧</i></div>
           <div class="mirror">
@@ -119,19 +160,28 @@
             <use href="#kit-eyes" x="315" y="29" width="70" height="61" transform="rotate(7 350 59)"/>
             <use href="#kit-lips" x="292" y="37" width="35" height="47" transform="rotate(-20 310 60)"/>
           </svg>
-          <div class="mirror-name"><span aria-hidden="true">✧</span> <strong id="mirror-name">Luna</strong> <span aria-hidden="true">✧</span></div>
+          <div class="mirror-name"><span aria-hidden="true">✧</span> <strong id="mirror-name">Fabi</strong> <span aria-hidden="true">✧</span></div>
         </div>
         <div class="kit">
           <div class="kit-heading"><h2>Mi estuche</h2><button id="undo" class="undo" type="button" disabled><span aria-hidden="true">↶</span> Deshacer</button></div>
-          <h3 id="dolls-title">Muñecas</h3>
-          <div id="dolls" class="dolls" role="group" aria-labelledby="dolls-title"></div>
+          <div class="dolls-heading">
+            <h3 id="dolls-title">Tu grupo</h3>
+            <span id="doll-count"></span>
+            <button id="add-doll" type="button" aria-haspopup="dialog" aria-controls="new-doll-dialog" aria-describedby="doll-count"><span aria-hidden="true">+</span> Crear personaje</button>
+          </div>
+          <div id="dolls" class="dolls" role="group" aria-labelledby="dolls-title" aria-describedby="doll-count"></div>
           <form id="name-form" class="name-form">
-            <label for="doll-name">Nombre de tu muñeca</label>
+            <label for="doll-name">Nombre del personaje</label>
             <input type="text" id="doll-name" name="nombre" maxlength="24" autocomplete="off" enterkeyhint="done">
             <button type="submit">Guardar nombre</button>
           </form>
+          <div class="character-actions">
+            <button id="change-model" type="button" aria-haspopup="dialog" aria-controls="new-doll-dialog" hidden>Cambiar modelo</button>
+            <button id="remove-doll" type="button" hidden>Quitar del grupo</button>
+          </div>
           <div id="sections" class="kit-sections" role="group" aria-label="Secciones del estuche">
             <button type="button" data-section="makeup" aria-pressed="true">Maquillaje</button>
+            <button type="button" data-section="appearance" aria-pressed="false">Rasgos</button>
             <button type="button" data-section="style" aria-pressed="false">Vestuario</button>
           </div>
           <h3 id="tools-title" class="visually-hidden">Elige una herramienta</h3>
@@ -141,17 +191,63 @@
             <button id="clear-choice" type="button" disabled>Quitar</button>
           </div>
           <div id="palette" class="palette" role="group" aria-labelledby="palette-title"></div>
-          <button id="finish" class="studio-primary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#camera"/></svg> Ver mi retrato</button>
+          <button id="finish" class="studio-primary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#camera"/></svg><span id="finish-label">Ver retrato del grupo</span></button>
+          <section class="group-files" aria-labelledby="group-files-title">
+            <h3 id="group-files-title">Guarda tu grupo</h3>
+            <p>Descarga tus personajes en un archivo JSON y vuelve a cargarlo para seguir editándolos.</p>
+            <div class="group-file-actions">
+              <button id="export-group" type="button">Descargar personajes</button>
+              <button id="import-group" type="button">Cargar personajes</button>
+              <input id="group-file" type="file" accept=".json,application/json" aria-label="Archivo de personajes" hidden>
+            </div>
+            <details id="group-json-details">
+              <summary>Ver archivo para copiar</summary>
+              <textarea id="group-json" rows="6" readonly spellcheck="false" aria-label="Código de tus personajes"></textarea>
+            </details>
+            <p id="group-file-status" role="status" aria-atomic="true"></p>
+          </section>
         </div>
       </div>
       <p id="studio-status" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
     </section>
   </main>
+  <dialog id="new-doll-dialog" aria-labelledby="new-doll-title">
+    <form id="new-doll-form">
+      <h2 id="new-doll-title">Crear personaje</h2>
+      <h3 id="new-doll-templates-label">Elige un modelo</h3>
+      <div id="new-doll-templates" role="group" aria-labelledby="new-doll-templates-label"></div>
+      <div id="new-doll-name-field">
+        <label for="new-doll-name">Nombre <span>(opcional)</span></label>
+        <input type="text" id="new-doll-name" name="nombre" maxlength="24" placeholder="Personaje 8" autocomplete="off" enterkeyhint="done">
+      </div>
+      <div class="studio-dialog-actions">
+        <button id="cancel-new-doll" class="studio-secondary" type="button">Cancelar</button>
+        <button id="new-doll-submit" class="studio-primary" type="submit">Crear personaje</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="import-group-dialog" aria-labelledby="import-group-title" aria-describedby="import-group-summary import-group-note">
+    <h2 id="import-group-title">¿Cargar este grupo?</h2>
+    <p id="import-group-summary"></p>
+    <p id="import-group-note">Los personajes del archivo reemplazarán al grupo que tienes en este navegador.</p>
+    <div class="studio-dialog-actions">
+      <button class="studio-secondary" id="cancel-group-import" type="button" autofocus>Cancelar</button>
+      <button class="studio-primary" id="confirm-group-import" type="button">Reemplazar grupo</button>
+    </div>
+  </dialog>
   <dialog id="photo-dialog" aria-labelledby="photo-title">
-    <div class="photo-heading"><h2 id="photo-title">Mi retrato</h2><button id="close-photo" type="button" aria-label="Cerrar retrato">×</button></div>
-    <div id="postcard" role="img"></div>
-    <button id="save" class="studio-primary" type="button">Guardar imagen</button>
-    <button id="edit" class="edit-photo" type="button">Seguir maquillando</button>
+    <div class="photo-heading"><h2 id="photo-title">El retrato del grupo</h2><button id="close-photo" type="button" aria-label="Cerrar retrato">×</button></div>
+    <div class="photo-layout">
+      <div id="postcard" role="img"></div>
+      <div class="backdrop-picker">
+        <h3 id="backdrops-title">Fondo del retrato</h3>
+        <div id="backdrops" role="group" aria-labelledby="backdrops-title"></div>
+      </div>
+    </div>
+    <div class="photo-actions">
+      <button id="save" class="studio-primary" type="button">Guardar imagen</button>
+      <button id="edit" class="edit-photo" type="button">Seguir jugando</button>
+    </div>
     <p id="photo-status" role="status"></p>
   </dialog>
   <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
