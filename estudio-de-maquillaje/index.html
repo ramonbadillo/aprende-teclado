@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Estudio de maquillaje · El mundo de Fabi</title>
+  <script src="../canonical-url.js?v=1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSSKXYFM89"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DSSKXYFM89');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a9cfe6">
+  <meta name="description" content="Ponle nombre a tu muñeca, prueba maquillajes, peinados y vestidos, y guarda su retrato.">
+  <meta property="og:title" content="Estudio de maquillaje · El mundo de Fabi">
+  <meta property="og:description" content="Elige una muñeca, combina maquillaje y vestuario, y crea su retrato.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+  <script src="../theme.js?v=2"></script>
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="../theme.css?v=3">
+  <link rel="stylesheet" href="../makeup/makeup.css?v=4">
+  <script src="../makeup/portraits.js?v=5" defer></script>
+  <script src="../makeup/makeup.js?v=5" defer></script>
+  <script src="../navigation.js?v=2" defer></script>
+  <script src="../activity-page.js?v=4" defer></script>
+</head>
+<body class="showing-makeup" data-activity="makeup">
+  <div class="scenery" aria-hidden="true"><div class="night-stars"></div></div>
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="kit-lips" viewBox="0 0 64 64">
+        <g transform="rotate(17 32 34)" stroke="#763751" stroke-linejoin="round" stroke-width="1.8">
+          <path d="M24 33V17Q25 12 36 7Q40 5 40 12V33Z" fill="#d6577a"/>
+          <path d="M26 17Q30 12 38 9Q37 14 26 19Z" fill="#ff9faa" stroke="none"/>
+          <path d="M22 28H42V45H22Z" fill="#e5ab69"/><path d="M25 30H29V42H25Z" fill="#ffdf9e" stroke="none"/>
+          <rect x="20" y="40" width="24" height="18" rx="3" fill="#ae5f88"/><path d="M22 45H42" stroke="#eaa3c2"/><path d="M25 49V55" stroke="#f2bfd2"/>
+        </g>
+      </symbol>
+      <symbol id="kit-eyes" viewBox="0 0 64 64">
+        <g stroke="#70516d" stroke-width="1.8" stroke-linejoin="round" transform="rotate(-9 31 32)">
+          <rect x="10" y="8" width="43" height="27" rx="8" fill="#bc8fae"/>
+          <rect x="14" y="12" width="35" height="19" rx="5" fill="#e5f5f3"/><path d="m21 26 13-11m0 12 10-9" stroke="#fff"/>
+          <rect x="7" y="32" width="49" height="25" rx="7" fill="#be8ea6"/><rect x="7" y="29" width="49" height="24" rx="7" fill="#e6bfd4"/>
+          <circle cx="18" cy="41" r="6" fill="#bd93d7"/><circle cx="32" cy="41" r="6" fill="#83bcba"/><circle cx="46" cy="41" r="6" fill="#e6ad76"/>
+        </g>
+      </symbol>
+      <symbol id="kit-cheeks" viewBox="0 0 64 64">
+        <g transform="rotate(28 32 30)" stroke="#764d54" stroke-width="1.8" stroke-linejoin="round">
+          <path d="M28 30H36L35 56Q32 62 29 56Z" fill="#af7297"/><path d="M23 22H41L37 36H27Z" fill="#e5b372"/>
+          <path d="M24 26Q14 17 20 10Q21 5 27 6Q31 1 35 5Q41 2 44 10Q49 16 40 26Q31 32 24 26Z" fill="#db878e"/>
+          <path d="m23 14 4 10m6-16v16m7-13-4 13" stroke="#efacaa"/>
+        </g>
+      </symbol>
+      <symbol id="kit-stamp" viewBox="0 0 64 64">
+        <path d="m32 6 7 14 16 3q3 1 1 4L44 39l2 16q0 3-3 2l-12-7-15 7q-3 1-2-3l3-16L6 27q-3-3 1-4l16-3 7-14q1-2 2 0Z" fill="#e8b356" stroke="#a16647" stroke-width="2"/>
+        <path d="m31 15 4 10 10 2" fill="none" stroke="#fff0b8" stroke-width="3" stroke-linecap="round"/>
+        <path d="m52 4 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" fill="#cf8aa0"/>
+      </symbol>
+      <symbol id="kit-hair" viewBox="0 0 64 64">
+        <g transform="rotate(32 32 32)" stroke="#764c69" stroke-width="2" stroke-linejoin="round">
+          <path d="M27 36H36L37 53Q37 59 32 59Q26 59 26 53Z" fill="#cd8ba2"/>
+          <rect x="17" y="5" width="30" height="35" rx="14" fill="#b680a3"/>
+          <rect x="21" y="9" width="22" height="26" rx="10" fill="#f1c1be"/>
+          <path d="M27 16v3m9-3v3m-4 2v3m-7 2v3m13-4v3" fill="none" stroke-linecap="round"/>
+          <path d="M30 45v8" stroke="#f7c6cf" stroke-linecap="round"/>
+        </g>
+      </symbol>
+      <symbol id="kit-dress" viewBox="0 0 64 64">
+        <g stroke="#976878" stroke-width="1.8" stroke-linejoin="round">
+          <path d="M23 8l4 2q5 7 10 0l4-2 6 8-7 6-2 9q7 9 15 23-21 8-42 0 7-14 15-23l-2-9-7-6Z" fill="#e8a4ae"/>
+          <path d="M26 30h12v4H26z" fill="#f3d283"/>
+          <path d="m27 37-5 13m16-13 5 13" fill="none" stroke="#f7ced1" stroke-linecap="round"/>
+          <path d="M12 52q20 7 40 0" fill="none" stroke="#fff0dc"/>
+        </g>
+      </symbol>
+      <symbol id="kit-accessory" viewBox="0 0 64 64">
+        <g transform="rotate(-10 32 31)" stroke="#975e77" stroke-width="1.8" stroke-linejoin="round">
+          <path d="m29 33-5 19 8-5 4 4 1-16m0-2 8 16-7-2-3 4-3-15" fill="#ce8098"/>
+          <path d="M30 24Q17 10 10 15q-5 7 0 23 10 2 21-5Zm5 0q13-14 20-9 5 7 0 23-10 2-21-5Z" fill="#eeabc0"/>
+          <path d="m16 23 11 4m-12 6 11-3m21-8-10 5m11 6-10-3" fill="none" stroke="#ce8098" stroke-linecap="round"/>
+          <rect x="27" y="22" width="11" height="14" rx="4" fill="#efd48c"/>
+        </g>
+      </symbol>
+      <symbol id="spark" viewBox="0 0 24 24"><path d="M12 1q1 9 10 11-9 1-10 11Q10 14 1 12 10 10 12 1Z" fill="currentColor"/></symbol>
+      <symbol id="camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m7 7 2-3h6l2 3h3q2 0 2 2v10q0 2-2 2H4q-2 0-2-2V9q0-2 2-2Z"/><circle cx="12" cy="13" r="4"/></g></symbol>
+    </defs>
+  </svg>
+  <header class="site-header">
+    <a class="brand" href="../" data-site-link aria-label="El mundo de Fabi, elegir actividad"><img class="brand-mark" src="../assets/fabi-world.svg?v=2" width="64" height="64" alt=""><span class="brand-name">El mundo de <b>Fabi</b></span></a>
+    <div class="header-actions">
+      <button id="theme-toggle" class="quiet-button" type="button" aria-label="Modo oscuro" aria-pressed="false"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Modo oscuro</span></button>
+      <button id="sound" class="quiet-button" type="button" aria-pressed="true"><span aria-hidden="true">♫</span> <span id="sound-label">Sonido activado</span></button>
+    </div>
+  </header>
+  <main>
+    <section id="makeup" class="screen makeup-screen" aria-labelledby="makeup-title">
+      <a class="studio-back" href="../" data-site-link><span aria-hidden="true">←</span> Elegir actividad</a>
+      <div class="studio-heading">
+        <div><h1 id="makeup-title">Estudio de <em>maquillaje</em></h1><p>Elige una muñeca y ponle nombre. Prueba maquillaje y vestuario para crear su retrato.</p></div>
+        <svg class="heading-sparks" viewBox="0 0 115 65" aria-hidden="true"><use href="#spark" x="7" y="12" width="35" height="35"/><use href="#spark" x="52" y="0" width="29" height="29"/><use href="#spark" x="85" y="29" width="16" height="16"/><path d="M3 53q28 11 61-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/></svg>
+      </div>
+      <div class="studio-layout">
+        <div class="vanity" aria-label="Espejo de maquillaje">
+          <div class="vanity-stars" aria-hidden="true"><i>✦</i><i>✧</i><i>✧</i><i>✦</i><i>✧</i></div>
+          <div class="mirror">
+            <div class="mirror-glass">
+              <div id="portrait" role="img"></div>
+              <span id="tool-flash" aria-hidden="true"><svg viewBox="0 0 64 64"><use id="flash-icon" href="#kit-lips"/></svg></span>
+            </div>
+            <i class="bulb b1"></i><i class="bulb b2"></i><i class="bulb b3"></i><i class="bulb b4"></i><i class="bulb b5"></i><i class="bulb b6"></i><i class="bulb b7"></i>
+          </div>
+          <div class="vanity-table" aria-hidden="true"></div>
+          <svg class="dresser-tools" viewBox="0 0 400 94" aria-hidden="true">
+            <g transform="translate(6 11)"><use href="#kit-cheeks" x="18" y="-9" width="60" height="70" transform="rotate(-35 47 30)"/><use href="#kit-cheeks" x="40" y="-12" width="52" height="64" transform="rotate(-5 65 28)"/><path d="M31 37q27-4 53 0l-6 37q-22 9-41 0Z" fill="#dfa0b6" stroke="#955d7a" stroke-width="2"/><path d="m39 43 4 25m4-24 2 26m8-26v27m9-28-2 26m10-26-3 25" fill="none" stroke="#f4c6d2" stroke-width="3"/></g>
+            <use href="#kit-eyes" x="315" y="29" width="70" height="61" transform="rotate(7 350 59)"/>
+            <use href="#kit-lips" x="292" y="37" width="35" height="47" transform="rotate(-20 310 60)"/>
+          </svg>
+          <div class="mirror-name"><span aria-hidden="true">✧</span> <strong id="mirror-name">Luna</strong> <span aria-hidden="true">✧</span></div>
+        </div>
+        <div class="kit">
+          <div class="kit-heading"><h2>Mi estuche</h2><button id="undo" class="undo" type="button" disabled><span aria-hidden="true">↶</span> Deshacer</button></div>
+          <h3 id="dolls-title">Muñecas</h3>
+          <div id="dolls" class="dolls" role="group" aria-labelledby="dolls-title"></div>
+          <form id="name-form" class="name-form">
+            <label for="doll-name">Nombre de tu muñeca</label>
+            <input type="text" id="doll-name" name="nombre" maxlength="24" autocomplete="off" enterkeyhint="done">
+            <button type="submit">Guardar nombre</button>
+          </form>
+          <div id="sections" class="kit-sections" role="group" aria-label="Secciones del estuche">
+            <button type="button" data-section="makeup" aria-pressed="true">Maquillaje</button>
+            <button type="button" data-section="style" aria-pressed="false">Vestuario</button>
+          </div>
+          <h3 id="tools-title" class="visually-hidden">Elige una herramienta</h3>
+          <div id="tools" class="tools" role="group" aria-labelledby="tools-title"></div>
+          <div class="palette-heading">
+            <h3 id="palette-title">Color de labios</h3>
+            <button id="clear-choice" type="button" disabled>Quitar</button>
+          </div>
+          <div id="palette" class="palette" role="group" aria-labelledby="palette-title"></div>
+          <button id="finish" class="studio-primary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#camera"/></svg> Ver mi retrato</button>
+        </div>
+      </div>
+      <p id="studio-status" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+  </main>
+  <dialog id="photo-dialog" aria-labelledby="photo-title">
+    <div class="photo-heading"><h2 id="photo-title">Mi retrato</h2><button id="close-photo" type="button" aria-label="Cerrar retrato">×</button></div>
+    <div id="postcard" role="img"></div>
+    <button id="save" class="studio-primary" type="button">Guardar imagen</button>
+    <button id="edit" class="edit-photo" type="button">Seguir maquillando</button>
+    <p id="photo-status" role="status"></p>
+  </dialog>
+  <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
+</body>
+</html>

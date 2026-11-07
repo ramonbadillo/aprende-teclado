@@ -12,6 +12,8 @@
 :root[data-theme=light] :is(.timer-choice,.hangman-choice){background:linear-gradient(145deg,#ece8d7,#dfdfd3)}
 :root[data-theme=light] .breathing-choice{background:linear-gradient(145deg,#dcece4,#cddfd9)}
 :root[data-theme=light] .popit-choice{background:linear-gradient(145deg,#ebdfe9,#dcdff0)}
+:root[data-theme=light] .makeup-choice{background:linear-gradient(145deg,#f7e4e7,#f1d9d4);border-color:#d0a0aa}
+:root[data-theme=light] .makeup-choice :is(strong,.choice-link){color:#893e5c}
 :root[data-theme=light] :is(.keyboard-panel,.soni-keyboard-panel,.timer-panel,.level-card){background:#dcebf2;border-color:#b2cbd9}
 :root[data-theme=light] .level-card:has(input:checked){background:#d5e8e2;border-color:#59957d}
 :root[data-theme=dark]{color-scheme:dark;background:#10182e;color:#e8edff;--ink:#e8edff;--green:#9ddfc7;--night-muted:#b5c2dc;--night-panel:#1d2a45;--night-border:#455579}
@@ -35,6 +37,7 @@
 :root[data-theme=dark] :is(.timer-choice,.hangman-choice){--choice-accent:#f4d293;background:linear-gradient(145deg,#3d3543,#29283c);border-color:#78654f}
 :root[data-theme=dark] .space-choice{--choice-accent:#b8c5ff;background:linear-gradient(145deg,#2b3659,#252642);border-color:#5a648b}
 :root[data-theme=dark] .popit-choice{--choice-accent:#f2b6d2;background:linear-gradient(145deg,#3e304e,#292941);border-color:#7d5678}
+:root[data-theme=dark] .makeup-choice{--choice-accent:#ffc2d2;background:linear-gradient(145deg,#4c3441,#382b3c);border-color:#8c6273}
 :root[data-theme=dark] .game-choice:hover{border-color:var(--choice-accent);box-shadow:0 12px 0 #080f234d,0 0 25px #b4c9ff0d}
 :root[data-theme=dark] .game-choice :is(strong,.choice-link){color:var(--choice-accent)}
 :root[data-theme=dark] :is(.intro,.eyebrow,.choice-description,.gentle-note,footer,.settings-link,.level-card small,.level-card strong+span,.keyboard-caption,.keyboard-note,.soni-keyboard-caption,.soni-idle p,.timer-intro,.timer-note,#timer-caption,.breathing-intro,.breathing-guidance p,.breathing-count,.breathing-note,.piano-intro,.piano-keyboard-hint,.piano-keyboard-hint b,#piano-guide,.piano-note,.hangman-intro,.hangman-attempts,.hangman-key-legend,.hangman-note,.popit-intro,.popit-summary,.popit-keyboard-note,.clay-intro,.clay-badge,.clay-bench-heading,.clay-bench-footer,.clay-settings,.clay-collection p,.clay-note,.popit-badge){color:var(--night-muted)}

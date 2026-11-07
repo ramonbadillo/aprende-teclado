@@ -6,6 +6,7 @@ const test = require('node:test');
 const root = path.resolve(__dirname, '..');
 const routes = {
   basketball: ['a-encestar', '¡A encestar!', ['basketball'], 'basketball/basketball.js'],
+  makeup: ['estudio-de-maquillaje', 'Estudio de maquillaje', ['makeup'], 'makeup/makeup.js'],
   fabi: ['globos-de-letras', 'Globos de letras', ['home', 'game', 'finish'], 'script.js'],
   soni: ['teclado-magico', 'Teclado mágico', ['soni'], 'soni/game.js'],
   timer: ['tiempo-con-calma', 'Tiempo con calma', ['timer'], 'timer/timer.js'],
@@ -77,7 +78,7 @@ test('local-file links work without a server and do not duplicate index.html', (
   assert.deepEqual(links.map(link => link.href), ['file:///tmp/site/index.html', 'file:///tmp/site/mi-pop-it/index.html', 'file:///tmp/site/index.html']);
 });
 
-for (const [activity, controller] of [['piano', 'PianoGame'], ['basketball', 'BasketballGame']]) {
+for (const [activity, controller] of [['piano', 'PianoGame'], ['basketball', 'BasketballGame'], ['makeup', 'MakeupGame']]) {
   test(`shared controller starts only ${activity}, keeps saved progress and handles history restoration`, () => {
     const handlers = {}, clicks = {}, calls = [];
     let saved = { options: { sound: false, layout: 'en', playerName: 'Local' }, progress: { games: 7 } };

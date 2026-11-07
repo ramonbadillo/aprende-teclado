@@ -25,7 +25,8 @@
     space: window.SpaceGame,
     coloring: window.ColoringTool,
     numbers: window.NumbersGame,
-    basketball: window.BasketballGame
+    basketball: window.BasketballGame,
+    makeup: window.MakeupGame
   }[activity];
 
   function enableAudio() {
