@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="wall" x2="0" y2="1"><stop stop-color="#aa8278"/><stop offset=".7" stop-color="#f1d5af"/><stop offset="1" stop-color="#bc9076"/></linearGradient>
+<radialGradient id="glass"><stop stop-color="#fff3b7"/><stop offset=".58" stop-color="#dfa899"/><stop offset="1" stop-color="#828fa9"/></radialGradient>
+<g id="window"><path d="M-36 156V88Q-36 60 0 33Q36 60 36 88V156Z" fill="url(#glass)" stroke="#9b7667" stroke-width="8"/><path d="M0 37V155M-34 99H34M-31 150L30 81M32 150L-30 81" fill="none" stroke="#af8d80" stroke-width="3"/></g>
+<g id="bench" fill="#795044" stroke="#593b36" stroke-width="3"><path d="M0 0H136V17H0zM7 17h8v16H7zM122 17h8v16h-8z"/></g>
+</defs>
+<path fill="url(#wall)" d="M0 0h600v420H0z"/>
+<path d="M146 260V121Q150 50 300 -20Q450 50 454 121V260" fill="#f4dec3" stroke="#c39b80" stroke-width="10"/>
+<use href="#window" x="85" y="13"/><use href="#window" x="515" y="13"/><use href="#window" transform="translate(300 -15) scale(1.32)"/>
+<path d="M299 141v55m-15-39h30" stroke="#8b623e" stroke-width="7"/>
+<path d="M0 258h600v162H0z" fill="#cda589"/><path d="M226 253h148l112 167H111Z" fill="#a45660" stroke="#ecd0a4" stroke-width="4"/>
+<path d="M195 214h210v33H195z" fill="#957568"/><path d="M188 206h224v14q-111 11-224 0z" fill="#fff0df"/>
+<g fill="#fff6d6" stroke="#c9a976"><path d="M206 205v-21h4v21zm184 0v-21h4v21z"/></g><g fill="#eda452"><ellipse cx="208" cy="180" rx="2" ry="5"/><ellipse cx="392" cy="180" rx="2" ry="5"/></g>
+<use href="#bench" transform="translate(32 279)"/><use href="#bench" transform="translate(432 279)"/><use href="#bench" transform="translate(-40 338) scale(1.3)"/><use href="#bench" transform="translate(466 338) scale(1.3)"/>
+</svg>

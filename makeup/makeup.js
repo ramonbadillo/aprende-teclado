@@ -832,6 +832,7 @@
   });
 
   window.MakeupGame = {
+    snapshotGroup,
     async enter(options) {
       sounds = options;
       startup ??= (async () => {
@@ -850,6 +851,7 @@
       $('studio-layout').inert = false;
       $('studio-layout').setAttribute('aria-busy', 'false');
       collectionFiles.openShared();
+      window.dispatchEvent(new Event("studio-ready"));
     },
     leave() {
       sounds = null;

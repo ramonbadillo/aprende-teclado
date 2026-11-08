@@ -375,7 +375,7 @@
     </g>`;
   }
 
-  function legsAndShoes(id, p, shoe, casual) {
+  function legsAndShoes(id, p, shoe, casual, shoeDetail) {
     return `<ellipse cx="160" cy="526" rx="66" ry="4.5" fill="#997d88" opacity=".16"/>
       <g fill="url(#${id}-skin)" stroke="${p.skinInk}" stroke-width="1.55">
         <path d="M131 290L157 293C156 321 156 345 153 369Q152 379 152 391C153 406 149 424 145 441Q141 456 139 472L136 507Q130 514 119 509L123 471Q123 450 124 434Q125 419 127 404Q129 392 127 382Q124 354 123 328Z"/>
@@ -389,6 +389,8 @@
         <path d="M119 501Q125 507 135 502Q138 512 137 519Q134 524 123 524L103 524Q96 523 97 518Q98 514 105 511Q113 509 119 501Z"/>
         <path d="M186 503Q196 509 205 500Q209 506 217 510Q225 514 225 520Q224 524 217 524H197Q187 524 185 519Z"/>
         <path d="M111 509Q117 510 120 514M212 509Q207 511 205 514" stroke="#f9d9bd" stroke-width="2.3" fill="none"/>
+        ${shoeDetail === 'lace' ? '<path d="m111 511 7 2m-3-5 7 2m85-2 7-2m-4 6 7-2" fill="none" stroke="#e2cba9" stroke-width="2"/>' : ''}
+        ${shoeDetail === 'ribbon' ? '<g fill="#f7dda9" stroke="#a7776a" stroke-width=".8"><path d="m111 513-6-4v7l6-3 6 3v-7Zm101 0-6-4v7l6-3 6 3v-7Z"/></g>' : ''}
         <path d="M100 521Q114 523 134 520M190 521Q207 523 222 520" fill="none" stroke="#846770" stroke-width="1.2"/>
       </g>`}`;
   }
@@ -591,7 +593,37 @@
     stripes: { draw: stripedOutfit, shoe: '#be8672' },
     dungarees: { draw: overallsOutfit, shoe: '#978273' },
   };
+  function ceremonySuit(fabric, lapel) {
+    return trousers(fabric, lapel) + `<path d="M139 147Q159 160 181 147L195 151L195 262H125V152Z" fill="#fffaf3"/>
+      <g fill="${fabric}" stroke="${lapel}" stroke-width="2"><path d="M138 147L117 151Q106 153 101 170L80 255L95 259L119 190L121 270Q145 274 161 255L159 206Z"/><path d="M182 147L201 151Q212 154 218 169L234 212L227 258L214 255L219 217L200 188L199 268Q179 278 159 255V207Z"/></g>
+      <path d="M138 146L126 164L137 169L133 174L159 214ZM182 146L194 164L183 169L187 174L160 214Z" fill="${lapel}"/>
+      <circle cx="161" cy="225" r="2.5" fill="#d8bd81"/><path d="M177 185l9-6 4 6Z" fill="#ffefd9"/>`;
+  }
+
+  function ribbonGown(id, palette, silk, piping, ribbon) {
+    return classicDress(id, { ...palette, dress: silk, dressInk: piping, collar: ribbon }) +
+      `<path d="M132 240Q160 248 187 240Q203 342 255 486Q168 523 65 487Q110 380 132 240Z" fill="${silk}" stroke="${piping}" stroke-width="2"/>
+      <path d="M146 250Q142 360 108 490M175 250Q181 380 214 490M74 475Q164 504 246 475" fill="none" stroke="${ribbon}" stroke-width="4"/>
+      <path d="M131 239Q160 247 188 239L189 247Q161 254 129 247Z" fill="${ribbon}"/>
+      <path d="M185 244q-18-19-19-4t19 4q22-16 21-2t-21 2l12 28-12-7-5-19Z" fill="${ribbon}" stroke="${piping}"/>`;
+  }
   const dresses = {
+    skyGown: (id,p) => ribbonGown(id,p,'#a9d8f4','#5993b6','#e7f6ff'),
+    mintGown: (id,p) => ribbonGown(id,p,'#a7dfc4','#679b86','#e3fcde'),
+    goldGown: (id,p) => ribbonGown(id,p,'#efc66b','#ae823c','#fff0b9'),
+    cherryGown: (id,p) => ribbonGown(id,p,'#cd536a','#91394c','#ffbbc4'),
+    forestSuit: () => ceremonySuit('#326353','#203f36'),
+    wineSuit: () => ceremonySuit('#853c53','#56283b'),
+    skySuit: () => ceremonySuit('#80aecb','#537990'),
+    lavenderSuit: () => ceremonySuit('#aa93c8','#79688e'),
+    midnightSuit: () => ceremonySuit('#263849','#182432'),
+    ivorySuit: () => ceremonySuit('#e9dbc5','#af997e'),
+    roseGown: () => partyDress() + '<path d="M132 240Q160 250 187 240Q201 335 253 466Q161 508 66 468Q115 341 132 240Z" fill="#ebaac0" stroke="#b7748d" stroke-width="2"/><path d="M79 443Q157 480 241 443M88 420Q161 453 232 420" fill="none" stroke="#ffe1e9" stroke-width="6"/>',
+    lilacGown: () => floralDress() + '<path d="M132 239Q157 248 186 239Q192 324 224 398L252 497Q157 524 72 493Q108 404 132 239Z" fill="#c1a4df" stroke="#8b709f" stroke-width="2"/><path d="M134 249Q157 353 231 423Q175 401 128 316" fill="#e3d2ef"/><path d="M132 242Q159 251 187 242" fill="none" stroke="#f5dfb8" stroke-width="6"/>',
+    bridal(id,p) {
+      return classicDress(id,{ ...p, dress:'#fffaf2', dressInk:'#b89e92', collar:'#f3dfcd' }) +
+        '<path d="M132 239Q160 247 187 239C198 298 233 416 270 495Q249 517 221 511Q191 529 163 518Q133 530 102 515Q73 521 50 498C82 423 118 295 132 239Z" fill="#fffaf3" stroke="#c5afa4" stroke-width="2"/><path d="M145 248Q131 373 91 501M173 250Q190 394 224 497M158 249Q155 404 147 510" fill="none" stroke="#e5d6cb" stroke-width="3"/><path d="M130 239Q160 246 188 239L189 248Q158 255 129 248Z" fill="#dbbe98"/>';
+    },
     classic: classicDress,
     violet: floralDress, mint: sailorDress, peach: partyDress, daisy: daisyDress,
     overall: overallDress, ballet: balletDress, denim: denimDress,
@@ -812,23 +844,39 @@
     const garment = Object.hasOwn(dresses, style.dress) || Object.hasOwn(outfits, style.dress) ? style.dress : character.outfit;
     const casualOutfit = choice(outfits, garment);
     const clothes = casualOutfit ? casualOutfit.draw() : dresses[garment](id, p);
-    const shoe = casualOutfit?.shoe || shoeColors[garment] || p.dress;
+    const neckStyle = style.neckStyle || (garment.endsWith('Suit') ? 'bow' : '');
+    const neckColor = validColor(style.neckColor) || '#78394a';
+    let neckwear = '';
+    if (neckStyle === 'tie') {
+      neckwear = `<g fill="${neckColor}" stroke="#503d4b" stroke-width="1"><path d="M157 164h6l3 31-6 7-6-7Z"/><path d="M154 157h12l-3 9h-6Z"/></g>`;
+    } else if (neckStyle === 'bow') {
+      neckwear = `<g fill="${neckColor}" stroke="#503d4b" stroke-width="1"><path d="M147 155l13 5 13-5v15l-13-6-13 6Z"/><rect x="157" y="158" width="6" height="8" rx="2"/></g>`;
+    }
+    const customShoe = validColor(style.slippers) || validColor(style.formalShoes);
+    const shoe = customShoe || casualOutfit?.shoe || shoeColors[garment] || p.dress;
     const simpleLid = character.gender === 'boy';
     // Cosmetics use the close-up coordinate system. Zooming the entire figure
     // by the inverse head transform gives both views exactly the same anatomy.
     const { x, y, scale } = headPlacement;
     const headTransform = `translate(${x} ${y}) scale(${scale})`;
+    const veil = validColor(style.veil);
+    const bouquet = validColor(style.bouquet);
+    const blossoms = bouquet ? [[66,238],[80,230],[92,240],[77,246]].map(([cx,cy]) =>
+      `<g transform="translate(${cx} ${cy})" fill="${bouquet}" stroke="#996c78" stroke-width=".8">
+        ${[0,72,144,216,288].map(angle => `<ellipse cy="-4" rx="4" ry="5" transform="rotate(${angle})"/>`).join('')}
+        <circle r="2.8" fill="#f8da88"/></g>`).join('') : '';
     const zoom = fullOutfit ? '' : ` transform="scale(${1 / scale}) translate(${-x} ${-y})"`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 ${fullOutfit ? 550 : 336}" role="img" aria-labelledby="${id}-title" stroke-linecap="round" stroke-linejoin="round">
       <title id="${id}-title">Retrato de ${xmlText(displayName || character.name)}</title>
       ${definitions(id, p, cheeks || '#e48082', hairPalette)}
       ${faceClip ? `<defs><clipPath id="${id}-face"><path d="${face.path}"/></clipPath></defs>` : ''}
       <g${zoom}>
+      ${veil ? `<g data-veil="${veil}" stroke="#b9a8b7" stroke-width="1.3"><path d="M111 72Q117 27 158 25Q202 25 210 78C232 220 234 395 297 496Q284 511 266 502Q249 520 226 510Q205 518 189 506L158 91L132 506Q113 519 92 509Q71 520 54 507Q34 516 22 498C81 391 92 217 111 72Z" fill="${veil}" fill-opacity=".78"/><path d="M117 80Q99 378 51 497M202 80Q221 382 269 494" fill="none" stroke="#fff" opacity=".8"/></g>` : ''}
       <g transform="${headTransform}">${hair.back}</g>
-      ${fullOutfit ? legsAndShoes(id, p, shoe, !!casualOutfit) : ''}
+      ${fullOutfit ? legsAndShoes(id, p, shoe, !!casualOutfit && !customShoe, customShoe && (style.slippers ? 'ribbon' : 'lace')) : ''}
       ${arms(id, p)}
       ${shoulders(id, p, face.chin)}
-      <g data-garment="${garment}">${clothes}</g>
+      <g data-garment="${garment}">${clothes}${neckwear}</g>
       <g transform="${headTransform}">
       <g fill="url(#${id}-skin)" stroke="${p.skinInk}" stroke-width="2.2">
         <path d="M86 161C65 147 60 169 71 186Q77 194 89 191ZM234 161C255 147 260 169 249 186Q243 194 231 191Z"/>
@@ -848,7 +896,9 @@
       <g${faceClip}>${cheekStamp(style.stamp)}</g>
       ${hair.front}
       ${accessoryArt(style.accessory)}
-      </g></g>
+      </g>
+      ${bouquet && fullOutfit ? `<g data-bouquet="${bouquet}"><path d="M66 238L84 272M80 230L84 272L92 240" fill="none" stroke="#59835f" stroke-width="3"/><path d="M80 258q-14-1-17-13q14 0 17 13m3 0q2-17 15-16q-3 12-15 16" fill="#719c64"/>${blossoms}<path d="m80 264 7-2" stroke="#f7d8ad" stroke-width="4"/></g>` : ''}
+      </g>
     </svg>`;
   }
 

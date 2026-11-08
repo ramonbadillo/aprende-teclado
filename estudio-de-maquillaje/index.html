@@ -23,11 +23,13 @@
   <link rel="stylesheet" href="../styles.css?v=3">
   <link rel="stylesheet" href="../theme.css?v=3">
   <link rel="stylesheet" href="../makeup/makeup.css?v=10">
-  <script src="../makeup/portraits.js?v=16" defer></script>
+  <script src="../makeup/portraits.js?v=17" defer></script>
   <script src="../makeup/backdrops.js?v=2" defer></script>
   <script src="../makeup/default-collection.js?v=1" defer></script>
   <script src="../makeup/collections.js?v=2" defer></script>
-  <script src="../makeup/makeup.js?v=15" defer></script>
+  <script src="../makeup/makeup.js?v=16" defer></script>
+  <link rel="stylesheet" href="../makeup/wedding.css?v=4">
+  <script src="../makeup/wedding.js?v=11" defer></script>
   <script src="../navigation.js?v=2" defer></script>
   <script src="../activity-page.js?v=4" defer></script>
 </head>
@@ -193,6 +195,7 @@
           </div>
           <div id="palette" class="palette" role="group" aria-labelledby="palette-title"></div>
           <button id="finish" class="studio-primary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#camera"/></svg><span id="finish-label">Ver retrato del grupo</span></button>
+          <a id="play-wedding" class="studio-primary" href="#boda">💍 Jugar a la boda</a>
           <section class="group-files" aria-labelledby="group-files-title">
             <h3 id="group-files-title">Guarda tu grupo</h3>
             <p>Descarga tus personajes en un archivo JSON y vuelve a cargarlo para seguir editándolos.</p>
@@ -211,6 +214,48 @@
       </div>
       <p id="studio-status" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
     </section>
+  <section hidden id="wedding" aria-labelledby="wedding-title">
+    <a class="studio-back" href="../" data-site-link>← Elegir actividad</a>
+    <div class="studio-heading"><h1 id="wedding-title">La boda en la <em>iglesia</em></h1></div>
+    <div class="studio-layout">
+    <div class="vanity">
+    <div class="mirror">
+    <div class="mirror-glass wedding-stage">
+      <div class="wedding-ritual" aria-hidden="true">
+        <svg viewBox="0 0 240 120">
+          <path class="receiving-hand" d="M240 94L202 84Q186 84 172 78L116 58Q111 53 117 51L163 61L120 43Q116 37 123 36L170 51L136 32Q133 26 139 26L180 44L155 27Q151 21 158 21L203 46Q213 53 220 62L240 68Z"/>
+          <g class="giving-hand"><path d="M0 79L30 62Q39 47 52 43L86 35Q96 35 92 42L70 52L92 51Q99 53 95 59L76 63Q61 77 38 79L0 99Z"/></g>
+          <g class="ceremony-ring"><ellipse cx="92" cy="47" rx="5" ry="9" fill="none" stroke="#ac7520" stroke-width="3"/><path d="M87 40l3-5 5 4-3 4z" fill="#e3faff" stroke="#927031"/></g>
+        </svg>
+      </div>
+      <div id="wedding-pair"></div>
+      <span class="wedding-heart" aria-hidden="true">💕</span>
+    </div>
+      <i class="bulb b1"></i><i class="bulb b2"></i><i class="bulb b3"></i><i class="bulb b4"></i><i class="bulb b5"></i><i class="bulb b6"></i><i class="bulb b7"></i>
+    </div>
+    <div class="vanity-table" aria-hidden="true"></div>
+    <div class="mirror-name"><strong id="wedding-names"></strong></div>
+    </div>
+    <div class="kit">
+    <h2 id="wedding-kit-title">Mi vestidor</h2>
+    <div id="wedding-pickers">
+      <h3>¿A quién quieres vestir?</h3>
+      <div class="wedding-slots" id="wedding-slots"></div>
+      <h3>Tu grupo del estudio</h3>
+      <div class="dolls" id="wedding-cast"></div>
+      <h3 id="wedding-clothes-title">Vestidos de boda</h3>
+      <div class="wedding-clothes" id="wedding-clothes"></div>
+      <div id="groom-accessories" hidden><h3 id="neck-title">Corbatas y moños</h3><div class="dolls" id="wedding-neckStyle" role="group" aria-labelledby="neck-title"></div>
+      <h3 id="neck-color-title">Color del accesorio</h3><div class="dolls" id="wedding-neckColor" role="group" aria-labelledby="neck-color-title"></div>
+      <h3 id="shoe-title">Zapatos</h3><div class="dolls" id="wedding-formalShoes" role="group" aria-labelledby="shoe-title"></div></div>
+      <div id="bridal-accessories"><h3 id="veil-title">Velos</h3><div class="dolls" id="wedding-veil" role="group" aria-labelledby="veil-title"></div>
+      <h3 id="bouquet-title">Ramos de flores</h3><div class="dolls" id="wedding-bouquet" role="group" aria-labelledby="bouquet-title"></div>
+      <h3 id="slipper-title">Zapatillas</h3><div class="dolls" id="wedding-slippers" role="group" aria-labelledby="slipper-title"></div></div>
+    </div>
+    <p id="wedding-story" aria-live="polite"></p>
+    <button id="wedding-next" class="studio-primary" type="button"></button>
+    </div></div>
+  </section>
   </main>
   <dialog id="new-doll-dialog" aria-labelledby="new-doll-title">
     <form id="new-doll-form">

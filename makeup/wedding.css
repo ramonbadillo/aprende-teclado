@@ -1,0 +1,32 @@
+.wedding-stage { position:relative; overflow:hidden;  background:#e7cbb0 url(chapel.svg) center/cover; height:100%; isolation:isolate }
+#wedding-pair { position:absolute; inset:0; display:flex; justify-content:center; align-items:end }
+#wedding-pair svg { width:auto; height:72%; max-width:49%; transform-origin:50% 92%; --direction:1 }
+#wedding-pair svg:last-child { --direction:-1 }
+#wedding[data-step="1"] #wedding-pair svg { animation:aisle 2.8s ease-in-out both }
+@keyframes aisle { 0% {transform:translateY(30%) scale(1.48)} 20% {transform:translateY(22%) scale(1.36) rotate(2deg)} 40% {transform:translateY(14%) scale(1.24) rotate(-2deg)} 60% {transform:translateY(6%) scale(1.13) rotate(1.5deg)} 80% {transform:translateY(-3%) scale(1.04) rotate(-1deg)} 100% {transform:translateY(-7%)} }
+#wedding[data-step="2"] #wedding-pair svg,#wedding[data-step="3"] #wedding-pair svg {transform:translateY(-7%)}
+#wedding[data-step="3"] #wedding-pair svg {animation:kiss 2s ease-in-out both}
+@keyframes kiss {0% {transform:translateY(-7%)} 65%,100% {transform:translate(calc(var(--direction)*26%),-7%) rotate(calc(var(--direction)*10deg))} }
+.wedding-heart {position:absolute; top:17%; left:50%; transform:translateX(-50%); opacity:0}
+#wedding[data-step="3"] .wedding-heart {animation:heart 1s 1s both}
+@keyframes heart {from {opacity:0;top:29%} to {opacity:1;top:17%}}
+.wedding-ritual {display:none;position:absolute;z-index:2;bottom:3%;left:24%;width:52%;background:#fff5e7;border:2px solid #c39a61;border-radius:50%;overflow:hidden}
+#wedding[data-step="2"] .wedding-ritual {display:block}
+.wedding-ritual svg {display:block;width:100%}
+.receiving-hand,.giving-hand path {fill:var(--hand-color,#d7a286);stroke:#996e62;stroke-width:1.5}
+.ceremony-ring {animation:ring-on 2s ease-in-out both}
+.giving-hand {animation:give 2.4s ease-in-out both}
+@keyframes ring-on {0%,15% {transform:translateX(0)} 85%,100% {transform:translate(52px,1px)}}
+@keyframes give {0%,10%,100% {transform:translateX(0)} 70%,80% {transform:translate(52px,1px)}}
+#wedding[hidden],#makeup[hidden],#wedding-pickers[hidden] {display:none!important}
+#wedding {text-align:left}
+#wedding .mirror {width:90%;max-width:90%;aspect-ratio:auto}
+#wedding[data-step="0"] .wedding-stage {background:radial-gradient(ellipse at 45% 35%,#fff3d8,#f1d2ce 70%,#d6aab5)}
+#wedding-story {color:var(--ink-soft);margin:1rem 0}
+.wedding-slots,.wedding-clothes {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.wedding-clothes {grid-template-columns:repeat(3,minmax(0,1fr))}
+.wedding-look {border:1px solid var(--edge);background:var(--paper);border-radius:12px;padding:5px;display:grid;justify-items:center;font:inherit;font-size:.8rem}
+.wedding-look[aria-pressed=true] {background:var(--well);outline:2px solid var(--berry);outline-offset:-2px}
+.wedding-look svg {height:74px;width:100%}
+#wedding .doll:disabled {opacity:.5}
+@media(prefers-reduced-motion:reduce){#wedding *{animation-duration:.01ms!important;animation-delay:0s!important}}
