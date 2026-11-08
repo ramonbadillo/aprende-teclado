@@ -12,6 +12,8 @@
     { id: 'mateo', name: 'Mateo', gender: 'boy', hair: 'parted', outfit: 'dungarees', face: 'diamond' },
   ];
 
+  const boyHaircuts = new Set(characters.filter(person => person.gender === 'boy').map(person => person.hair));
+
   const palettes = {
     luna: {
       skinLight: '#ffe0c3', skin: '#f8c19e', skinShade: '#d38c73', skinInk: '#9f6056',
@@ -792,7 +794,9 @@
   function renderPortrait(characterId, look = {}, prefix = 'portrait', displayName, fullOutfit = false) {
     const character = characters.find(({ id }) => id === characterId) || characters[0];
     const id = String(prefix).replace(/[^\w-]/g, '-') + '-' + character.id;
-    const style = look || {};
+    const style = character.gender === 'boy'
+      ? { ...look, lips: null, eyes: null, cheeks: null, stamp: null }
+      : look || {};
     const base = palettes[character.id];
     const p = { ...base, ...choice(skinTones, style.skinTone), iris: choice(eyeColors, style.eyeColor)?.iris || base.iris };
     const hairPalette = choice(hairColors, style.hairColor) || base;
@@ -802,7 +806,8 @@
     const shadow = validColor(style.eyes);
     const lips = validColor(style.lips) || p.lip;
     const cheeks = validColor(style.cheeks);
-    const haircut = Object.hasOwn(hairstyles, style.hair) ? style.hair : character.hair;
+    const haircut = Object.hasOwn(hairstyles, style.hair) && (character.gender !== 'boy' || boyHaircuts.has(style.hair))
+      ? style.hair : character.hair;
     const hair = hairstyles[haircut](id, hairPalette, face);
     const garment = Object.hasOwn(dresses, style.dress) || Object.hasOwn(outfits, style.dress) ? style.dress : character.outfit;
     const casualOutfit = choice(outfits, garment);
@@ -847,5 +852,5 @@
     </svg>`;
   }
 
-  window.MakeupArt = { characters, appearanceChoices, renderPortrait, renderStampPreview, renderFacePreview };
+  window.MakeupArt = { characters, boyHaircuts, appearanceChoices, renderPortrait, renderStampPreview, renderFacePreview };
 })();

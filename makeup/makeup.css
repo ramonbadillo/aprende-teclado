@@ -326,3 +326,5 @@
   .style-preview { height: 48px; }
 }
 @media (prefers-reduced-motion: reduce) { #tool-flash.paint { animation: none; } }
+
+#surprise-cut[hidden] { display: none; }

@@ -22,12 +22,12 @@
   <script src="../theme.js?v=2"></script>
   <link rel="stylesheet" href="../styles.css?v=3">
   <link rel="stylesheet" href="../theme.css?v=3">
-  <link rel="stylesheet" href="../makeup/makeup.css?v=9">
-  <script src="../makeup/portraits.js?v=9" defer></script>
+  <link rel="stylesheet" href="../makeup/makeup.css?v=10">
+  <script src="../makeup/portraits.js?v=16" defer></script>
   <script src="../makeup/backdrops.js?v=2" defer></script>
   <script src="../makeup/default-collection.js?v=1" defer></script>
   <script src="../makeup/collections.js?v=2" defer></script>
-  <script src="../makeup/makeup.js?v=12" defer></script>
+  <script src="../makeup/makeup.js?v=15" defer></script>
   <script src="../navigation.js?v=2" defer></script>
   <script src="../activity-page.js?v=4" defer></script>
 </head>
@@ -180,12 +180,13 @@
             <button id="remove-doll" type="button" hidden>Quitar del grupo</button>
           </div>
           <div id="sections" class="kit-sections" role="group" aria-label="Secciones del estuche">
-            <button type="button" data-section="makeup" aria-pressed="true">Maquillaje</button>
+            <button id="primary-kit-tab" type="button" data-section="makeup" aria-pressed="true">Maquillaje</button>
             <button type="button" data-section="appearance" aria-pressed="false">Rasgos</button>
             <button type="button" data-section="style" aria-pressed="false">Vestuario</button>
           </div>
           <h3 id="tools-title" class="visually-hidden">Elige una herramienta</h3>
           <div id="tools" class="tools" role="group" aria-labelledby="tools-title"></div>
+          <button id="surprise-cut" class="undo" type="button" hidden>✂ Corte sorpresa</button>
           <div class="palette-heading">
             <h3 id="palette-title">Color de labios</h3>
             <button id="clear-choice" type="button" disabled>Quitar</button>
@@ -251,5 +252,6 @@
     <p id="photo-status" role="status"></p>
   </dialog>
   <footer><span class="footer-flower" aria-hidden="true">✿</span><span>Hecho para aprender con una sonrisa</span></footer>
+
 </body>
 </html>

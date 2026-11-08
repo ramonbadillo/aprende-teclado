@@ -77,6 +77,7 @@
     skinTone: { name: 'Piel', title: 'Tono de piel', choices: appearanceChoices.skinTone },
   };
   const sections = {
+    barber: ['cut','hair','hairColor'],
     makeup: ['lips', 'eyes', 'cheeks', 'stamp'],
     appearance: ['hairColor', 'faceShape', 'eyeColor', 'skinTone'],
     style: ['hair', 'cut', 'dress', 'outfit', 'accessory'],
@@ -106,7 +107,7 @@
   let selectedBackdrop = backdropChoices[0][0];
   const profiles = new Map();
   const histories = new Map();
-  const lastTool = { makeup: 'lips', appearance: 'hairColor', style: 'hair' };
+  const lastTool = { barber: 'cut', makeup: 'lips', appearance: 'hairColor', style: 'hair' };
   let doll = characters[0];
   let section = 'makeup';
   let tool = lastTool[section];
@@ -250,6 +251,7 @@
 
   function selectedValue() {
     const value = profiles.get(doll.id).look[lookKey()];
+    if (isBoy() && tool === 'cut' && !window.MakeupArt.boyHaircuts.has(value)) return '';
     if (tool === 'cut' && value === doll.hair) return '';
     if (tool === 'outfit' && value === templates.find(base => base.id === doll.templateId).outfit) return '';
     return value || (tool === 'hair' ? doll.hair : '');
@@ -257,6 +259,8 @@
 
   function paletteChoices() {
     const choices = products[tool].choices;
+    if (isBoy() && tool === 'cut') return choices.filter(([,value]) =>
+      !value || (window.MakeupArt.boyHaircuts.has(value) && value !== doll.hair));
     // Original already draws this character's haircut or clothes. Use its
     // second slot for a different look so all eight previews are distinct.
     if (tool === 'cut') return choices.map(option => option[1] === doll.hair ? ['Trenza', 'braid'] : option);
@@ -273,9 +277,24 @@
     $('clear-choice').disabled = !value;
   }
 
+  function isBoy() {
+    return templates.find(base => base.id === doll.templateId).gender === 'boy';
+  }
+
   function drawTools() {
+    const tab = $('primary-kit-tab');
+    const primary = isBoy() ? 'barber' : 'makeup';
+    tab.dataset.section = primary;
+    tab.textContent = isBoy() ? 'Barbería' : 'Maquillaje';
+    if ((section === 'barber' || section === 'makeup') && section !== primary) {
+      section = primary;
+      tool = lastTool[section];
+    }
+    $('surprise-cut').hidden = section !== 'barber';
     updatePressed($('sections'), 'section', section);
-    tools.replaceChildren(...sections[section].map(key => {
+    const visibleTools = sections[section].filter(key => key !== 'hair' || !isBoy());
+    if (!visibleTools.includes(tool)) tool = 'cut';
+    tools.replaceChildren(...visibleTools.map(key => {
       const name = products[key].name;
       const el = button(name, 'tool', 'tool', key);
       el.innerHTML = '<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#kit-' + key + '"/></svg>' + name;
@@ -300,12 +319,12 @@
 
   function drawPalette() {
     const product = products[tool];
-    const styling = section === 'style';
+    const styling = section === 'style' || (section === 'barber' && tool !== 'hairColor');
     const shape = tool === 'faceShape';
     $('palette-title').textContent = product.title;
     const clear = $('clear-choice');
     clear.hidden = styling && tool !== 'accessory';
-    if (section === 'appearance') {
+    if (section === 'appearance' || tool === 'hairColor') {
       clear.textContent = shape ? 'Forma original' : 'Color original';
       clear.setAttribute('aria-label', 'Restaurar ' + product.title.toLowerCase() + ' original');
     } else {
@@ -343,7 +362,7 @@
     $('portrait').dataset.view = full ? 'outfit' : 'face';
     $('portrait').innerHTML = renderPortrait(doll.templateId, look, 'mirror', name, full);
     $('portrait').firstElementChild.setAttribute('preserveAspectRatio', 'xMidYMax meet');
-    const features = Object.entries(look).filter(([, value]) => value).map(([key, value]) => {
+    const features = Object.entries(look).filter(([key, value]) => value && !(isBoy() && sections.makeup.includes(key))).map(([key, value]) => {
       const product = products[key];
       const family = product.choices.some(choice => choice[1] === value) ? product
         : Object.values(products).find(p => p.key === key && p.choices.some(choice => choice[1] === value));
@@ -368,12 +387,17 @@
   }
 
   function selectDoll(character) {
+    const changed = doll.id !== character.id;
     doll = character;
+    if (changed && isBoy()) {
+      section = 'barber';
+      tool = lastTool.barber;
+    }
     const { name } = profiles.get(doll.id);
     $('doll-name').value = name;
     $('remove-doll').hidden = doll.id === doll.templateId;
     $('change-model').hidden = doll.id === doll.templateId;
-    drawPalette();
+    drawTools();
     drawPortrait();
     $('studio-status').textContent = 'Ahora juegas con ' + name + '.';
   }
@@ -521,7 +545,7 @@
     const profile = profiles.get(doll.id);
     const previous = key === 'name' ? profile.name : profile.look[key];
     if (previous === value) return false;
-    histories.get(doll.id).push({ key, previous, tool });
+    histories.get(doll.id).push({ key, previous, tool, section });
     writeChange(key, value);
     drawThumbnail(doll);
     drawPortrait();
@@ -537,6 +561,16 @@
     }
   });
 
+  $('surprise-cut').addEventListener('click', () => {
+    if (section !== 'barber') return;
+    tool = lastTool.barber = 'cut';
+    const choices = paletteChoices().filter(([,value]) => value && value !== selectedValue());
+    const [name, value] = choices[Math.floor(Math.random() * choices.length)];
+    applyChange('hair', value);
+    drawTools();
+    sounds?.onStamp();
+    $('studio-status').textContent = '¡Corte sorpresa! ' + name + '.';
+  });
   palette.addEventListener('click', event => {
     const el = event.target.closest('[data-value]');
     if (!el || el.dataset.value === selectedValue()) return;
@@ -564,7 +598,7 @@
       $('doll-name').value = change.previous;
     } else {
       tool = change.tool;
-      section = Object.keys(sections).find(key => sections[key].includes(tool));
+      section = change.section;
       lastTool[section] = tool;
     }
     drawThumbnail(doll);
