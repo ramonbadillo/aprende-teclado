@@ -67,6 +67,7 @@
     accessory: {
       name: 'Accesorios', title: 'Elige un accesorio',
       choices: [
+        ['Gorra', 'cap'], ['Gorro tejido', 'beanie'], ['Audífonos', 'headphones'], ['Lentes de sol', 'sunglasses'],
         ['Lentes', 'glasses'], ['Aretes', 'earrings'], ['Corona', 'crown'], ['Moño', 'bow'],
         ['Tiara de flores', 'tiara'], ['Pasador', 'clip'], ['Antifaz', 'mask'], ['Diadema', 'headband'],
       ],
@@ -85,7 +86,9 @@
   const availableChoices = Object.fromEntries(Object.keys(products).filter(key => !products[key].key).map(key =>
     [key, Object.values(products).filter(p => p === products[key] || p.key === key).flatMap(p => p.choices)]));
   const lookKey = (key = tool) => products[key].key || key;
+  const newAccessories = new Set(['cap','beanie','headphones','sunglasses']);
   const accessoryFrames = {
+    cap: '55 8 225 135', beanie: '56 0 205 142', headphones: '46 8 228 208', sunglasses: '65 123 195 89',
     glasses: '69 130 182 80',
     earrings: '207 157 67 77',
     crown: '95 -2 131 82',
@@ -259,6 +262,8 @@
 
   function paletteChoices() {
     const choices = products[tool].choices;
+    if (tool === 'accessory') return choices.filter(([,value]) => isBoy()
+      ? window.MakeupArt.boyAccessories.has(value) : !newAccessories.has(value));
     if (isBoy() && tool === 'cut') return choices.filter(([,value]) =>
       !value || (window.MakeupArt.boyHaircuts.has(value) && value !== doll.hair));
     // Original already draws this character's haircut or clothes. Use its
@@ -266,6 +271,7 @@
     if (tool === 'cut') return choices.map(option => option[1] === doll.hair ? ['Trenza', 'braid'] : option);
     if (tool === 'outfit') {
       const base = templates.find(character => character.id === doll.templateId);
+      if (isBoy()) return choices.filter(([,value]) => !value || (value !== base.outfit && starterBoys.some(boy => boy.outfit === value)));
       return choices.map(option => option[1] === base.outfit ? ['Marinero', 'mint'] : option);
     }
     return choices;
@@ -292,8 +298,8 @@
     }
     $('surprise-cut').hidden = section !== 'barber';
     updatePressed($('sections'), 'section', section);
-    const visibleTools = sections[section].filter(key => key !== 'hair' || !isBoy());
-    if (!visibleTools.includes(tool)) tool = 'cut';
+    const visibleTools = sections[section].filter(key => !isBoy() || (key !== 'hair' && key !== 'dress'));
+    if (!visibleTools.includes(tool)) tool = section === 'style' ? 'outfit' : 'cut';
     tools.replaceChildren(...visibleTools.map(key => {
       const name = products[key].name;
       const el = button(name, 'tool', 'tool', key);

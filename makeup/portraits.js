@@ -696,7 +696,12 @@
     quiff: quiffHair, curls: curlyCropHair, parted: partedHair,
   };
 
+  const boyAccessories = new Set(['cap','beanie','headphones','sunglasses','glasses','mask']);
   function accessoryArt(accessory) {
+    if (accessory === 'cap') return '<g stroke="#354561" stroke-width="3"><path d="M76 107Q74 38 139 29Q205 14 235 89L207 105Z" fill="#538cb3"/><path d="M77 104Q149 67 227 86Q250 86 268 100Q222 98 177 113Q117 126 77 110Z" fill="#384e77"/></g>';
+    if (accessory === 'beanie') return '<g stroke="#785746" stroke-width="3"><path d="M76 107Q69 33 146 23Q228 14 241 100Z" fill="#d99852"/><path d="M72 94Q146 66 239 88L242 112Q157 92 74 119Z" fill="#efb66e"/><circle cx="149" cy="22" r="13" fill="#bf7543"/></g>';
+    if (accessory === 'headphones') return '<g stroke="#354059"><path d="M71 169V131C65 18 247 12 249 132V169" fill="none" stroke-width="12"/><g fill="#539a96" stroke-width="4"><rect x="57" y="141" width="27" height="54" rx="12"/><rect x="236" y="141" width="27" height="54" rx="12"/></g></g>';
+    if (accessory === 'sunglasses') return '<g stroke="#31394b" stroke-width="5"><path d="M76 154L93 157M145 158Q160 151 175 158M225 157L244 152" fill="none"/><path d="M91 151Q112 145 147 152Q146 178 128 180Q98 187 91 151ZM173 152Q205 145 229 151Q225 180 199 181Q178 182 173 152Z" fill="#50677c"/></g>';
     if (accessory === 'glasses') {
       return `<g stroke="#94546d" stroke-linejoin="round">
         <path d="M79 154L92 159M228 159L241 154" stroke-width="5" fill="none"/>
@@ -841,7 +846,8 @@
     const haircut = Object.hasOwn(hairstyles, style.hair) && (character.gender !== 'boy' || boyHaircuts.has(style.hair))
       ? style.hair : character.hair;
     const hair = hairstyles[haircut](id, hairPalette, face);
-    const garment = Object.hasOwn(dresses, style.dress) || Object.hasOwn(outfits, style.dress) ? style.dress : character.outfit;
+    const allowedDress = Object.hasOwn(dresses, style.dress) && (character.gender !== 'boy' || style.dress.endsWith('Suit'));
+    const garment = allowedDress || Object.hasOwn(outfits, style.dress) ? style.dress : character.outfit;
     const casualOutfit = choice(outfits, garment);
     const clothes = casualOutfit ? casualOutfit.draw() : dresses[garment](id, p);
     const neckStyle = style.neckStyle || (garment.endsWith('Suit') ? 'bow' : '');
@@ -895,12 +901,12 @@
       ${simpleLid ? relaxedSmile(character.id, lips, p, validColor(style.lips)) : smile(character.id, lips, p, id)}
       <g${faceClip}>${cheekStamp(style.stamp)}</g>
       ${hair.front}
-      ${accessoryArt(style.accessory)}
+      ${accessoryArt(character.gender !== 'boy' || boyAccessories.has(style.accessory) ? style.accessory : null)}
       </g>
       ${bouquet && fullOutfit ? `<g data-bouquet="${bouquet}"><path d="M66 238L84 272M80 230L84 272L92 240" fill="none" stroke="#59835f" stroke-width="3"/><path d="M80 258q-14-1-17-13q14 0 17 13m3 0q2-17 15-16q-3 12-15 16" fill="#719c64"/>${blossoms}<path d="m80 264 7-2" stroke="#f7d8ad" stroke-width="4"/></g>` : ''}
       </g>
     </svg>`;
   }
 
-  window.MakeupArt = { characters, boyHaircuts, appearanceChoices, renderPortrait, renderStampPreview, renderFacePreview };
+  window.MakeupArt = { characters, boyHaircuts, boyAccessories, appearanceChoices, renderPortrait, renderStampPreview, renderFacePreview };
 })();
