@@ -30,6 +30,9 @@
   <script src="../makeup/makeup.js?v=16" defer></script>
   <link rel="stylesheet" href="../makeup/wedding.css?v=4">
   <script src="../makeup/wedding.js?v=11" defer></script>
+  <link rel="stylesheet" href="../escuela/escuela.css?v=7">
+  <script defer src="../escuela/interiores.js?v=3"></script>
+  <script defer src="../escuela/escuela.js?v=8"></script>
   <script src="../navigation.js?v=2" defer></script>
   <script src="../activity-page.js?v=4" defer></script>
 </head>
@@ -256,6 +259,37 @@
     <button id="wedding-next" class="studio-primary" type="button"></button>
     </div></div>
   </section>
+    <section hidden id="school" aria-labelledby="school-title">
+      <a class="studio-back" href="../" data-site-link>← Elegir actividad</a>
+      <div class="studio-heading"><h1 id="school-title">Un día en mi <em>escuela</em></h1></div>
+      <section id="school-map"><h2 tabindex="-1" id="destinations-title">Croquis de la escuela</h2><p>Toca un lugar para entrar.</p><label class="map-grade">Ver salones de <select id="school-map-grade"></select></label><div id="school-destinations" role="group" aria-labelledby="destinations-title"></div></section>
+      <div class="school-layout" id="school-detail" hidden>
+        <div class="school-classroom"><div class="blackboard"><strong id="class-sign">Primaria</strong><p id="school-line" aria-live="polite"></p></div><div class="school-interior"><div id="school-furniture"></div><div id="school-people"></div></div></div>
+        <div class="kit">
+          <button type="button" id="back-to-map">← Ver croquis</button>
+          <form id="school-form"><h2>Mi salón</h2>
+            <label>Mi personaje<select id="student"></select></label>
+            <fieldset class="school-options"><legend>Grado</legend><div>
+              <label><input type="radio" name="grade" value="1" checked><span>1.º</span></label>
+              <label><input type="radio" name="grade" value="2"><span>2.º</span></label>
+              <label><input type="radio" name="grade" value="3"><span>3.º</span></label>
+              <label><input type="radio" name="grade" value="4"><span>4.º</span></label>
+              <label><input type="radio" name="grade" value="5"><span>5.º</span></label>
+              <label><input type="radio" name="grade" value="6"><span>6.º</span></label>
+            </div></fieldset>
+            <fieldset class="school-options"><legend>Grupo</legend><div>
+              <label><input type="radio" name="class-group" value="Blue" checked><span>Blue</span></label>
+              <label><input type="radio" name="class-group" value="Yellow"><span>Yellow</span></label>
+              <label><input type="radio" name="class-group" value="Green"><span>Green</span></label>
+            </div></fieldset>
+            <label>Nombre de mi maestra<input id="teacher-name" type="text" maxlength="40" autocomplete="off"></label>
+            <button class="studio-primary">Conocer a mi grupo</button>
+          </form>
+          <div hidden id="school-play"><h2 id="school-place" tabindex="-1"></h2><label id="staff-editor" hidden>Nombre del personaje<input id="staff-name" maxlength="40" autocomplete="off"></label><div id="school-actions"></div>
+            <button id="school-restart" type="button">Cambiar de salón</button></div>
+        </div>
+      </div>
+    </section>
   </main>
   <dialog id="new-doll-dialog" aria-labelledby="new-doll-title">
     <form id="new-doll-form">

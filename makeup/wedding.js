@@ -127,7 +127,7 @@
 
   function showActivity() {
     const playing = location.hash === '#boda';
-    byId('makeup').hidden = playing;
+    byId('makeup').hidden = playing || location.hash === '#escuela';
     dialog.hidden = !playing;
     document.title = playing ? 'La boda en la iglesia · El mundo de Fabi' : studioTitle;
     if (!playing || !ready) return;
