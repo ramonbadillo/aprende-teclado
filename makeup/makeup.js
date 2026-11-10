@@ -61,13 +61,14 @@
       key: 'dress', name: 'Conjuntos', title: 'Elige un conjunto',
       choices: [
         ['Original', ''], ['Bomber', 'bomber'], ['Sudadera', 'hoodie'], ['Camiseta a rayas', 'stripes'],
+        ['Uniforme de fútbol', 'soccer'], ['Polo con pantalón', 'polo'], ['Camiseta espacial', 'spaceTee'],
         ['Peto', 'dungarees'], ['Vestido clásico', 'classic'], ['Jardinera', 'overall'], ['Mezclilla', 'denim'],
       ],
     },
     accessory: {
       name: 'Accesorios', title: 'Elige un accesorio',
       choices: [
-        ['Gorra', 'cap'], ['Gorro tejido', 'beanie'], ['Audífonos', 'headphones'], ['Lentes de sol', 'sunglasses'],
+        ...Object.entries(window.MakeupArt.capColors).map(([id,[color]]) => ['Gorra ' + color.toLowerCase(), id]), ['Gorro tejido', 'beanie'], ['Audífonos', 'headphones'], ['Lentes de sol', 'sunglasses'],
         ['Lentes', 'glasses'], ['Aretes', 'earrings'], ['Corona', 'crown'], ['Moño', 'bow'],
         ['Tiara de flores', 'tiara'], ['Pasador', 'clip'], ['Antifaz', 'mask'], ['Diadema', 'headband'],
       ],
@@ -86,7 +87,7 @@
   const availableChoices = Object.fromEntries(Object.keys(products).filter(key => !products[key].key).map(key =>
     [key, Object.values(products).filter(p => p === products[key] || p.key === key).flatMap(p => p.choices)]));
   const lookKey = (key = tool) => products[key].key || key;
-  const newAccessories = new Set(['cap','beanie','headphones','sunglasses']);
+  const newAccessories = new Set([...Object.keys(window.MakeupArt.capColors),'beanie','headphones','sunglasses']);
   const accessoryFrames = {
     cap: '55 8 225 135', beanie: '56 0 205 142', headphones: '46 8 228 208', sunglasses: '65 123 195 89',
     glasses: '69 130 182 80',
@@ -271,7 +272,7 @@
     if (tool === 'cut') return choices.map(option => option[1] === doll.hair ? ['Trenza', 'braid'] : option);
     if (tool === 'outfit') {
       const base = templates.find(character => character.id === doll.templateId);
-      if (isBoy()) return choices.filter(([,value]) => !value || (value !== base.outfit && starterBoys.some(boy => boy.outfit === value)));
+      if (isBoy()) return choices.filter(([,value]) => !value || (value !== base.outfit && window.MakeupArt.casualOutfits.includes(value)));
       return choices.map(option => option[1] === base.outfit ? ['Marinero', 'mint'] : option);
     }
     return choices;
@@ -319,7 +320,7 @@
     // The dress uses the full-length drawing; hair and accessories use the close-up.
     let frame = '0 0 320 336';
     if (key === 'dress') frame = tool === 'outfit' ? '55 134 210 395' : '69 137 181 246';
-    if (tool === 'accessory') frame = accessoryFrames[value];
+    if (tool === 'accessory') frame = Object.hasOwn(window.MakeupArt.capColors,value) ? accessoryFrames.cap : accessoryFrames[value];
     svg.setAttribute('viewBox', frame);
   }
 

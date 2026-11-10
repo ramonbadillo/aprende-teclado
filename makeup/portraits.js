@@ -587,7 +587,16 @@
       <g stroke="#e7c99c" fill="none" stroke-width="1.15" stroke-dasharray="2 2"><path d="M129 154L136 179M190 154L183 180M148 200H173M124 259Q161 267 193 258M126 284L124 380M190 284L193 378"/></g>`;
   }
 
+  function casualShirt(bottom, fabric, detail) {
+    return bottom + `<path d="${teeShape}" fill="${fabric}" stroke="#635961" stroke-width="1.7"/>` + detail;
+  }
   const outfits = {
+    soccer: { shoe: '#415976', draw: () => casualShirt(shorts('#415976','#31465d'), '#68af83',
+      '<path d="M139 148l21 16 21-16M101 177l13 6m93 1 13-6" fill="none" stroke="#fff1d4" stroke-width="4"/><path d="M151 184h18l-12 30" fill="none" stroke="#fff1d4" stroke-width="6"/>') },
+    polo: { shoe: '#886349', draw: () => casualShirt(trousers('#b29c7d','#85715b'), '#dfaa59',
+      '<path d="m137 146 22 12-9 12-17-18zm45 0-22 12 9 12 17-18z" fill="#f7d99e"/><path d="M160 160v20" stroke="#a97842" stroke-width="2"/><circle cx="163" cy="170" r="1.6" fill="#fff1cc"/>') },
+    spaceTee: { shoe: '#9892b2', draw: () => casualShirt(trousers('#66758e','#49566f'), '#746697',
+      '<circle cx="160" cy="201" r="14" fill="#f6bd77"/><ellipse cx="160" cy="201" rx="23" ry="5" transform="rotate(-23 160 201)" stroke="#ffe2a5" stroke-width="3" fill="none"/><path d="m181 181 2 4 4 1-4 2-2 4-1-4-4-2 4-1z" fill="#fff2c9"/>') },
     bomber: { draw: bomberOutfit, shoe: '#72948a' },
     hoodie: { draw: hoodieOutfit, shoe: '#8d9586' },
     stripes: { draw: stripedOutfit, shoe: '#be8672' },
@@ -696,9 +705,14 @@
     quiff: quiffHair, curls: curlyCropHair, parted: partedHair,
   };
 
-  const boyAccessories = new Set(['cap','beanie','headphones','sunglasses','glasses','mask']);
+  const capColors = {
+    cap: ['Azul','#538cb3','#384e77'], capRed: ['Roja','#d66865','#913f48'],
+    capGreen: ['Verde','#68a780','#386d55'], capGold: ['Amarilla','#edc55f','#ab823d'],
+    capPurple: ['Morada','#a389c5','#715688'], capBlack: ['Negra','#515564','#323641']
+  };
+  const boyAccessories = new Set([...Object.keys(capColors),'beanie','headphones','sunglasses','glasses','mask']);
   function accessoryArt(accessory) {
-    if (accessory === 'cap') return '<g stroke="#354561" stroke-width="3"><path d="M76 107Q74 38 139 29Q205 14 235 89L207 105Z" fill="#538cb3"/><path d="M77 104Q149 67 227 86Q250 86 268 100Q222 98 177 113Q117 126 77 110Z" fill="#384e77"/></g>';
+    if (Object.hasOwn(capColors, accessory)) return `<g stroke="#354561" stroke-width="3"><path d="M76 107Q74 38 139 29Q205 14 235 89L207 105Z" fill="${capColors[accessory][1]}"/><path d="M77 104Q149 67 227 86Q250 86 268 100Q222 98 177 113Q117 126 77 110Z" fill="${capColors[accessory][2]}"/></g>`;
     if (accessory === 'beanie') return '<g stroke="#785746" stroke-width="3"><path d="M76 107Q69 33 146 23Q228 14 241 100Z" fill="#d99852"/><path d="M72 94Q146 66 239 88L242 112Q157 92 74 119Z" fill="#efb66e"/><circle cx="149" cy="22" r="13" fill="#bf7543"/></g>';
     if (accessory === 'headphones') return '<g stroke="#354059"><path d="M71 169V131C65 18 247 12 249 132V169" fill="none" stroke-width="12"/><g fill="#539a96" stroke-width="4"><rect x="57" y="141" width="27" height="54" rx="12"/><rect x="236" y="141" width="27" height="54" rx="12"/></g></g>';
     if (accessory === 'sunglasses') return '<g stroke="#31394b" stroke-width="5"><path d="M76 154L93 157M145 158Q160 151 175 158M225 157L244 152" fill="none"/><path d="M91 151Q112 145 147 152Q146 178 128 180Q98 187 91 151ZM173 152Q205 145 229 151Q225 180 199 181Q178 182 173 152Z" fill="#50677c"/></g>';
@@ -908,5 +922,5 @@
     </svg>`;
   }
 
-  window.MakeupArt = { characters, boyHaircuts, boyAccessories, appearanceChoices, renderPortrait, renderStampPreview, renderFacePreview };
+  window.MakeupArt = { characters, boyHaircuts, boyAccessories, capColors, casualOutfits: Object.keys(outfits), appearanceChoices, renderPortrait, renderStampPreview, renderFacePreview };
 })();
