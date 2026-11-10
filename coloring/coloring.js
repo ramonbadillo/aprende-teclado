@@ -9,11 +9,113 @@ window.ColoringTool = (() => {
   const pasteHint = 'Usa Ctrl+V o ⌘+V fuera del buscador, o elige un archivo de tu dispositivo.';
   const copyImageHint = 'No encontramos una imagen copiada. En Google, abre el menú de la imagen y elige «Copiar imagen», no «Copiar enlace». Luego vuelve aquí para pegarla.';
 
+  const crayons = [
+    ['Rojo','#ec6464'], ['Coral','#fa9184'], ['Cereza','#bc3954'],
+    ['Durazno','#ffc49a'], ['Naranja','#f29845'], ['Mandarina','#e57432'],
+    ['Amarillo limón','#fff49a'], ['Amarillo','#f5cf55'], ['Dorado','#d6a43c'],
+    ['Menta','#ade4bc'], ['Verde','#75b96e'], ['Verde bosque','#34764c'],
+    ['Aguamarina','#a2e5dd'], ['Turquesa','#55bcad'], ['Verde petróleo','#277e80'],
+    ['Azul cielo','#a7d8fb'], ['Azul','#588fd4'], ['Azul marino','#294673'],
+    ['Lila','#d8c3f0'], ['Morado','#9c79c5'], ['Violeta','#704699'],
+    ['Rosa pastel','#fbd1e2'], ['Rosa','#ee91bd'], ['Fucsia','#d44c94'],
+    ['Arena','#ebcfaa'], ['Café','#a37b59'], ['Chocolate','#674531'],
+    ['Blanco','#ffffff'], ['Gris perla','#d4d7da'], ['Gris','#899199'], ['Negro','#282b30']
+  ];
+  let chosen = 0, paint = null, outline = null;
+  const palette = $('coloring-crayons');
+  const first = $('mix-first'), second = $('mix-second'), ratio = $('mix-ratio');
+  const preview = $('mix-preview');
+  let mixCount = 0;
+  function addSwatch([name, color], index) {
+    first.add(new Option(name, color));
+    second.add(new Option(name, color));
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = name;
+    button.style.setProperty('--crayon', color);
+    button.setAttribute('aria-pressed', String(index === chosen));
+    button.onclick = () => {
+      chosen = index;
+      for (const item of palette.children) item.setAttribute('aria-pressed', String(item === button));
+    };
+    palette.append(button);
+  }
+  crayons.forEach(addSwatch);
+  second.value = '#f5cf55';
+  function blend() {
+    const amount = Number(ratio.value) / 100;
+    let hex = '#';
+    for (const start of [1,3,5]) {
+      const a = parseInt(first.value.slice(start,start+2),16);
+      const b = parseInt(second.value.slice(start,start+2),16);
+      hex += Math.round(a + (b-a)*amount).toString(16).padStart(2,'0');
+    }
+    preview.style.setProperty('--mixed',hex);
+    preview.value = (100-ratio.value) + '% + ' + ratio.value + '%';
+    return hex;
+  }
+  first.addEventListener('change',blend);
+  second.addEventListener('change',blend);
+  ratio.addEventListener('input',blend);
+  blend();
+  $('mix-use').onclick = () => {
+    const hex = blend();
+    let index = crayons.findIndex(([,color]) => color === hex);
+    if (index === -1) {
+      const entry = ['Mi mezcla ' + (++mixCount), hex];
+      index = crayons.push(entry)-1;
+      addSwatch(entry,index);
+    }
+    palette.children[index].click();
+    status(crayons[index][0] + ' seleccionado. Toca el dibujo para pintar.');
+  };
+
+  function applyPaint(data) {
+    const rgb = crayons.map(([,hex]) => parseInt(hex.slice(1),16));
+    for (let i = 0; i < paint.length; i++) {
+      if (!paint[i] || outline[i*4] < 128) continue;
+      const color = rgb[paint[i]-1], p = i*4;
+      data[p] = color >> 16;
+      data[p+1] = (color >> 8) & 255;
+      data[p+2] = color & 255;
+    }
+    output.getContext('2d').putImageData(new ImageData(data, output.width, output.height), 0, 0);
+  }
+  output.addEventListener('click', event => {
+    if (!ready || busy || dirty || loading || !active) return;
+    const bounds = output.getBoundingClientRect();
+    const w = output.width, h = output.height;
+    const scale = Math.min(bounds.width/w, bounds.height/h);
+    const x = Math.floor((event.clientX-bounds.left-(bounds.width-w*scale)/2)/scale);
+    const y = Math.floor((event.clientY-bounds.top-(bounds.height-h*scale)/2)/scale);
+    if (x < 0 || x >= w || y < 0 || y >= h) return;
+    const start = y*w+x, old = paint[start];
+    const color = crayons[chosen][1] === '#ffffff' ? 0 : chosen+1;
+    if (old === color || outline[start*4] < 128) return;
+    const queue = new Int32Array(w*h);
+    let head = 0, tail = 0;
+    function add(i) {
+      if (paint[i] !== old || outline[i*4] < 128) return;
+      paint[i] = color;
+      queue[tail++] = i;
+    }
+    add(start);
+    while (head < tail) {
+      const i = queue[head++], col = i % w;
+      if (col > 0) add(i-1);
+      if (col+1 < w) add(i+1);
+      if (i >= w) add(i-w);
+      if (i+w < w*h) add(i+w);
+    }
+    applyPaint(outline.slice());
+  });
+
   function status(message, error = false) {
     $('coloring-status').textContent = message;
     $('coloring-status').dataset.error = String(error);
   }
   function updateControls() {
+    $('coloring-paints').hidden = !ready;
     $('coloring-controls').disabled = !pixels || loading;
     $('coloring-download').disabled = !ready || busy || dirty;
     $('coloring-print').disabled = !ready || busy || dirty;
@@ -30,13 +132,15 @@ window.ColoringTool = (() => {
     try {
       const data = window.ColoringFilters.convert(pixels, settings());
       output.width = pixels.width; output.height = pixels.height;
-      output.getContext('2d').putImageData(new ImageData(data, pixels.width, pixels.height), 0, 0);
+      outline = data;
+      paint ??= new Uint32Array(pixels.width * pixels.height);
+      applyPaint(data.slice());
       output.hidden = false;
       $('coloring-output-empty').hidden = true;
       ready = true; dirty = false;
       let ink = false;
       for (let i = 0; i < data.length; i += 4) { if (data[i] < 128) { ink = true; break; } }
-      status(ink ? '¡Tu hoja está lista! Ajusta los trazos o prepárate para colorear.' : 'No encontramos contornos. Prueba más detalles o una imagen con colores más definidos.');
+      status(ink ? '¡Tu hoja está lista! Elige un color y toca una zona del dibujo.' : 'No encontramos contornos. Prueba más detalles o una imagen con colores más definidos.');
     } catch {
       ready = false;
       output.hidden = true; $('coloring-output-empty').hidden = false;
@@ -84,6 +188,7 @@ window.ColoringTool = (() => {
     const context = source.getContext('2d', { willReadFrequently: true });
     context.fillStyle = '#fff'; context.fillRect(0, 0, source.width, source.height);
     context.drawImage(canvas, 0, 0, source.width, source.height);
+    paint = outline = null;
     pixels = context.getImageData(0, 0, source.width, source.height);
     imageName = name.replace(/\.[^.]+$/, '') || 'mi-dibujo';
     $('coloring-filename').textContent = name;
@@ -264,6 +369,7 @@ window.ColoringTool = (() => {
   }
   function clear() {
     beginLoad();
+    paint = outline = null;
     pixels = null; ready = busy = loading = dirty = false;
     source.width = source.height = output.width = output.height = 1;
     source.hidden = output.hidden = true;

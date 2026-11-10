@@ -24,10 +24,10 @@
   <meta property="og:locale" content="es_MX">
   <link rel="stylesheet" href="../styles.css?v=3">
   <link rel="stylesheet" href="../theme.css?v=2">
-  <link rel="stylesheet" href="../coloring/coloring.css?v=4">
+  <link rel="stylesheet" href="../coloring/coloring.css?v=6">
   <script src="../coloring/filters.js?v=1" defer></script>
   <script src="../coloring/search.js?v=5" defer></script>
-  <script src="../coloring/coloring.js?v=5" defer></script>
+  <script src="../coloring/coloring.js?v=8" defer></script>
   <script src="../navigation.js?v=2" defer></script>
   <script src="../activity-page.js?v=3" defer></script>
 </head>
@@ -100,6 +100,15 @@
           <figure class="coloring-preview coloring-original"><figcaption><span><b>01</b> Tu imagen</span><small id="coloring-filename">El punto de partida</small></figcaption><div class="coloring-paper"><canvas id="coloring-source" hidden role="img" aria-label="Imagen original"></canvas><div id="coloring-source-empty" class="coloring-empty"><span aria-hidden="true">🌷</span><p>Un dibujo, una foto,<br>algo que te guste mucho.</p></div></div></figure>
           <figure class="coloring-preview coloring-result"><figcaption><span><b>02</b> Para colorear</span><small id="coloring-size">Una nueva posibilidad</small></figcaption><div class="coloring-paper"><canvas id="coloring-output" hidden role="img" aria-label="Contornos negros sobre fondo blanco para colorear"></canvas><div id="coloring-output-empty" class="coloring-empty"><span class="coloring-empty-line" aria-hidden="true">✿</span><p>Aquí aparecerá tu hoja,<br>lista para tus lápices.</p></div></div></figure>
         </div>
+        <fieldset id="coloring-paints" hidden><legend>Mis colores</legend><p>Elige un color y toca la zona del dibujo que quieras rellenar.</p><div id="coloring-crayons"></div>
+          <fieldset class="coloring-mixer"><legend>Mezclar colores</legend>
+            <label>Primer color <select id="mix-first"></select></label>
+            <label>Segundo color <select id="mix-second"></select></label>
+            <label>Cuánto del segundo color <input id="mix-ratio" type="range" min="0" max="100" value="50"></label>
+            <output id="mix-preview" for="mix-first mix-second mix-ratio"></output>
+            <button type="button" class="quiet-button" id="mix-use">Usar mi mezcla</button>
+          </fieldset>
+        </fieldset>
         <fieldset id="coloring-controls" class="coloring-controls" disabled>
           <legend>Dale tu toque</legend>
           <div class="coloring-adjustments">
